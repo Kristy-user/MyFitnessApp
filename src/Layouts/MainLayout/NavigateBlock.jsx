@@ -16,14 +16,20 @@ const StyledNav = styled.div`
 
   li {
     &:hover {
+      color: ${(props) => props.theme.fontColor};
       border-radius: 8px;
-      background-color: ${(props) => props.theme.headerBackGroundColor};
+      background-color: ${(props) => props.theme.buttonColor};
+      box-shadow: 0px 0px 6px #e6e6e6;
+      a {
+        color: ${(props) => props.theme.fontColor};
+      }
     }
   }
 
   h2 {
     padding: 5px 40px;
     font-size: 28px;
+
     &:before {
       font-family: 'Font Awesome 5 Free';
       padding-right: 10px;
@@ -51,9 +57,6 @@ const StyledNav = styled.div`
     width: 100%;
     padding: 10px;
     color: ${(props) => props.theme.buttonColor};
-    &:hover {
-      color: ${(props) => props.theme.fontColor};
-    }
   }
 `;
 
@@ -63,27 +66,27 @@ const NavigateBlock = () => {
       <nav>
         <ul>
           <li>
-            <Link to={'/'}>
+            <Link to={'/home'}>
               <h2 className={'home'}>Home</h2>
             </Link>
           </li>
           <li>
-            <Link to={'/goals'}>
+            <Link to={'/home/goals'}>
               <h2 className={'goals'}>My goals</h2>
             </Link>
           </li>
           <li>
-            <Link to={'/exercises'}>
+            <Link to={'/home/exercises'}>
               <h2 className={'activities'}>Exercises</h2>
             </Link>
           </li>
           <li>
-            <Link to={'/shedule'}>
+            <Link to={'/home/shedule'}>
               <h2 className={'shedule'}>Shedule</h2>
             </Link>
           </li>
           <li>
-            <Link to={'/analitics'}>
+            <Link to={'/home/analitics'}>
               <h2 className={'analitics'}>Analitics</h2>
             </Link>
           </li>

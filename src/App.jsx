@@ -3,20 +3,24 @@ import GlobalModalProvider from './HOC/GlobalModalProvider';
 import GlobalThemeProvider from './HOC/GlobalThemeProvider';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from 'store/initStore.js';
-import Home from './Layouts/Home';
+
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from './store/initStore';
+import RootRouter from './Route/ReactRouter';
 
 class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <BrowserRouter>
-          <GlobalThemeProvider>
-            <GlobalModalProvider>
-              <Home />
-            </GlobalModalProvider>
-          </GlobalThemeProvider>
-        </BrowserRouter>
+        <PersistGate persistor={persistor} loading={null}>
+          <BrowserRouter>
+            <GlobalThemeProvider>
+              <GlobalModalProvider>
+                <RootRouter />
+              </GlobalModalProvider>
+            </GlobalThemeProvider>
+          </BrowserRouter>
+        </PersistGate>
       </Provider>
     );
   }

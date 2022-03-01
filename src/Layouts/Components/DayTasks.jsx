@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { taskListSelector } from 'store/selectors/tasksList';
 import { loadingTaskList } from 'store/actions/tasks';
 import TasksList from './TasksList';
 import { CardStyle } from '../../Components/CardTemplate';
@@ -10,46 +9,51 @@ import 'react-datepicker/dist/react-datepicker.css';
 import fakeServerAPI from '../../api/fakeServerAPI';
 import { newTask } from '../../store/actions/tasks';
 import { ButtonStyle } from '../../Components/Button';
-import { taskEditSelector } from '../../store/selectors/tasksList';
 import { StyledLoader } from '../../Components/Loader';
+import {
+  taskEditSelector,
+  taskListSelector,
+} from '../../store/selectors/tasksList';
+import WaterBalance from './WaterBalance';
 
 const CardTaskStyle = styled.div`
   ${CardStyle}
-  box-shadow: 0 5px 30px 0 ${(props) => props.theme.cardBackgroundColor};
+  font-size: 18px;
 
   .date_picker {
     border: none;
     font-size: 22px;
     text-align: center;
     width: 130px;
-    box-shadow: 0 3px 6px 0 ${(props) => props.theme.fontColor};
+
+    box-shadow: 0px 0px 6px #e6e6e6;
     margin: 10px;
     padding: 5px;
-    /* border-radius: 8px; */
+    border-radius: 8px;
     background-color: ${(props) => props.theme.cardBackgroundColor};
-    /* color: ${(props) => props.theme.fontColor}; */
+    color: ${(props) => props.theme.headerBackgroundColor};
     &:focus {
       outline: none;
     }
   }
   .newTask {
+    margin: 20px auto;
+    width: 100%;
     align-items: center;
     align-self: center;
     text-align: center;
     display: flex;
     & button {
       ${ButtonStyle}
-      background: none;
       background-color: ${(props) => props.theme.cardBackgroundColor};
     }
     & input {
+      font-size: 18px;
       border: 3px solid ${(props) => props.theme.cardBackgroundColor};
       margin: 5px;
       padding: 10px;
-      width: 100vh;
-      outline: none;
+      width: 100%;
       &:focus {
-        outline: none;
         border: 2px solid #361212a4;
         box-shadow: 0px 0px 3px 0px ${(props) => props.theme.fontColor};
       }
@@ -74,56 +78,57 @@ const DayTasks = () => {
     fakeServerAPI.get('/tasks').then((response) => {
       dispatch(loadingTaskList(response.data));
     });
-    return () => {
-      if (isEditedTasks) {
-        fakeServerAPI.put('/tasks', tasksList);
-      }
-    };
   }, []);
 
+  const idTask =
+    tasksList.length > 0 ? tasksList[tasksList.length - 1].id + 1 : 1;
+
   return (
-    <CardTaskStyle>
-      <h3>
-        Upcoming tasks for
-        <DatePicker
-          dateFormat="dd/MM/yyyy"
-          className={'date_picker'}
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-        />
-      </h3>
-      {!tasksList ? (
-        <StyledLoadingWrapper>
-          <div></div>
-          <div></div>
-          <div></div>
-        </StyledLoadingWrapper>
-      ) : (
-        <TasksList tasksList={tasksList} />
-      )}
-      <div className={'newTask'}>
-        <input
-          placeholder="...place for a new task"
-          type="text"
-          value={task}
-          onChange={(evt) => setTask(evt.target.value)}
-        />
-        <button
-          onClick={() => {
-            dispatch(
-              newTask({
-                title: task,
-                id: Date.now(),
-                completed: false,
-              })
-            );
-            setTask('');
-          }}
-        >
-          +
-        </button>
-      </div>
-    </CardTaskStyle>
+    <React.Fragment>
+      <CardTaskStyle>
+        <h3>
+          Upcoming tasks for
+          <DatePicker
+            dateFormat="dd/MM/yyyy"
+            className={'date_picker'}
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+          />
+        </h3>
+        {!tasksList ? (
+          <StyledLoadingWrapper>
+            <div></div>
+            <div></div>
+            <div></div>
+          </StyledLoadingWrapper>
+        ) : (
+          <TasksList tasksList={tasksList} />
+        )}
+        <div className={'newTask'}>
+          <input
+            placeholder="...place for a new task"
+            type="text"
+            value={task}
+            onChange={(evt) => setTask(evt.target.value)}
+          />
+          <button
+            onClick={() => {
+              dispatch(
+                newTask({
+                  title: task,
+                  id: idTask,
+                  completed: false,
+                })
+              );
+              setTask('');
+            }}
+          >
+            +
+          </button>
+        </div>
+      </CardTaskStyle>
+      <WaterBalance />
+    </React.Fragment>
   );
 };
 

@@ -4,7 +4,9 @@ import {
   editTask,
   loadingTaskList,
   newTask,
+  newTaskSuccess,
   removeTask,
+  removeTaskSuccess,
 } from '../actions/tasks';
 
 const initialState = {
@@ -17,7 +19,7 @@ export const tasksReduser = createReducer(initialState, (builder) => {
     .addCase(loadingTaskList, (state, action) => {
       state.tasksList = action.payload;
     })
-    .addCase(removeTask, (state, action) => {
+    .addCase(removeTaskSuccess, (state, action) => {
       state.tasksList = state.tasksList.filter(
         (task) => task.id !== action.payload
       );
@@ -30,12 +32,14 @@ export const tasksReduser = createReducer(initialState, (builder) => {
         return task;
       });
     })
-    .addCase(newTask, (state, action) => {
+    .addCase(newTaskSuccess, (state, action) => {
       state.tasksList = [...state.tasksList, action.payload];
     })
     .addMatcher(
-      () => {},
-      (state, action) => {
+      (action) => {
+        return action.type == 'AddTask';
+      },
+      (state) => {
         state.tasksEdited = true;
       }
     );

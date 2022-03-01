@@ -4,27 +4,27 @@ import { ThemeContext } from 'HOC/GlobalThemeProvider';
 import RootRouter from '../Route/ReactRouter';
 import NavigateBlock from './MainLayout/NavigateBlock';
 import UserCard from './MainLayout/UserCard';
-import SportNews from './MainLayout/SportNews';
+
+import { Outlet } from 'react-router-dom';
+import lendingImg from 'assets/images/login.jpg';
 
 const StyledLayout = styled.div`
   margin: auto;
   text-align: center;
-
-  .logo-1 {
-    background-image: linear-gradient(
-      43deg,
-      #051937 0%,
-      #008793 46%,
-      #12eb7f 100%
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  flex-direction: column;
+  justify-content: center;
+  .logo {
+    margin: 0 5%;
+    align-self: flex-start;
+    font-size: 36px;
+    color: ${(props) => props.theme.appBackgroundColor};
+    font-weight: 600;
+    text-shadow: 2px 2px 5px ${(props) => props.theme.appBackGroundColor};
   }
 
-  .logo-2 {
-    display: inline;
-  }
   .header {
     padding: 10px;
     display: flex;
@@ -32,9 +32,9 @@ const StyledLayout = styled.div`
     align-items: center;
     color: ${(props) => props.theme.fontColor};
     width: 100%;
-    height: 50px;
+    height: 60px;
     box-sizing: border-box;
-    background-color: ${(props) => props.theme.appBackGroundColor};
+    background-color: ${(props) => props.theme.headerBackGroundColor};
     font-size: 30px;
   }
 
@@ -57,7 +57,7 @@ const StyledLayout = styled.div`
   .switch {
     position: relative;
     display: inline-block;
-    width: 74px;
+    width: 62px;
     height: 34px;
     right: 30px;
     & input {
@@ -104,7 +104,6 @@ const StyledLayout = styled.div`
   }
 
   .slider.round {
-    border: 0.5px outset ${(props) => props.theme.gradientColor_2};
     border-radius: 34px;
     &:before {
       border-radius: 50%;
@@ -112,14 +111,14 @@ const StyledLayout = styled.div`
   }
 `;
 
-const Home = () => {
+const Home = (props) => {
   const changeTheme = useContext(ThemeContext);
+
   return (
     <StyledLayout>
       <div className={'header'}>
-        <div classname={'logo'}>
-          <span className="logo-1">TimeTo</span>
-          <span className="logo-2">Sport</span>
+        <div className={'logo'}>
+          <p>TimeToSport</p>
         </div>
 
         <label className="switch">
@@ -133,10 +132,9 @@ const Home = () => {
       <div className={'content'}>
         <div className="leftLayout">
           <NavigateBlock />
-          <SportNews />
         </div>
         <div className="mainLayout">
-          <RootRouter />
+          <Outlet />
         </div>
         <div className="rightLayout">
           <UserCard />

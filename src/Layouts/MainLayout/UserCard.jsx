@@ -21,6 +21,10 @@ const UserCardStyle = styled.div`
     color: ${(props) => props.theme.fontColor};
     width: min-content;
     align-items: center;
+    &:hover {
+      color: ${(props) => props.theme.buttonColor};
+      text-shadow: 0px 0px 6px #e6e6e6;
+    }
   }
   .logout,
   .edit {
@@ -42,10 +46,12 @@ const UserCardStyle = styled.div`
     display: flex;
     padding: 20px;
     width: max-content;
+
     & p {
+      box-shadow: 0px 0px 6px #e6e6e6;
       margin: 4px;
       border-radius: 6px;
-      border: 2px solid ${(props) => props.theme.cardBackgroundColor};
+      background-color: ${(props) => props.theme.headerBackGroundColor};
       padding: 10px;
     }
   }
@@ -53,13 +59,16 @@ const UserCardStyle = styled.div`
   span {
     display: block;
   }
+  .number {
+    text-shadow: 0px 0px 4px ${(props) => props.theme.buttonColor};
+  }
 `;
 
 const UserCard = () => {
   return (
     <UserCardStyle>
       <div className={'edit'}>
-        <Link to={'/edit'} className={'edit_user icon'}></Link>
+        <Link to={'/home/edit'} className={'edit_user icon'}></Link>
       </div>
       <div className={'userName'}>
         <h3>Name Surname,</h3>
@@ -67,14 +76,14 @@ const UserCard = () => {
       </div>
       <div className={'userData'}>
         <p>
-          Height: <span> zzz sm</span>
+          Height: <span className="number"> zzz sm</span>
         </p>
         <p>
-          Weight:<span> xx kg</span>
+          Weight:<span className="number"> xx kg</span>
         </p>
       </div>
       <div className={'logout'}>
-        <Link to={'/logout'} className={'logout_user icon'}></Link>
+        <Link to={'/home/logout'} className={'logout_user icon'}></Link>
       </div>
     </UserCardStyle>
   );

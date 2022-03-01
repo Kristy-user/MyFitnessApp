@@ -27,7 +27,13 @@ h3 {
 a {
   color: inherit;
 }
-
+input{
+  border: none;
+  outline: none;
+  &:focus, &:hover &:active{
+    border: none;
+        outline: none;
+}
 @font-face {
      font-family: 'Lato', sans-serif;
      src: url(${latoFont});
@@ -43,18 +49,18 @@ a {
    };
 `;
 
-export const globalLightStyle = {
-  cardBackgroundColor: '#2fa4da6c',
-  headerBackGroundColor: '#ffffff97',
+export const globalDarkStyle = {
+  cardBackgroundColor: '#7dacc250',
+  headerBackGroundColor: '#25252550',
   appBackGroundColor: '#c6e2e2',
-  fontColor: '#0a7470',
-  buttonColor: '#557A95',
+  fontColor: '#556f81',
+  buttonColor: '#b3ddf8',
   toggleButtonColor: '#f1b7a6',
-  gradientColor_1: '#4facfe',
-  gradientColor_2: '#00f2fe',
+  gradientColor_1: '#363d44',
+  gradientColor_2: '#bcc0c2',
 };
 
-export const globalDarkStyle = {
+export const globalLightStyle = {
   cardBackgroundColor: '#f8bcaa68',
   headerBackGroundColor: '#f8f5f876',
   appBackGroundColor: '#ede0b750',

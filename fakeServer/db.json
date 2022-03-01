@@ -1,59 +1,62 @@
 {
+  "users": [
+    {
+      "email": "olivier@mail.com",
+      "password": "$2a$10$9TCoyd71Gh73EuELWnL.KuD0qsNHZO.qWXykSEcvTiAePon/UFjIi",
+      "id": 1
+    },
+    {
+      "email": "nerer@mail.com",
+      "password": "$2a$10$yNuNa9SURbuvfnMYDrxMmOaRQZjBtCJOz2oNF6yJ0mirhDjr1KUd2",
+      "id": 2
+    },
+    {
+      "email": "buka8@mail.ru",
+      "password": "$2a$10$IuthzY5McX8qVWSt3N9uKuAYuHIrxYeAfDl1AH4gFcLIOVkcDrtoK",
+      "id": 3
+    },
+    {
+      "email": "vhjhjvhvjk@nknj.ru",
+      "password": "$2a$10$LdUCWEMh.iSXddkC9vAbTOehY4/ttMJAFzwuHu7wrmVuNYATMLHE.",
+      "id": 4
+    }
+  ],
   "tasks": [
     {
-      "id": 26,
-      "title": "aliquam aut quasi",
-      "completed": true
-    },
-    {
-      "id": 27,
-      "title": "veritatis pariatur delectus",
-      "completed": true
-    },
-    {
-      "id": 28,
-      "title": "nesciunt totam sit blanditiis sit",
+      "title": "hgfsdsbbf",
+      "id": 1,
       "completed": false
     },
     {
-      "id": 29,
-      "title": "laborum aut in quam",
+      "title": "srnrymkuyl  etjydkyuf  ujy",
+      "id": 3,
       "completed": false
     },
     {
-      "id": 30,
-      "title": "nemo perspiciatis repellat ut dolor libero commodi blanditiis omnis",
-      "completed": true
-    },
-    {
-      "id": 31,
-      "title": "repudiandae totam in est sint facere fuga",
+      "title": "sjrdytku yjdtjdtkulky",
+      "id": 4,
       "completed": false
     },
     {
-      "id": 32,
-      "title": "earum doloribus ea doloremque quis",
+      "title": "freerv",
+      "id": 5,
       "completed": false
+    }
+  ],
+  "dataGoals": [
+    {
+      "water": "2100 ml",
+      "powerTraining": "1",
+      "cardioTraining": "1",
+      "steps": "1",
+      "id": 1
     },
     {
-      "id": 33,
-      "title": "sint sit aut vero",
-      "completed": false
-    },
-    {
-      "id": 34,
-      "title": "porro aut necessitatibus eaque distinctio",
-      "completed": false
-    },
-    {
-      "id": 35,
-      "title": "repellendus veritatis molestias dicta incidunt",
-      "completed": true
-    },
-    {
-      "id": 36,
-      "title": "excepturi deleniti adipisci voluptatem et neque optio illum ad",
-      "completed": true
+      "water": "2100 ml",
+      "powerTraining": "1",
+      "cardioTraining": "1",
+      "steps": "1",
+      "id": 2
     }
   ]
 }
