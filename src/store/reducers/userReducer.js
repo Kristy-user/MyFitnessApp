@@ -5,6 +5,7 @@ const initialState = {
   userName: '',
   userRoles: [],
   isLoggedIn: false,
+  id: '',
 };
 export const userReduser = createReducer(initialState, (builder) => {
   builder
@@ -12,10 +13,12 @@ export const userReduser = createReducer(initialState, (builder) => {
       state.userName = action.payload.userName;
       state.userRoles = action.payload.userRoles;
       state.isLoggedIn = action.payload.isLoggedIn;
+      state.id = action.payload.id;
     })
     .addCase(logOut, (state, action) => {
       state.userName = '';
       state.userRoles = [];
       state.isLoggedIn = false;
+      state.id = '';
     });
 });

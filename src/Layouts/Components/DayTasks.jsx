@@ -19,7 +19,7 @@ import WaterBalance from './WaterBalance';
 const CardTaskStyle = styled.div`
   ${CardStyle}
   font-size: 18px;
-
+  background-color: #ffffff71;
   .date_picker {
     border: none;
     font-size: 22px;
@@ -45,6 +45,7 @@ const CardTaskStyle = styled.div`
     display: flex;
     & button {
       ${ButtonStyle}
+      color:${(props) => props.theme.fontColor};
       background-color: ${(props) => props.theme.cardBackgroundColor};
     }
     & input {

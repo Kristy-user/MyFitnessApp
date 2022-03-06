@@ -11,7 +11,7 @@ import exercisesDbAPI from '../api/exerciseDB';
 const ExercisesCardStyle = styled.div`
   ${CardStyle}
   box-shadow: 0 5px 30px 0 ${(props) => props.theme.cardBackgroundColor};
-
+  background-color: #fff;
   h3 {
     display: block;
     padding: 20px 0 20px 0;
@@ -22,6 +22,7 @@ const ExercisesCardStyle = styled.div`
     background-position: center;
     background-size: contain;
     background-image: url(${bodyImg});
+
     background-repeat: no-repeat;
   }
 `;

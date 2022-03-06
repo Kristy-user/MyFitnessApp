@@ -69,7 +69,7 @@ const Login = (props) => {
         'Password must contain at least one number,one uppercase and lowercase letter, and at least 6 or more characters';
       isError = true;
     }
-    if (values.password !== values.confirmPassword) {
+    if (values.confirmPassword && values.password !== values.confirmPassword) {
       errors.confirmPassword = 'Password does not match';
       isError = true;
     }
@@ -82,39 +82,42 @@ const Login = (props) => {
         <div className="welcome">
           <p>Login to continue.</p>
         </div>
-
-        <div className={'cardBody'}>
-          <Formik
-            initialValues={{
-              email: '',
-              password: '',
-            }}
-            validate={validate}
-            onSubmit={(formValues) => {
-              fakeServerAPI
-                .post('/login', {
-                  email: formValues.email,
-                  password: formValues.password,
-                })
-                .then((response) => {
-                  dispatch(
-                    logIn({
-                      userName: 'email',
-                      userRoles: ['regularUser'],
-                      isLoggedIn: response.data.accessToken,
-                    })
-                  );
-                  navig('/home');
-                });
-            }}
-          >
-            <Form>
-              <FormikInput name="email" />
-
-              <FormikInput name="password" />
-              <button className="buttonSubmit">Login</button>
-            </Form>
-          </Formik>
+        <div className={'loginCard'}>
+          <div className={'cardBody'}>
+            <Formik
+              initialValues={{
+                email: '',
+                password: '',
+                confirmPassword: '',
+              }}
+              validate={validate}
+              onSubmit={(formValues) => {
+                fakeServerAPI
+                  .post('/login', {
+                    email: formValues.email,
+                    password: formValues.password,
+                  })
+                  .then((response) => {
+                    console.log(response.data.user.id);
+                    dispatch(
+                      logIn({
+                        userName: 'email',
+                        userRoles: ['regularUser'],
+                        isLoggedIn: response.data.accessToken,
+                        id: response.data.user.id,
+                      })
+                    );
+                    navig('/home');
+                  });
+              }}
+            >
+              <Form>
+                <FormikInput name="email" />
+                <FormikInput name="password" />
+                <button className="buttonSubmit">Login</button>
+              </Form>
+            </Formik>
+          </div>
         </div>
       </StyledLoginHolder>
     );
@@ -138,7 +141,6 @@ const Login = (props) => {
               }}
               validate={validate}
               onSubmit={(formValues) => {
-                console.log(formValues);
                 fakeServerAPI
                   .post('/register', {
                     email: formValues.email,
@@ -150,6 +152,7 @@ const Login = (props) => {
                         userName: 'email',
                         userRoles: ['regularUser'],
                         isLoggedIn: response.data.accessToken,
+                        id: response.data.user.id,
                       })
                     );
                     navig('/home');
@@ -176,3 +179,4 @@ const Login = (props) => {
   }
 };
 export default Login;
+//

@@ -20,11 +20,12 @@ const ListStyle = styled.div`
     padding-right: 25px;
   }
 
-  /* .inputItem {
+  .inputItem {
     margin-right: 1rem;
-  } */
+  }
   .delete {
     ${ButtonStyle}
+    color:${(props) => props.theme.fontColor};
     font-size: 20px;
     background: ${(props) => props.theme.cardBackgroundColor};
     border-radius: 50%;
@@ -52,7 +53,7 @@ const TaskItem = ({ task, index }) => {
             id={task.id}
             onChange={() => dispatch(completeTask(task.id))}
           />
-          <label for={task.id}></label>
+          <label htmlFor={task.id}></label>
           <strong>{index + 1}.</strong>
           &nbsp;
           <p className={'taskText'}>{task.title}</p>

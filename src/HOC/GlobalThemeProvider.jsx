@@ -34,6 +34,7 @@ input{
     border: none;
         outline: none;
 }
+}
 @font-face {
      font-family: 'Lato', sans-serif;
      src: url(${latoFont});

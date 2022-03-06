@@ -1,1 +1,1 @@
-export const goalWaterSelector = (store) => store.goalsReduser.water;
+export const goalsSelector = (store) => store.goalsReduser;

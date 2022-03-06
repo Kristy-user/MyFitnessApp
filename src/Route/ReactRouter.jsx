@@ -6,7 +6,7 @@ import DayTasks from '../Layouts/Components/DayTasks';
 import Home from '../Layouts/Home';
 import TypeOfExercise from '../Scenes/Components/Exercises/TypeOfExercise';
 import Exercises from '../Scenes/Exercises';
-import MyGoals from '../Scenes/MyGoals';
+import MyGoals from '../Scenes/Components/Goals/MyGoals';
 import { Shedule } from '../Scenes/Shedule';
 
 const RootRouter = () => {

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-export const ModalContext = React.createContext(() => {});
 
 const StyledModalWrapper = styled.div`
   position: absolute;
@@ -18,9 +17,11 @@ const StyledModalWrapper = styled.div`
     padding: 10px 20px;
     width: 300px;
     height: 300px;
-    background-color: ${(props) => props.theme.appBackGround};
+    background-color: ${(props) => props.theme.appBackGroundColor};
   }
 `;
+
+export const ModalContext = React.createContext(() => {});
 
 const GlobalModalProvider = (props) => {
   const [modalContent, setModalContent] = useState();

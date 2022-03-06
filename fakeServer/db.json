@@ -1,24 +1,14 @@
 {
   "users": [
     {
-      "email": "olivier@mail.com",
-      "password": "$2a$10$9TCoyd71Gh73EuELWnL.KuD0qsNHZO.qWXykSEcvTiAePon/UFjIi",
+      "email": "buka8@mail.ru",
+      "password": "$2a$10$08PiitfCFXI.AqDC4lFm9uJXN3qR6HswH8ed92bZ/qBMy25/yu3TS",
       "id": 1
     },
     {
-      "email": "nerer@mail.com",
-      "password": "$2a$10$yNuNa9SURbuvfnMYDrxMmOaRQZjBtCJOz2oNF6yJ0mirhDjr1KUd2",
+      "email": "test@mail.ru",
+      "password": "$2a$10$fTQGoYj/O4pQZI569EYeqOt5X5koRaqNyTBopMmBPQdng/9TJeRWW",
       "id": 2
-    },
-    {
-      "email": "buka8@mail.ru",
-      "password": "$2a$10$IuthzY5McX8qVWSt3N9uKuAYuHIrxYeAfDl1AH4gFcLIOVkcDrtoK",
-      "id": 3
-    },
-    {
-      "email": "vhjhjvhvjk@nknj.ru",
-      "password": "$2a$10$LdUCWEMh.iSXddkC9vAbTOehY4/ttMJAFzwuHu7wrmVuNYATMLHE.",
-      "id": 4
     }
   ],
   "tasks": [
@@ -43,20 +33,12 @@
       "completed": false
     }
   ],
-  "dataGoals": [
-    {
-      "water": "2100 ml",
-      "powerTraining": "1",
-      "cardioTraining": "1",
-      "steps": "1",
-      "id": 1
-    },
-    {
-      "water": "2100 ml",
-      "powerTraining": "1",
-      "cardioTraining": "1",
-      "steps": "1",
-      "id": 2
+  "dataGoals": {
+    "2": {
+      "water": "2400 ml",
+      "powerTraining": "2",
+      "cardioTraining": "3",
+      "steps": "10000"
     }
-  ]
+  }
 }
