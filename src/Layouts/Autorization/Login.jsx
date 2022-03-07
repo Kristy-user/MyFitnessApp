@@ -31,6 +31,8 @@ const StyledLoginHolder = styled.div`
   }
   .buttonSubmit {
     ${ButtonStyle}
+    background-color: rgba(180, 182, 181, 0.7);
+    color: ${(props) => props.theme.buttonColor};
     margin-top: 30px;
     color: black;
 

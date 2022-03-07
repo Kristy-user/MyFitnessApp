@@ -6,7 +6,7 @@ export const CardStyle = css`
   text-align: center;
   padding: 20px;
   border-radius: 8px;
-  /* border: 0.5px solid ${(props) => props.theme.gradientColor_2}; */
+
   background-color: ${(props) => props.theme.headerBackGroundColor};
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,

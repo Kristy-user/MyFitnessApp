@@ -41,7 +41,7 @@ const FormikRadio = (props) => {
         onBlur={field.onBlur}
       />
 
-      <label htmlFor={props.value}>{props.label} ml </label>
+      <label htmlFor={props.value}>{props.label} ml</label>
     </RadioInputStyle>
   );
 };

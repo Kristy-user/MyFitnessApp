@@ -8,7 +8,11 @@ import { ButtonStyle } from '../../../Components/Button';
 
 import FormikInputNumber from '../../../Components/formikFields/FormikInputNumber';
 import FormikRadio from '../../../Components/formikFields/FotmikRadio';
-import { createNewGoals, loadingUserGoals } from '../../../store/actions/goals';
+import {
+  createNewGoals,
+  editGoal,
+  loadingUserGoals,
+} from '../../../store/actions/goals';
 import { userIdSelector } from '../../../store/selectors/user';
 import { goalsSelector } from '../../../store/selectors/goals';
 import fakeServerAPI from '../../../api/fakeServerAPI';
@@ -16,8 +20,7 @@ import GoalsForm from './GoalsForm';
 
 const MyGoalsStyle = styled.div`
   .goalsTitle {
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
-      rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    box-shadow: 0 5px 30px 0 ${(props) => props.theme.cardBackgroundColor};
   }
   h4 {
     padding: 10px;
@@ -85,7 +88,7 @@ const MyGoals = () => {
 
     if (isError) return errors;
   };
-  if (!goals.water) {
+  if (!goals.isEdited) {
     return (
       <MyGoalsStyle>
         <div className={'goalsTitle'}>
@@ -94,14 +97,16 @@ const MyGoals = () => {
 
         <Formik
           initialValues={{
-            water: '',
-            powerTraining: '',
-            cardioTraining: '',
-            steps: '',
+            water: goals.water,
+            powerTraining: goals.powerTraining,
+            cardioTraining: goals.cardioTraining,
+            steps: goals.steps,
           }}
           validate={validate}
           onSubmit={(formValues) => {
             dispatch(createNewGoals(formValues, userId));
+            dispatch(editGoal(true));
+            console.log(goals.isEdited);
           }}
         >
           <Form>
@@ -111,11 +116,11 @@ const MyGoals = () => {
               </p>
             </div>
             <div className="inputForm">
-              <FormikRadio label="1500" name="water" value="1500 ml" />
-              <FormikRadio name="water" value="1800 ml" label="1800" />
-              <FormikRadio name="water" value="2100 ml" label="2100" />
-              <FormikRadio name="water" value="2400 ml" label="2400" />
-              <FormikRadio name="water" value="2700 ml" label="2800" />
+              <FormikRadio name="water" value="1500" label="1500" />
+              <FormikRadio name="water" value="1800" label="1800" />
+              <FormikRadio name="water" value="2100" label="2100" />
+              <FormikRadio name="water" value="2400" label="2400" />
+              <FormikRadio name="water" value="2800" label="2800" />
             </div>
             <div className="inputForm">
               <p className="goalsItem">

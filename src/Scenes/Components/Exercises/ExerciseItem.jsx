@@ -9,7 +9,7 @@ const StyledLinkItem = styled.li`
   padding: 10px;
   text-align: left;
   font-size: 20px;
-  background-color: ${(props) => props.theme.cardBackgroundColor};
+
   border-radius: 8px;
 
   &:hover {
@@ -35,9 +35,9 @@ const StyledLinkItem = styled.li`
 const ExerciseItem = (props) => {
   return (
     <StyledLinkItem key={props.exercise.id}>
-      <strong>{props.index + 1}.</strong>
+      <strong> {props.index + 1}. </strong>
       &nbsp;
-      <Link to={`/exercises/${props.exercise}`}>
+      <Link to={`${props.exercise}`}>
         <p className={'home'}>{props.exercise}</p>
       </Link>
     </StyledLinkItem>

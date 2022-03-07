@@ -6,6 +6,7 @@ const initialState = {
   powerTraining: null,
   cardioTraining: null,
   steps: null,
+  isEdited: false,
 };
 
 export const goalsReduser = createReducer(initialState, (builder) => {
@@ -23,6 +24,6 @@ export const goalsReduser = createReducer(initialState, (builder) => {
       state.steps = action.payload.steps;
     })
     .addCase(editGoal, (state, action) => {
-      state.action.payload.goal = action.payload.value;
+      state.isEdited = action.payload;
     });
 });

@@ -9,9 +9,9 @@ import bodyImg from '../assets/images/eJzbY2hgYGAIhwZgngGUhoggyyF48aYGBgCHTQxD.p
 import exercisesDbAPI from '../api/exerciseDB';
 
 const ExercisesCardStyle = styled.div`
-  ${CardStyle}
+  padding: 30px;
   box-shadow: 0 5px 30px 0 ${(props) => props.theme.cardBackgroundColor};
-  background-color: #fff;
+
   h3 {
     display: block;
     padding: 20px 0 20px 0;
@@ -35,7 +35,6 @@ const Exercises = () => {
     exercisesDbAPI
       .get('/exercises/bodyPartList')
       .then((response) => {
-        console.log(response.data);
         dispatch(loadingExercisesList(response.data));
       })
       .catch((err) => {

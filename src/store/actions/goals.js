@@ -32,5 +32,3 @@ export const EditUserGoals = (goal, value, id) => {
       .then(() => dispatch(editGoal(goal, value)));
   };
 };
-
-

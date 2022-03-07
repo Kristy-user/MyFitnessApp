@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import { CardStyle } from '../Components/CardTemplate';
 
 const StyledCalendar = styled.div`
-  ${CardStyle}
+  padding: 30px;
+  box-shadow: 0 5px 30px 0 ${(props) => props.theme.cardBackgroundColor};
 `;
 
 export const Shedule = () => {

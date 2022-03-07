@@ -1,44 +1,44 @@
 {
   "users": [
     {
-      "email": "buka8@mail.ru",
-      "password": "$2a$10$08PiitfCFXI.AqDC4lFm9uJXN3qR6HswH8ed92bZ/qBMy25/yu3TS",
+      "email": "test@ml.ru",
+      "password": "$2a$10$Y5zSDZGMvKgwDoaTieARo.tsJFjd6q.VdhIwODaiGjD11lPiFFyre",
       "id": 1
     },
     {
       "email": "test@mail.ru",
-      "password": "$2a$10$fTQGoYj/O4pQZI569EYeqOt5X5koRaqNyTBopMmBPQdng/9TJeRWW",
+      "password": "$2a$10$Lh6.LHlu0rM5uz7PvY998exMo2wBEAVS.ciUXez.82RrcFIh8cxNu",
       "id": 2
     }
   ],
   "tasks": [
     {
-      "title": "hgfsdsbbf",
+      "title": "Running (cardio)",
       "id": 1,
       "completed": false
     },
     {
-      "title": "srnrymkuyl  etjydkyuf  ujy",
+      "title": "Back exercises (power training)",
+      "id": 2,
+      "completed": false
+    },
+    {
+      "title": "8 000 steps",
       "id": 3,
-      "completed": false
-    },
-    {
-      "title": "sjrdytku yjdtjdtkulky",
-      "id": 4,
-      "completed": false
-    },
-    {
-      "title": "freerv",
-      "id": 5,
       "completed": false
     }
   ],
   "dataGoals": {
     "2": {
-      "water": "2400 ml",
+      "water": "2800",
       "powerTraining": "2",
-      "cardioTraining": "3",
+      "cardioTraining": "2",
       "steps": "10000"
+    }
+  },
+  "dataPerformance": {
+    "2": {
+      "numberFullGlass": 0
     }
   }
 }
