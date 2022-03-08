@@ -32,7 +32,8 @@ const StyledCard = styled.div`
 
 const TypeOfExercise = () => {
   const params = useParams();
-  const [isVisible, setIsVisible] = useState(false);
+  const [playing, setPlaying] = useState(true);
+
   const allExercises = useSelector(allExercisesSelector);
   const dispatch = useDispatch();
 
@@ -68,9 +69,8 @@ const TypeOfExercise = () => {
                 &nbsp;
                 <GifPlayer
                   gif={exercise.gifUrl}
-                  onTooglePlay={() => setIsVisible(!isVisible)}
+                  onTooglePlay={() => setPlaying(!playing)}
                   title={exercise.name}
-                  still={buttonPlay}
                 />
               </li>
             ))

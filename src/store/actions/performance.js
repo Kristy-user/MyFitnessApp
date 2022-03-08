@@ -8,15 +8,14 @@ export const settingUserWaterPerformance = createAction(
   'SettingUserWaterPerformanse'
 );
 
-// export const loadingDrankWater = (water, id) => {
-//   return (dispatch) => {
-//     fakeServerAPI
-//       .post(`/dataPerformance`, {
-//         [id]: {
-//           water: water,
-
-//         },
-//       })
-//       .then(() => dispatch(loadingDrankWater(goals)));
-//   };
-// };
+export const refreshWaterPerformance = (water, id) => {
+  return (dispatch) => {
+    fakeServerAPI
+      .post(`/dataPerformance`, {
+        [id]: {
+          numberFullGlass: water,
+        },
+      })
+      .then(() => dispatch(settingUserWaterPerformance(water)));
+  };
+};
