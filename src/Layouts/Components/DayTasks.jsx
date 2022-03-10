@@ -15,25 +15,28 @@ import {
   taskListSelector,
 } from '../../store/selectors/tasksList';
 import WaterBalance from './WaterBalance';
+import {
+  personalDataisEdit,
+  userPersonalData,
+} from '../../store/selectors/userPersonalData';
+import UserCardSetting from '../../Scenes/UserCardSetting';
 
 const CardTaskStyle = styled.div`
   font-size: 18px;
-  background-color: #fff;
-  box-shadow: 0 5px 30px 0 ${(props) => props.theme.cardBackgroundColor};
   padding: 30px;
+  color: ${(props) => props.theme.fontColor};
 
   .date_picker {
     border: none;
     font-size: 22px;
     text-align: center;
     width: 130px;
-
     box-shadow: 0px 0px 6px #e6e6e6;
     margin: 10px;
     padding: 5px;
     border-radius: 8px;
     background-color: ${(props) => props.theme.cardBackgroundColor};
-    color: ${(props) => props.theme.headerBackgroundColor};
+    color: ${(props) => props.theme.buttonColor};
     &:focus {
       outline: none;
     }
@@ -70,11 +73,9 @@ const StyledLoadingWrapper = styled.div`
 const DayTasks = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [task, setTask] = useState('');
-
-  const isEditedTasks = useSelector(taskEditSelector);
   const tasksList = useSelector(taskListSelector);
   const dispatch = useDispatch();
-
+  const personalDataEdited = useSelector(personalDataisEdit);
   useEffect(() => {
     fakeServerAPI.get('/tasks').then((response) => {
       dispatch(loadingTaskList(response.data));
@@ -84,53 +85,57 @@ const DayTasks = () => {
   const idTask =
     tasksList.length > 0 ? tasksList[tasksList.length - 1].id + 1 : 1;
 
-  return (
-    <React.Fragment>
-      <CardTaskStyle>
-        <h3>
-          Upcoming tasks for
-          <DatePicker
-            dateFormat="dd/MM/yyyy"
-            className={'date_picker'}
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-          />
-        </h3>
-        {!tasksList ? (
-          <StyledLoadingWrapper>
-            <div></div>
-            <div></div>
-            <div></div>
-          </StyledLoadingWrapper>
-        ) : (
-          <TasksList tasksList={tasksList} />
-        )}
-        <div className={'newTask'}>
-          <input
-            placeholder="...place for a new task"
-            type="text"
-            value={task}
-            onChange={(evt) => setTask(evt.target.value)}
-          />
-          <button
-            onClick={() => {
-              dispatch(
-                newTask({
-                  title: task,
-                  id: idTask,
-                  completed: false,
-                })
-              );
-              setTask('');
-            }}
-          >
-            +
-          </button>
-        </div>
-      </CardTaskStyle>
-      <WaterBalance />
-    </React.Fragment>
-  );
+  if (personalDataEdited) {
+    return (
+      <React.Fragment>
+        <CardTaskStyle>
+          <h3>
+            Upcoming tasks for
+            <DatePicker
+              dateFormat="dd/MM/yyyy"
+              className={'date_picker'}
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+            />
+          </h3>
+          {!tasksList ? (
+            <StyledLoadingWrapper>
+              <div></div>
+              <div></div>
+              <div></div>
+            </StyledLoadingWrapper>
+          ) : (
+            <TasksList tasksList={tasksList} />
+          )}
+          <div className={'newTask'}>
+            <input
+              placeholder="...place for a new task"
+              type="text"
+              value={task}
+              onChange={(evt) => setTask(evt.target.value)}
+            />
+            <button
+              onClick={() => {
+                dispatch(
+                  newTask({
+                    title: task,
+                    id: idTask,
+                    completed: false,
+                  })
+                );
+                setTask('');
+              }}
+            >
+              +
+            </button>
+          </div>
+        </CardTaskStyle>
+        <WaterBalance />
+      </React.Fragment>
+    );
+  } else {
+    return <UserCardSetting />;
+  }
 };
 
 export default DayTasks;

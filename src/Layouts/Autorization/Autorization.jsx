@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import lendingImg from '../../assets/images/login.jpg';
+import { LogoStyle } from '../../Components/Logo';
 import ImageCarusel from './ImageCarusel';
 import Login from './Login';
 
@@ -15,12 +16,7 @@ const StyledEntry = styled.div`
   justify-content: center;
 
   .logo {
-    font-size: 42px;
-    color: rgba(29, 27, 27, 0.952);
-    font-weight: 700;
-    align-self: center;
-    margin-bottom: 50px;
-    text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.7);
+    ${LogoStyle}
   }
   .container {
     margin: 0 auto;

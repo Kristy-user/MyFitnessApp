@@ -3,16 +3,12 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import RootRouter from 'Route/ReactRouter';
 import { CardStyle } from '../../Components/CardTemplate';
-
+import lendingImg from '../../assets/images/login.jpg';
 const StyledNav = styled.div`
   ${CardStyle}
   justify-content: center;
-  height: 100vh;
-  background: linear-gradient(
-    to bottom right,
-    ${(props) => props.theme.gradientColor_1},
-    ${(props) => props.theme.gradientColor_2}
-  );
+  min-height: calc(100vh - 120px);
+  background-image: url(${lendingImg});
 
   li {
     &:hover {

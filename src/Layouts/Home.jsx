@@ -7,22 +7,20 @@ import UserCard from './MainLayout/UserCard';
 
 import { Outlet } from 'react-router-dom';
 import lendingImg from 'assets/images/login.jpg';
+import { LogoStyle } from '../Components/Logo';
 
 const StyledLayout = styled.div`
   margin: auto;
   text-align: center;
-  height: 100vh;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+
   flex-direction: column;
   justify-content: center;
   .logo {
+    ${LogoStyle}
     margin: 0 5%;
     align-self: flex-start;
     font-size: 36px;
-    color: ${(props) => props.theme.appBackgroundColor};
-    font-weight: 600;
-    text-shadow: 2px 2px 5px ${(props) => props.theme.appBackGroundColor};
   }
 
   .header {
@@ -34,7 +32,7 @@ const StyledLayout = styled.div`
     width: 100%;
     height: 60px;
     box-sizing: border-box;
-    background-color: ${(props) => props.theme.headerBackGroundColor};
+    background-image: url(${lendingImg});
     font-size: 30px;
   }
 
@@ -53,6 +51,7 @@ const StyledLayout = styled.div`
   }
   .mainLayout {
     width: 100%;
+    /* height: 100vh; */
   }
   .switch {
     position: relative;

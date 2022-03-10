@@ -15,6 +15,7 @@ export const createNewGoals = (goals, id) => {
           powerTraining: goals.powerTraining,
           cardioTraining: goals.cardioTraining,
           steps: goals.steps,
+          weight: goals.weight,
         },
       })
       .then(() => dispatch(createGoals(goals)));

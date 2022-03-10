@@ -10,7 +10,6 @@ import exercisesDbAPI from '../api/exerciseDB';
 
 const ExercisesCardStyle = styled.div`
   padding: 30px;
-  box-shadow: 0 5px 30px 0 ${(props) => props.theme.cardBackgroundColor};
 
   h3 {
     display: block;

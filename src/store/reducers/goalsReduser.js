@@ -6,6 +6,7 @@ const initialState = {
   powerTraining: null,
   cardioTraining: null,
   steps: null,
+  weight: null,
   isEdited: false,
 };
 
@@ -15,13 +16,14 @@ export const goalsReduser = createReducer(initialState, (builder) => {
       state.water = action.payload.water;
       state.powerTraining = action.payload.powerTraining;
       state.cardioTraining = action.payload.cardioTraining;
-      state.steps = action.payload.steps;
+      state.weight = action.payload.weight;
     })
     .addCase(loadingUserGoals, (state, action) => {
       state.water = action.payload.water;
       state.powerTraining = action.payload.powerTraining;
       state.cardioTraining = action.payload.cardioTraining;
       state.steps = action.payload.steps;
+      state.weight = action.payload.weight;
     })
     .addCase(editGoal, (state, action) => {
       state.isEdited = action.payload;

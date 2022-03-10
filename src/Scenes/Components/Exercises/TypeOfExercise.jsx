@@ -17,7 +17,7 @@ const StyledLoadingWrapper = styled.div`
 
 const StyledCard = styled.div`
   padding: 20px 10px;
-  box-shadow: 0 5px 30px 0 ${(props) => props.theme.cardBackgroundColor};
+
   li {
     color: ${(props) => props.theme.fontColor};
     padding: 20px;
@@ -25,8 +25,11 @@ const StyledCard = styled.div`
     display: inline-block;
   }
   img {
+    margin: 20px;
+    box-shadow: ${(props) => props.theme.fontColor} 0px 1px 2px 0px;
     padding: 5px;
     width: 250px;
+    border-radius: 6px;
   }
 `;
 

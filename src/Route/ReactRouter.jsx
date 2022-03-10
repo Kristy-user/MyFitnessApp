@@ -8,6 +8,7 @@ import TypeOfExercise from '../Scenes/Components/Exercises/TypeOfExercise';
 import Exercises from '../Scenes/Exercises';
 import MyGoals from '../Scenes/Components/Goals/MyGoals';
 import { Shedule } from '../Scenes/Shedule';
+import UserCardSetting from '../Scenes/UserCardSetting';
 
 const RootRouter = () => {
   const user = useSelector((state) => state.userReduser);
@@ -28,6 +29,7 @@ const RootRouter = () => {
       <Route path={'/autorization'} element={<Autorization />} />
       <Route path={'/home'} element={renderForLoggedInUser(<Home />)}>
         <Route path={'/home'} element={<DayTasks />} />
+        <Route path={'personalData'} element={<UserCardSetting />} />
         <Route path={'goals'} element={<MyGoals />} />
         <Route path={'exercises'} element={<Exercises />} />
         <Route path={'exercises/:type'} element={<TypeOfExercise />} />

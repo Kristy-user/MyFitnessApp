@@ -2,10 +2,19 @@
   "users": [
     {
       "email": "test@mail.ru",
-      "password": "$2a$10$EpdrzMw9.uKCqlZ6U8ef1OvnDrw6Hqz.0HcU0909lsUzhYdGEZDeO",
+      "password": "$2a$10$Luy2pe33zh7tzvL9flV.auJyliHLKmqiHxLLKQy4gNw4IQ1IklGbG",
       "id": 1
     }
   ],
+  "userPersonalData": {
+    "1": {
+      "name": "Kristina",
+      "surname": "Klepik",
+      "age": "29",
+      "height": "170",
+      "weight": "58"
+    }
+  },
   "tasks": [
     {
       "title": "Running (cardio)",
@@ -25,15 +34,16 @@
   ],
   "dataGoals": {
     "1": {
-      "water": "2800",
-      "powerTraining": "1",
-      "cardioTraining": "1",
-      "steps": "2"
+      "water": "2400",
+      "powerTraining": "2",
+      "cardioTraining": "2",
+      "steps": "12 000",
+      "weight": "55"
     }
   },
-  "dataPerformance": {
+  "dataAnalytics": {
     "1": {
-      "numberFullGlass": 5
+      "numberFullGlass": 0
     }
   }
 }

@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import fakeServerAPI from '../../../api/fakeServerAPI';
 import { ButtonStyle } from '../../../Components/Button';
 
-import { editGoal } from '../../../store/actions/goals';
+import { editGoal, loadingUserGoals } from '../../../store/actions/goals';
 
 import { goalsSelector } from '../../../store/selectors/goals';
+import { userIdSelector } from '../../../store/selectors/user';
 
 const GoalsFormStyle = styled.div`
   box-shadow: 0 5px 30px 0 ${(props) => props.theme.cardBackgroundColor};
   padding: 30px;
   h3 {
-    font-size: 26px;
-    color: ${(props) => props.theme.gradientColor_1};
-    text-shadow: ${(props) => props.theme.appBackGroundColor};
+    font-size: 28px;
+    color: ${(props) => props.theme.fontColor};
+    font-weight: 900;
     margin: 30px auto;
   }
   span {
@@ -22,9 +24,10 @@ const GoalsFormStyle = styled.div`
     color: ${(props) => props.theme.appBackGroundColor};
     border-radius: 4px;
     padding: 5px;
-    background-color: ${(props) => props.theme.gradientColor_1};
+    background-color: ${(props) => props.theme.fontColor};
   }
   li {
+    text-shadow: 0px 0px 1px #030303;
     color: ${(props) => props.theme.fontColor};
     line-height: 1.8;
     text-align: left;
@@ -45,9 +48,16 @@ const GoalsFormStyle = styled.div`
 const GoalsForm = () => {
   const goals = useSelector(goalsSelector);
   const dispatch = useDispatch();
+  const userId = useSelector(userIdSelector);
+  useEffect(() => {
+    fakeServerAPI.get('/dataGoals').then((response) => {
+      if (response.data[userId]) {
+        dispatch(loadingUserGoals(response.data[userId]));
+      }
+    });
+  }, []);
   const handleEditGoal = () => {
     dispatch(editGoal(false));
-    console.log(goals);
   };
   return (
     <GoalsFormStyle>
@@ -74,6 +84,10 @@ const GoalsForm = () => {
           <li>
             The required number of cardio training you need per week:
             <span>{goals.cardioTraining}</span>
+          </li>
+          <li>
+            The weight you want to reach:
+            <span>{goals.weight}</span>
           </li>
         </ul>
       </div>

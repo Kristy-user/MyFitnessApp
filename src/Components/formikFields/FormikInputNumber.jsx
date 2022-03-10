@@ -20,7 +20,7 @@ const FormikInputNumber = (props) => {
         type="text"
         onChange={field.onChange}
         onBlur={field.onBlur}
-        value={field.value}
+        value={field.value.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')}
       />
 
       {meta.touched && meta.error ? (

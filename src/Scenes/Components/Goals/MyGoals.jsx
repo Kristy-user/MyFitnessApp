@@ -46,9 +46,13 @@ const MyGoalsStyle = styled.div`
     align-self: center;
     display: inline-block;
     margin: 20px 0 0 10px;
-    max-width: 70px;
+    max-width: 100px;
     min-height: 30px;
-    border: 1px solid black;
+    font-size: 22px;
+    /* color: ${(props) => props.theme.appBackGroundColor}; */
+    border-radius: 4px;
+    padding: 5px;
+    background-color: ${(props) => props.theme.buttonColor};
     text-align: center;
   }
   .buttonSubmit {
@@ -97,16 +101,16 @@ const MyGoals = () => {
 
         <Formik
           initialValues={{
-            water: goals.water,
-            powerTraining: goals.powerTraining,
-            cardioTraining: goals.cardioTraining,
-            steps: goals.steps,
+            water: goals.water ? goals.water : 'null',
+            powerTraining: goals.powerTraining ? goals.powerTraining : '',
+            cardioTraining: goals.cardioTraining ? goals.cardioTraining : '',
+            steps: goals.steps ? goals.steps : '',
+            weight: goals.weight ? goals.weight : '',
           }}
           validate={validate}
           onSubmit={(formValues) => {
             dispatch(createNewGoals(formValues, userId));
             dispatch(editGoal(true));
-            console.log(goals.isEdited);
           }}
         >
           <Form>
@@ -120,7 +124,7 @@ const MyGoals = () => {
               <FormikRadio name="water" value="1800" label="1800" />
               <FormikRadio name="water" value="2100" label="2100" />
               <FormikRadio name="water" value="2400" label="2400" />
-              <FormikRadio name="water" value="2800" label="2800" />
+              <FormikRadio name="water" value="2700" label="2700" />
             </div>
             <div className="inputForm">
               <p className="goalsItem">
@@ -147,7 +151,12 @@ const MyGoals = () => {
                 name="cardioTraining"
               />
             </div>
-
+            <div className="inputForm">
+              <p className="goalsItem">
+                4. Enter the weight you want to reach:
+              </p>
+              <FormikInputNumber className={'inputNumber'} name="weight" />
+            </div>
             <button className="buttonSubmit" type="submit">
               Submit
             </button>
