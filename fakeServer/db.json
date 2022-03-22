@@ -2,48 +2,302 @@
   "users": [
     {
       "email": "test@mail.ru",
-      "password": "$2a$10$Luy2pe33zh7tzvL9flV.auJyliHLKmqiHxLLKQy4gNw4IQ1IklGbG",
+      "password": "$2a$10$/4OPQdIvT7rG.syWobLdI.FnM0GZpr.VptR.SqHSqAuDw/sW/Hzc6",
       "id": 1
     }
   ],
   "userPersonalData": {
     "1": {
-      "name": "Kristina",
+      "name": "Kris",
       "surname": "Klepik",
       "age": "29",
       "height": "170",
-      "weight": "58"
+      "weight": "59"
     }
   },
   "tasks": [
     {
-      "title": "Running (cardio)",
-      "id": 1,
-      "completed": false
+      "userId": 1,
+      "date": "10.03.2022",
+      "title": "bgsgsd",
+      "completed": false,
+      "id": 14
     },
     {
-      "title": "Back exercises (power training)",
-      "id": 2,
-      "completed": false
+      "userId": 1,
+      "date": "10.03.2022",
+      "title": "5ejr5i6r",
+      "completed": false,
+      "id": 15
     },
     {
-      "title": "8 000 steps",
-      "id": 3,
-      "completed": false
+      "userId": 1,
+      "date": "15.04.2022",
+      "title": "srhjnrstjngb",
+      "completed": false,
+      "id": 22
+    },
+    {
+      "userId": 1,
+      "date": "15.03.2022",
+      "title": "gaergaerg",
+      "completed": false,
+      "id": 26
+    },
+    {
+      "userId": 1,
+      "date": "15.03.2022",
+      "title": "rgagargawreg",
+      "completed": false,
+      "id": 27
+    },
+    {
+      "userId": 1,
+      "date": "02.03.2022",
+      "title": "dsdcc",
+      "completed": false,
+      "id": 28
+    },
+    {
+      "userId": 1,
+      "date": "05.03.2022",
+      "title": "fbdfnd",
+      "completed": false,
+      "id": 33
+    },
+    {
+      "userId": 1,
+      "date": "05.03.2022",
+      "title": "",
+      "completed": false,
+      "id": 34
+    },
+    {
+      "userId": 1,
+      "date": "05.03.2022",
+      "title": "",
+      "completed": false,
+      "id": 35
+    },
+    {
+      "userId": 1,
+      "date": "05.03.2022",
+      "title": "",
+      "completed": false,
+      "id": 36
+    },
+    {
+      "userId": 1,
+      "date": "21.03.2022",
+      "title": "run 10 km",
+      "completed": false,
+      "id": 37
     }
   ],
   "dataGoals": {
     "1": {
-      "water": "2400",
-      "powerTraining": "2",
-      "cardioTraining": "2",
-      "steps": "12 000",
-      "weight": "55"
+      "water": "2700",
+      "powerTraining": "8",
+      "cardioTraining": "8",
+      "steps": "10000",
+      "weight": "60"
     }
   },
-  "dataAnalytics": {
-    "1": {
-      "numberFullGlass": 0
+  "dataAnalytics": [
+    {
+      "numberFullGlass": 1,
+      "numberPowerTraining": 0,
+      "numberCardioTraining": 0,
+      "date": "2021,03",
+      "userId": 1,
+      "id": 1
+    },
+    {
+      "1": {
+        "numberFullGlass": 1,
+        "numberPowerTraining": 0,
+        "numberCardioTraining": 0
+      },
+      "id": 2
+    },
+    {
+      "1": {
+        "numberFullGlass": 1,
+        "numberPowerTraining": 0,
+        "numberCardioTraining": 0
+      },
+      "id": 3
+    },
+    {
+      "1": {
+        "numberFullGlass": 0,
+        "numberPowerTraining": 0,
+        "numberCardioTraining": 0
+      },
+      "id": 4
+    },
+    {
+      "numberFullGlass": 1,
+      "numberPowerTraining": 0,
+      "numberCardioTraining": 0,
+      "date": "2022,03",
+      "id": 5
+    },
+    {
+      "numberFullGlass": 1,
+      "numberPowerTraining": 1,
+      "numberCardioTraining": 0,
+      "date": "2022,03",
+      "id": 6
+    },
+    {
+      "numberFullGlass": 1,
+      "numberPowerTraining": 2,
+      "numberCardioTraining": 0,
+      "date": "2022,03",
+      "id": 7
+    },
+    {
+      "numberFullGlass": 1,
+      "numberPowerTraining": 2,
+      "numberCardioTraining": 0,
+      "date": "2022,03",
+      "id": 8
+    },
+    {
+      "numberFullGlass": 2,
+      "numberPowerTraining": 2,
+      "numberCardioTraining": 0,
+      "date": "2022,03",
+      "id": 9
+    },
+    {
+      "numberFullGlass": 3,
+      "numberPowerTraining": 2,
+      "numberCardioTraining": 0,
+      "date": "2022,03",
+      "id": 10
+    },
+    {
+      "numberFullGlass": 4,
+      "numberPowerTraining": 2,
+      "numberCardioTraining": 0,
+      "date": "2022,03",
+      "id": 11
+    },
+    {
+      "numberFullGlass": 4,
+      "numberPowerTraining": 2,
+      "numberCardioTraining": 0,
+      "date": "2022,03",
+      "id": 12
     }
-  }
+  ],
+  "dataTodayAnalytics": [
+    {
+      "numberSteps": "5000",
+      "weight": "55",
+      "date": "15.03.2022",
+      "userId": 1,
+      "id": 1
+    },
+    {
+      "numberSteps": "8000",
+      "weight": "55",
+      "date": "16.03.2022",
+      "userId": 1,
+      "id": 2
+    },
+    {
+      "numberSteps": "10000",
+      "weight": "55",
+      "date": "17.03.2022",
+      "userId": 1,
+      "id": 3
+    },
+    {
+      "numberSteps": "20000",
+      "weight": "55",
+      "date": "18.03.2022",
+      "userId": 1,
+      "id": 4
+    },
+    {
+      "numberSteps": "6000",
+      "weight": "55",
+      "date": "19.03.2022",
+      "userId": 1,
+      "id": 5
+    },
+    {
+      "numberSteps": "12000",
+      "weight": "55",
+      "date": "14.03.2022",
+      "userId": 1,
+      "id": 6
+    },
+    {
+      "numberSteps": "11000",
+      "weight": "55",
+      "date": "20.03.2022",
+      "userId": 1,
+      "id": 7
+    },
+    {
+      "numberSteps": "11000",
+      "weight": "55",
+      "date": "20.03.2022",
+      "userId": 1,
+      "id": 8
+    },
+    {
+      "numberSteps": "11000",
+      "weight": "55",
+      "date": "20.03.2022",
+      "userId": 1,
+      "id": 9
+    },
+    {
+      "numberSteps": "11000",
+      "weight": "55",
+      "date": "20.03.2022",
+      "userId": 1,
+      "id": 10
+    },
+    {
+      "numberSteps": "11000",
+      "weight": "55",
+      "date": "20.03.2022",
+      "userId": 1,
+      "id": 11
+    },
+    {
+      "numberSteps": "11000",
+      "weight": "55",
+      "date": "20.01.2022",
+      "userId": 1,
+      "id": 12
+    },
+    {
+      "numberSteps": "11000",
+      "weight": "55",
+      "date": "20.01.2022",
+      "userId": 1,
+      "id": 13
+    },
+    {
+      "numberSteps": "11000",
+      "weight": "55",
+      "date": "20.02.2022",
+      "userId": 1,
+      "id": 14
+    },
+    {
+      "numberSteps": "17000",
+      "weight": "55",
+      "date": "20.02.2022",
+      "userId": 1,
+      "id": 15
+    }
+  ]
 }

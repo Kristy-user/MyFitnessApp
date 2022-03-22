@@ -3,37 +3,41 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import fakeServerAPI from '../api/fakeServerAPI';
-import { ButtonStyle } from '../Components/Button';
-import FormikInput from '../Components/formikFields/FormikInput';
-import FormikInputNumber from '../Components/formikFields/FormikInputNumber';
+import fakeServerAPI from '../../api/fakeServerAPI';
+import { ButtonStyle } from '../../Components/Button';
+import FormikInput from '../../Components/formikFields/FormikInput';
+import FormikInputNumber from '../../Components/formikFields/FormikInputNumber';
+import { HeaderTittle } from '../../Components/HeaderTittle';
 import {
   editUserPersonalData,
   refreshUserPersonalData,
   setUserPersonalData,
-} from '../store/actions/userPersonalData';
-import { userIdSelector } from '../store/selectors/user';
-import { userPersonalData } from '../store/selectors/userPersonalData';
+} from '../../store/actions/userPersonalData';
+import { userIdSelector } from '../../store/selectors/user';
+import { userPersonalData } from '../../store/selectors/userPersonalData';
 
 const UserDataStyle = styled.div`
-  box-shadow: 0 5px 30px 0 ${(props) => props.theme.cardBackgroundColor};
+  box-shadow: 0 5px 30px 0 ${(props) => props.theme.cardBackGroundColor};
   padding: 30px;
   color: ${(props) => props.theme.fontColor};
   .userDataTitle {
-    font-size: 32px;
-    font-weight: 400;
-    color: ${(props) => props.theme.fontColor};
-    text-shadow: 0px 0px 6px #9b8f8f;
-    margin: 20px auto;
+    ${HeaderTittle}
   }
   .inputField {
     padding: 10px;
-    font-size: 24px;
+
     display: flex;
     flex-direction: row;
-    p {
+    h5 {
+      font-size: 24px;
+      align-self: center;
+      text-align: left;
       display: inline-block;
       margin-right: 20px;
+    }
+    span {
+      padding: 2px;
+      background-color: ${(props) => props.theme.cardBackGroundColor};
     }
     input {
       display: inline-block;
@@ -44,7 +48,7 @@ const UserDataStyle = styled.div`
       font-size: 24px;
       height: 30px;
       border-radius: 6px;
-      background-color: ${(props) => props.theme.cardBackgroundColor};
+      background-color: ${(props) => props.theme.cardBackGroundColor};
     }
   }
 
@@ -72,6 +76,14 @@ const UserCardSetting = () => {
     const errors = {};
     let isError = false;
     if (isError) return errors;
+    const keys = Object.keys(values);
+    keys.forEach((key) => {
+      if (!values[key]) {
+        errors[key] = 'Required';
+        isError = true;
+      }
+    });
+    if (isError) return errors;
   };
 
   return (
@@ -96,26 +108,38 @@ const UserCardSetting = () => {
         }}
       >
         <Form>
-          <div className={'inputField'}>
-            <p>1. Enter your name:</p>
-            <FormikInput name="name" />
-          </div>
-          <div className={'inputField'}>
-            <p>2. Enter your surname:</p>
-            <FormikInput name="surname" />
-          </div>
-          <div className={'inputField'}>
-            <p>3. Enter your age:</p>
-            <FormikInputNumber name="age" />
-          </div>
-          <div className={'inputField'}>
-            <p>4. Enter your height:</p>
-            <FormikInputNumber name="height" />
-          </div>
-          <div className={'inputField'}>
-            <p>5. Enter your weight:</p>
-            <FormikInputNumber name="weight" />
-          </div>
+          <ul>
+            <li className={'inputField'}>
+              <h5>
+                1. Enter your <span>name</span>:
+              </h5>
+              <FormikInput name="name" />
+            </li>
+            <li className={'inputField'}>
+              <h5>
+                2. Enter your <span>surname</span>:
+              </h5>
+              <FormikInput name="surname" />
+            </li>
+            <li className={'inputField'}>
+              <h5>
+                3. Enter your <span>age</span>:
+              </h5>
+              <FormikInputNumber name="age" />
+            </li>
+            <li className={'inputField'}>
+              <h5>
+                4. Enter your <span>height</span>:
+              </h5>
+              <FormikInputNumber name="height" />
+            </li>
+            <li className={'inputField'}>
+              <h5>
+                5. Enter your <span>weight</span>:
+              </h5>
+              <FormikInputNumber name="weight" />
+            </li>
+          </ul>
           <button className="buttonSubmit" type="submit">
             Submit
           </button>

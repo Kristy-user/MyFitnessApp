@@ -1,18 +1,20 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
-  loadingUserWaterAnalytics,
-  settingUserWaterAnalytics,
+  loadingUserAnalytics,
+  settingUserAnalytics,
 } from '../actions/analytics';
 
 const initialState = {
-  numberFullGlass: 0,
+  analyticsTraining: [],
+  numberFullGlass: null,
 };
-
 export const analyticsReducer = createReducer(initialState, (builder) => {
-  builder.addCase(loadingUserWaterAnalytics, (state, action) => {
-    state.numberFullGlass = action.payload;
-  });
-  builder.addCase(settingUserWaterAnalytics, (state, action) => {
-    state.numberFullGlass = action.payload;
-  });
+  builder
+    .addCase(loadingUserAnalytics, (state, action) => {
+      state.analyticsTraining = action.payload;
+    })
+
+    .addCase(settingUserAnalytics, (state, action) => {
+      state.analyticsTraining = [...state.analyticsTraining, action.payload];
+    });
 });

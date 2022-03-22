@@ -1,21 +1,19 @@
 import { createAction } from '@reduxjs/toolkit';
 import fakeServerAPI from '../../api/fakeServerAPI';
 
-export const loadingUserWaterAnalytics = createAction(
-  'LoadingUserWaterAnalytics'
-);
-export const settingUserWaterAnalytics = createAction(
-  'SettingUserWaterAnalytics'
-);
+export const loadingUserAnalytics = createAction('LoadingUserAnalytics');
+export const settingUserAnalytics = createAction('SettingUseAnalytics');
 
-export const refreshWaterAnalytics = (water, id) => {
+export const refreshAnalytics = (analytics) => {
   return (dispatch) => {
     fakeServerAPI
       .post(`/dataAnalytics`, {
-        [id]: {
-          numberFullGlass: water,
-        },
+        numberFullGlass: analytics.numberFullGlass,
+        numberPowerTraining: analytics.numberPowerTraining,
+        numberCardioTraining: analytics.numberCardioTraining,
+        userId: analytics.id,
+        date: analytics.date,
       })
-      .then(() => dispatch(settingUserWaterAnalytics(water)));
+      .then(() => dispatch(settingUserAnalytics(analytics)));
   };
 };

@@ -6,31 +6,34 @@ import latoFontBold from 'assets/fonts/Lato-Bold.ttf';
 export const ThemeContext = React.createContext('');
 
 export const GlobalStyles = createGlobalStyle`
- 
-* {
-  color:'#333333';
+ * {
+   color:'#333333';
   padding: 0;
   margin: 0;
   list-style-type: none;
   box-sizing: border-box;
   text-decoration: none;
+  &::before, &::after {
+    box-sizing: border-box;
+  }
 }
-
 h3 {
   font-size:24px;
 }
  body {
+  /* overflow:hidden; */
   margin: 0;
    color:'#333333'; 
   font-family: 'Lato', sans-serif;
 }
 a {
   color: inherit;
-}
+    }
 input{
-  border: none;
+
+   border: none;
   outline: none;
-  &:focus, &:hover &:active{
+  &:focus, &:hover &:active {
     border: none;
         outline: none;
 }
@@ -41,35 +44,34 @@ input{
      font-style: normal; 
     font-weight: normal;
    };
-   
+  
+
+
    @font-face {
      font-family: 'Lato', sans-serif;
      src: url(${latoFontBold});
      font-style: normal; 
     font-weight: bold;
-   };
-`;
+   }`;
 
 export const globalDarkStyle = {
-  cardBackgroundColor: '#7dacc250',
-  headerBackGroundColor: '#25252550',
-  appBackGroundColor: '#c6e2e2',
-  fontColor: '#55817a',
+  cardBackGroundColor: '#bfbfbf',
+  headerBackGroundColor: '#262626',
+  appBackGroundColor: '#009999',
+  fontColor: '#1a0000',
   buttonColor: '#3eb6b0',
   toggleButtonColor: '#f1b7a6',
-  gradientColor_1: '#363d44',
-  gradientColor_2: '#bcc0c2',
+  modalWindow: '#f2f2f2',
 };
 
 export const globalLightStyle = {
-  cardBackgroundColor: '#f8bcaa68',
+  cardBackGroundColor: '#f8bcaa68',
   headerBackGroundColor: '#f8f5f876',
   appBackGroundColor: '#ede0b750',
   fontColor: '#86090fa9',
   buttonColor: '#f8f7f7',
   toggleButtonColor: '#0a747084',
-  gradientColor_1: '#ff527a',
-  gradientColor_2: '#ff9575',
+  modalWindow: '#f2f2f2',
 };
 
 const GlobalThemeProvider = (props) => {

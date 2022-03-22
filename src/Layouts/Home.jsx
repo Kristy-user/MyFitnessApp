@@ -4,16 +4,15 @@ import { ThemeContext } from 'HOC/GlobalThemeProvider';
 import RootRouter from '../Route/ReactRouter';
 import NavigateBlock from './MainLayout/NavigateBlock';
 import UserCard from './MainLayout/UserCard';
-
-import { Outlet } from 'react-router-dom';
 import lendingImg from 'assets/images/login.jpg';
+import { Outlet } from 'react-router-dom';
+import background from 'assets/images/background.jpg';
 import { LogoStyle } from '../Components/Logo';
 
 const StyledLayout = styled.div`
   margin: auto;
   text-align: center;
-  background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
-
+  background-image: url(${background});
   flex-direction: column;
   justify-content: center;
   .logo {
@@ -21,6 +20,7 @@ const StyledLayout = styled.div`
     margin: 0 5%;
     align-self: flex-start;
     font-size: 36px;
+    text-shadow: 0px 0px 6px ${(props) => props.theme.buttonColor};
   }
 
   .header {
@@ -32,7 +32,7 @@ const StyledLayout = styled.div`
     width: 100%;
     height: 60px;
     box-sizing: border-box;
-    background-image: url(${lendingImg});
+    background-color: ${(props) => props.theme.headerBackGroundColor};
     font-size: 30px;
   }
 
@@ -45,13 +45,15 @@ const StyledLayout = styled.div`
   .leftLayout,
   .mainLayout,
   .rightLayout {
-    margin: 10px 20px;
+    margin: 10px;
     display: flex;
     flex-direction: column;
   }
   .mainLayout {
     width: 100%;
-    /* height: 100vh; */
+    border-radius: 6px;
+    padding: 15px;
+    background-color: ${(props) => props.theme.cardBackGroundColor};
   }
   .switch {
     position: relative;
@@ -71,7 +73,7 @@ const StyledLayout = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: ${(props) => props.theme.headerBackGroundColor};
+    background-color: ${(props) => props.theme.gradientColor_2};
     -webkit-transition: 0.4s;
     transition: 0.4s;
 

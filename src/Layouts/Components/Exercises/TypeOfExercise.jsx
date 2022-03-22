@@ -19,14 +19,15 @@ const StyledCard = styled.div`
   padding: 20px 10px;
 
   li {
-    color: ${(props) => props.theme.fontColor};
+    text-shadow: 0px 0px 6px ${(props) => props.theme.buttonColor};
+    color: ${(props) => props.theme.headerBackGroundColor};
+
     padding: 20px;
     margin: 10px;
     display: inline-block;
   }
   img {
     margin: 20px;
-    box-shadow: ${(props) => props.theme.fontColor} 0px 1px 2px 0px;
     padding: 5px;
     width: 250px;
     border-radius: 6px;

@@ -8,19 +8,30 @@ const StyledInputNumberWrapper = styled.div`
     color: #4d1515;
     text-align: center;
   }
+
+  .errorInput,
+  .errorInput:focus {
+    border: 2px solid #eb1b1baf;
+    &:focus {
+      box-shadow: none;
+    }
+  }
 `;
 const FormikInputNumber = (props) => {
   const [field, meta, helpers] = useField(props);
+  let className = [props.className];
+
+  meta.error && meta.touched ? className.push('errorInput') : className;
 
   return (
     <StyledInputNumberWrapper>
       <input
-        className={props.className}
+        className={className.join(' ')}
         name={props.name}
         type="text"
         onChange={field.onChange}
         onBlur={field.onBlur}
-        value={field.value.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')}
+        value={field.value}
       />
 
       {meta.touched && meta.error ? (

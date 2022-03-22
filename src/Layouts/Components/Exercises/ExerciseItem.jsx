@@ -4,40 +4,31 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const StyledLinkItem = styled.li`
-  display: inline-block;
-  margin: 5px;
-  padding: 10px;
-  text-align: left;
+  margin: 15px 5px;
+  text-align: center;
+  padding: 12px 0;
   font-size: 22px;
   font-weight: 600;
   border-radius: 8px;
+  text-shadow: 0px 0px 6px #fff;
+  box-shadow: 0px 0px 6px gray;
   color: ${(props) => props.theme.fontColor};
+
   &:hover {
     border-radius: 8px;
-    background-color: ${(props) => props.theme.fontColor};
+    background-color: ${(props) => props.theme.buttonColor};
+    text-shadow: 0px 0px 6px #fff;
   }
-
-  p {
-    display: inline;
-  }
-  a {
+  .exerciseLink {
     text-transform: capitalize;
-    border-radius: 8px;
-    width: 100%;
-    padding: 10px;
-    &:hover {
-      color: ${(props) => props.theme.gradientColor_1};
-    }
   }
 `;
 
 const ExerciseItem = (props) => {
   return (
     <StyledLinkItem key={props.exercise.id}>
-      <strong> {props.index + 1}. </strong>
-      &nbsp;
-      <Link to={`${props.exercise}`}>
-        <p className={'home'}>{props.exercise}</p>
+      <Link className={'exerciseLink'} to={`${props.exercise}`}>
+        {props.exercise}
       </Link>
     </StyledLinkItem>
   );

@@ -1,37 +1,26 @@
 import { Form, Formik } from 'formik';
-
 import React, { useEffect } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { ButtonStyle } from '../../../Components/Button';
+('../../../store/actions/goals');
+import GoalsForm from './GoalsForm';
+import { HeaderTittle } from '../../Components/HeaderTittle';
+import { ButtonStyle } from '../../Components/Button';
 
-import FormikInputNumber from '../../../Components/formikFields/FormikInputNumber';
-import FormikRadio from '../../../Components/formikFields/FotmikRadio';
 import {
   createNewGoals,
   editGoal,
   loadingUserGoals,
-} from '../../../store/actions/goals';
-import { userIdSelector } from '../../../store/selectors/user';
-import { goalsSelector } from '../../../store/selectors/goals';
-import fakeServerAPI from '../../../api/fakeServerAPI';
-import GoalsForm from './GoalsForm';
+} from '../../store/actions/goals';
+import { userIdSelector } from '../../store/selectors/user';
+import { goalsSelector } from '../../store/selectors/goals';
+import fakeServerAPI from '../../api/fakeServerAPI';
+import FormikInputNumber from '../../Components/formikFields/FormikInputNumber';
+import FormikRadio from '../../Components/formikFields/FormikRadio';
 
 const MyGoalsStyle = styled.div`
-  .goalsTitle {
-    box-shadow: 0 5px 30px 0 ${(props) => props.theme.cardBackgroundColor};
-  }
   h4 {
-    padding: 10px;
-    font-size: 24px;
-    color: ${(props) => props.theme.fontColor};
-    text-shadow: 0px 0px 6px #ddf2f5;
-    border-radius: 6px;
-    background-color: ${(props) => props.theme.headerBackGroundColor};
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-      rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-      rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    ${HeaderTittle}
   }
 
   .inputForm {
@@ -43,16 +32,17 @@ const MyGoalsStyle = styled.div`
     font-size: 18px;
   }
   .inputNumber {
+    text-shadow: 0px 0px 6px ${(props) => props.theme.buttonColor};
     align-self: center;
     display: inline-block;
     margin: 20px 0 0 10px;
     max-width: 100px;
     min-height: 30px;
     font-size: 22px;
-    /* color: ${(props) => props.theme.appBackGroundColor}; */
+    color: ${(props) => props.theme.fontColor};
     border-radius: 4px;
     padding: 5px;
-    background-color: ${(props) => props.theme.buttonColor};
+    background-color: gray;
     text-align: center;
   }
   .buttonSubmit {
@@ -134,7 +124,7 @@ const MyGoals = () => {
             </div>
             <div className="inputForm">
               <p className="goalsItem">
-                3. Enter the required number of power training per week:
+                3. Enter the required number of power training per month:
               </p>
               <FormikInputNumber
                 className={'inputNumber'}
@@ -144,7 +134,7 @@ const MyGoals = () => {
             <div className="inputForm">
               <p className="goalsItem">
                 4. Enter the required number of cardio training you need per
-                week:
+                month:
               </p>
               <FormikInputNumber
                 className={'inputNumber'}
@@ -153,7 +143,7 @@ const MyGoals = () => {
             </div>
             <div className="inputForm">
               <p className="goalsItem">
-                4. Enter the weight you want to reach:
+                4. Enter the weight you want to reach (kg):
               </p>
               <FormikInputNumber className={'inputNumber'} name="weight" />
             </div>

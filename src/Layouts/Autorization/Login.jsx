@@ -32,12 +32,10 @@ const StyledLoginHolder = styled.div`
   .buttonSubmit {
     ${ButtonStyle}
     background-color: rgba(180, 182, 181, 0.7);
-    color: ${(props) => props.theme.buttonColor};
     margin-top: 30px;
-    color: black;
-
     &:hover {
-      background-color: #44e64497;
+      text-shadow: none;
+      color: white;
     }
   }
 
@@ -66,7 +64,10 @@ const Login = (props) => {
       errors.email = 'Invalid email address';
       isError = true;
     }
-    if (!values.password.match(correctPassword)) {
+    if (!values.password) {
+      errors.password = 'Required';
+      isError = true;
+    } else if (!values.password.match(correctPassword)) {
       errors.password =
         'Password must contain at least one number,one uppercase and lowercase letter, and at least 6 or more characters';
       isError = true;

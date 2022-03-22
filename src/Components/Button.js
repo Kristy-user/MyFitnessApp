@@ -9,12 +9,11 @@ export const ButtonStyle = css`
   font-size: 26px;
   box-shadow: 0px 0px 6px #e6e6e6;
   text-shadow: 0px 0px 6px #e6e6e6;
-
-  color: ${(props) => props.theme.fontColor};
-  background-color: ${(props) => props.theme.cardBackgroundColor};
+  color: ${(props) => props.theme.headerBackGroundColor};
+  background-color: ${(props) => props.theme.buttonColor};
   cursor: pointer;
   &:hover {
-    color: ${(props) => props.theme.gradientColor_1};
-    background-color: ${(props) => props.theme.buttonColor};
+    color: ${(props) => props.theme.buttonColor};
+    background-color: ${(props) => props.theme.headerBackGroundColor};
   }
 `;

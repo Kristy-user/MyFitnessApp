@@ -1,2 +1,2 @@
-export const analyticsSelector = (store) =>
-  store.analyticsReducer.numberFullGlass;
+export const allAnalyticsSelector = (store) =>
+  store.analyticsReducer.analyticsTraining;

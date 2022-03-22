@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
+import lendingImg from '../assets/images/login.jpg';
 const StyledModalWrapper = styled.div`
   position: absolute;
   width: 100%;
@@ -9,15 +9,17 @@ const StyledModalWrapper = styled.div`
   align-items: center;
   align-content: center;
   justify-content: center;
-  top: 0;
-  left: 0;
+  top: 0%;
+  left: 0%;
   z-index: 1000;
 
   .modalWindow {
-    padding: 10px 20px;
-    width: 300px;
-    height: 300px;
-    background-color: ${(props) => props.theme.appBackGroundColor};
+    border-radius: 6px;
+    margin: 0 auto;
+    padding: 10px;
+    min-width: 60%;
+    height: 80%;
+    background-color: ${(props) => props.theme.modalWindow};
   }
 `;
 

@@ -10,7 +10,7 @@ const initialState = {
   age: null,
   height: null,
   weight: null,
-  isEdited: false,
+  isCreated: false,
 };
 
 export const userPersonalDataReduser = createReducer(
@@ -25,7 +25,7 @@ export const userPersonalDataReduser = createReducer(
         state.weight = action.payload.weight;
       })
       .addCase(editUserPersonalData, (state, action) => {
-        state.isEdited = true;
+        state.isCreated = true;
       });
   }
 );

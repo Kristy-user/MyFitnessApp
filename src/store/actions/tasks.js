@@ -10,18 +10,33 @@ export const newTaskSuccess = createAction('AddTaskSuccess');
 
 export const removeTask = (id) => {
   return (dispatch) => {
-    dispatch(removeTaskStart(id));
+    // dispatch(removeTaskStart(id));
     fakeServerAPI
       .delete(`/tasks/${id}`)
       .then(() => dispatch(removeTaskSuccess(id)));
   };
 };
 
-export const newTask = (task) => {
+export const newTask = (task, userId) => {
   return (dispatch) => {
-    console.log(task);
     fakeServerAPI
-      .post(`/tasks`, task)
-      .then(() => dispatch(newTaskSuccess(task)));
+      .post(`/tasks`, {
+        userId: userId,
+        date: task.date,
+        title: task.title,
+        completed: false,
+      })
+
+      .then((response) =>
+        dispatch(
+          newTaskSuccess({
+            userId: userId,
+            date: task.date,
+            title: task.title,
+            id: response.data.id,
+            completed: false,
+          })
+        )
+      );
   };
 };

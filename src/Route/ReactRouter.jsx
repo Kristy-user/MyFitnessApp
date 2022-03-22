@@ -2,13 +2,14 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Autorization from '../Layouts/Autorization/Autorization';
-import DayTasks from '../Layouts/Components/DayTasks';
+import DayTasks from '../Layouts/MainLayout/DayTasks';
 import Home from '../Layouts/Home';
-import TypeOfExercise from '../Scenes/Components/Exercises/TypeOfExercise';
+import TypeOfExercise from '../Layouts/Components/Exercises/TypeOfExercise';
 import Exercises from '../Scenes/Exercises';
-import MyGoals from '../Scenes/Components/Goals/MyGoals';
+import MyGoals from '../Scenes/Goals/MyGoals';
 import { Shedule } from '../Scenes/Shedule';
-import UserCardSetting from '../Scenes/UserCardSetting';
+import UserCardSetting from '../Layouts/Components/UserCardSetting';
+import Analytics from '../Layouts/Components/Analytics/Analytics';
 
 const RootRouter = () => {
   const user = useSelector((state) => state.userReduser);
@@ -34,6 +35,7 @@ const RootRouter = () => {
         <Route path={'exercises'} element={<Exercises />} />
         <Route path={'exercises/:type'} element={<TypeOfExercise />} />
         <Route path={'shedule'} element={<Shedule />} />
+        <Route path={'analytics'} element={<Analytics />} />
       </Route>
     </Routes>
   );

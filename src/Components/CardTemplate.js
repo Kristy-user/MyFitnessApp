@@ -6,5 +6,6 @@ export const CardStyle = css`
   text-align: center;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 5px 30px 0 ${(props) => props.theme.cardBackgroundColor};
+  box-shadow: ${(props) => props.theme.buttonColor} 0px 5px 15px -10px inset,
+    ${(props) => props.theme.buttonColor} 0px -5px 15px -10px inset;
 `;

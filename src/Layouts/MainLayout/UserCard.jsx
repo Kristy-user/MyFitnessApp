@@ -12,10 +12,11 @@ import lendingImg from '../../assets/images/login.jpg';
 
 const UserCardStyle = styled.div`
   ${CardStyle}
-  background-image: url(${lendingImg});
+  background-color: ${(props) => props.theme.headerBackGroundColor};
+
   color: ${(props) => props.theme.buttonColor};
   padding: 20px 10px;
-  text-shadow: 1px 0px 2px #e6e6e6;
+
   .icon:before {
     display: block;
     font-weight: 700;

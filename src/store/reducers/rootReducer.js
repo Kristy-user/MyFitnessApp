@@ -6,6 +6,7 @@ import { globalAppStateReduser } from './globalAppStateReducer';
 import { goalsReduser } from './goalsReduser';
 import { analyticsReducer } from './analyticsReducer';
 import { userPersonalDataReduser } from './userPersonalDataReduser';
+import { todayAnalyticsReducer } from './todayAnalyticsReducer';
 
 const rootReducer = combineReducers({
   tasksReduser,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   globalAppStateReduser,
   goalsReduser,
   analyticsReducer,
+  todayAnalyticsReducer,
   userPersonalDataReduser,
 });
 

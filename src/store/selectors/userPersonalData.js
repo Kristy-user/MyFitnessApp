@@ -1,3 +1,3 @@
 export const userPersonalData = (store) => store.userPersonalDataReduser;
-export const personalDataisEdit = (store) =>
-  store.userPersonalDataReduser.isEdited;
+export const personalDataisCreated = (store) =>
+  store.userPersonalDataReduser.isCreated;

@@ -4,16 +4,21 @@ import styled from 'styled-components';
 import { CardStyle } from '../Components/CardTemplate';
 import { loadingExercisesList } from '../store/actions/exercises';
 import { exercisesListSelector } from '../store/selectors/exercises';
-import ExerciseItem from './Components/Exercises/ExerciseItem';
+import ExerciseItem from '../Layouts/Components/Exercises/ExerciseItem';
 import bodyImg from '../assets/images/eJzbY2hgYGAIhwZgngGUhoggyyF48aYGBgCHTQxD.png';
 import exercisesDbAPI from '../api/exerciseDB';
+import { HeaderTittle } from '../Components/HeaderTittle';
 
 const ExercisesCardStyle = styled.div`
-  padding: 30px;
-
   h3 {
-    display: block;
-    padding: 20px 0 20px 0;
+    font-size: 18px;
+    color: ${(props) => props.theme.fontColor};
+    ${HeaderTittle}
+  }
+  .grid_list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 150px);
+    justify-content: center;
   }
   .bodyMap {
     min-height: 400px;
@@ -45,7 +50,7 @@ const Exercises = () => {
     <ExercisesCardStyle>
       <div className={'bodyPartList'}>
         <h3>Choose body part to exercises:</h3>
-        <ul>
+        <ul className={'grid_list'}>
           {exercisesList.map((exercise, index) => (
             <ExerciseItem exercise={exercise} key={exercise.id} index={index} />
           ))}

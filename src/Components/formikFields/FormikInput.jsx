@@ -51,9 +51,9 @@ const StyledInputWrapper = styled.div`
     }
   }
   .error {
-    text-shadow: 1px 1px 4px #3f3d3d;
-    color: #ff3939;
-    text-align: left;
+    text-shadow: 1px 1px 4px #f50f0f;
+    color: #4d1515;
+    text-align: center;
   }
   .errorInput,
   .errorInput:focus {
@@ -84,7 +84,11 @@ const FormikInput = (props) => {
     <StyledInputWrapper>
       <input
         className={className.join(' ')}
-        placeholder={props.name.replace(/([A-Z])/g, ' $1').toUpperCase()}
+        placeholder={
+          props.name === 'name' || props.name === 'surname'
+            ? ''
+            : props.name.replace(/([A-Z])/g, ' $1').toUpperCase()
+        }
         name={props.name}
         type={
           props.name === 'password' || props.name === 'confirmPassword'

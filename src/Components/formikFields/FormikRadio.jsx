@@ -22,9 +22,10 @@ const RadioInputStyle = styled.div`
 
   input[type='radio']:checked + label,
   input[type='radio']:hover + label {
-    background-color: ${(props) => props.theme.buttonColor};
-    border: 1px solid #60adf0;
-    color: inherit;
+    text-shadow: 0px 0px 6px ${(props) => props.theme.buttonColor};
+    background-color: gray;
+    border: 1px solid ${(props) => props.theme.buttonColor};
+    color: ${(props) => props.theme.fontColor};
   }
 `;
 const FormikRadio = (props) => {

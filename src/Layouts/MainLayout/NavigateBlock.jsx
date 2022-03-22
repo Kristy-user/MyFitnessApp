@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import RootRouter from 'Route/ReactRouter';
 import { CardStyle } from '../../Components/CardTemplate';
-import lendingImg from '../../assets/images/login.jpg';
+
 const StyledNav = styled.div`
   ${CardStyle}
+  background-color: ${(props) => props.theme.headerBackGroundColor};
   justify-content: center;
   min-height: calc(100vh - 120px);
-  background-image: url(${lendingImg});
 
   li {
     &:hover {
@@ -43,7 +42,7 @@ const StyledNav = styled.div`
   .shedule:before {
     content: '\f073';
   }
-  .analitics:before {
+  .analytics:before {
     content: '\f201';
   }
 
@@ -82,8 +81,8 @@ const NavigateBlock = () => {
             </Link>
           </li>
           <li>
-            <Link to={'/home/analitics'}>
-              <h2 className={'analitics'}>Analitics</h2>
+            <Link to={'/home/analytics'}>
+              <h2 className={'analytics'}>Analytics</h2>
             </Link>
           </li>
         </ul>
