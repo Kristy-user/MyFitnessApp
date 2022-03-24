@@ -2,15 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import styled from 'styled-components';
 import 'react-calendar/dist/Calendar.css';
-import { CardStyle } from '../Components/CardTemplate';
-import fakeServerAPI from '../api/fakeServerAPI';
-import DayTasks from '../Layouts/MainLayout/DayTasks';
-import { taskListSelector } from '../store/selectors/tasksList';
-import { personalDataisEdit } from '../store/selectors/userPersonalData';
 import { ModalContext } from '../HOC/GlobalModalProvider';
 import NewTaskAdd from '../HOC/ModalContent/NewTaskAdd';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadingTaskList, newTask } from '../store/actions/tasks';
 import { userIdSelector } from '../store/selectors/user';
 import { HeaderTittle } from '../Components/HeaderTittle';
 
@@ -32,7 +26,6 @@ const StyledCalendar = styled.div`
   }
   .react-calendar__navigation button {
     color: ${(props) => props.theme.fontColor};
-
     width: 44px;
     height: 100%;
     border-radius: 6px 6px 0 0;
@@ -52,7 +45,6 @@ const StyledCalendar = styled.div`
     color: ${(props) => props.theme.fontColor};
     border-radius: 6px;
     font-size: 18px;
-    /* background-color: ${(props) => props.theme.cardBackGroundColor}; */
     border: 1px inset ${(props) => props.theme.buttonColor};
   }
   .react-calendar__tile--now {

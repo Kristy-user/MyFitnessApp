@@ -9,7 +9,7 @@ import Exercises from '../Scenes/Exercises';
 import MyGoals from '../Scenes/Goals/MyGoals';
 import { Shedule } from '../Scenes/Shedule';
 import UserCardSetting from '../Layouts/Components/UserCardSetting';
-import Analytics from '../Layouts/Components/Analytics/Analytics';
+import Analytics from '../Scenes/Analytics';
 
 const RootRouter = () => {
   const user = useSelector((state) => state.userReduser);

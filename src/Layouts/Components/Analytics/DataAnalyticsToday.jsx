@@ -6,18 +6,27 @@ import fakeServerAPI from '../../../api/fakeServerAPI';
 import { ButtonStyle } from '../../../Components/Button';
 import FormikInputNumber from '../../../Components/formikFields/FormikInputNumber';
 import {
-  refreshTodayAnalytics,
-  removeTodayInfo,
+  refreshTodayAnalyticsInfo,
   setTodayAnalyticsInfo,
 } from '../../../store/actions/todayAnalytics';
 import { loadingTodayAnalytics } from '../../../store/actions/todayAnalytics';
 import { todayAnalyticsDateSelector } from '../../../store/selectors/todayAnalytics';
 import { userIdSelector } from '../../../store/selectors/user';
-import DayTasks from '../../MainLayout/DayTasks';
 
 const DataTodayWrapper = styled.div`
+  border-top: 1px solid gray;
   display: flex;
   flex-direction: column;
+  .analytic_title {
+    text-transform: uppercase;
+    font-size: 18px;
+    padding: 5px;
+    margin: 15px 0 5px 0;
+    text-shadow: 0px 0px 1px ${(props) => props.theme.fontColor};
+    color: gray;
+    width: fit-content;
+    align-self: center;
+  }
   form {
     display: flex;
     justify-content: space-evenly;
@@ -122,19 +131,20 @@ const DataAnalyticsToday = () => {
   };
   return (
     <DataTodayWrapper>
+      <p className={'analytic_title'}>current data for today</p>
       <Formik
         initialValues={{
           numberSteps: isDataToday.numberSteps ? isDataToday.numberSteps : '',
           weight: isDataToday.weight ? isDataToday.weight : '',
           date: new Date().toLocaleDateString(),
+          userId: userId,
         }}
         validate={validate}
         onSubmit={(formValues) => {
           if (isDataToday.numberSteps && isDataToday.weight) {
-            dispatch(removeTodayInfo(isDataToday.id));
-            dispatch(setTodayAnalyticsInfo(formValues));
+            dispatch(refreshTodayAnalyticsInfo(formValues, isDataToday.id));
           } else {
-            dispatch(setTodayAnalyticsInfo(formValues, userId));
+            dispatch(setTodayAnalyticsInfo(formValues));
           }
         }}
       >

@@ -22,7 +22,6 @@ const MyGoalsStyle = styled.div`
   h4 {
     ${HeaderTittle}
   }
-
   .inputForm {
     display: flex;
   }

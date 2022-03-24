@@ -2,17 +2,17 @@
   "users": [
     {
       "email": "test@mail.ru",
-      "password": "$2a$10$/4OPQdIvT7rG.syWobLdI.FnM0GZpr.VptR.SqHSqAuDw/sW/Hzc6",
+      "password": "$2a$10$LOKXQKYDMTpzM6ms/SdeZe50lCW/Kzhx69V1hMEXLHJ2kNRus/PZK",
       "id": 1
     }
   ],
   "userPersonalData": {
     "1": {
-      "name": "Kris",
-      "surname": "Klepik",
+      "name": "Some",
+      "surname": "User",
       "age": "29",
       "height": "170",
-      "weight": "59"
+      "weight": "57"
     }
   },
   "tasks": [
@@ -92,12 +92,26 @@
       "title": "run 10 km",
       "completed": false,
       "id": 37
+    },
+    {
+      "userId": 1,
+      "date": "24.03.2022",
+      "title": "Run 10km",
+      "completed": false,
+      "id": 38
+    },
+    {
+      "userId": 1,
+      "date": "24.03.2022",
+      "title": " call someone",
+      "completed": false,
+      "id": 39
     }
   ],
   "dataGoals": {
     "1": {
       "water": "2700",
-      "powerTraining": "8",
+      "powerTraining": "6",
       "cardioTraining": "8",
       "steps": "10000",
       "weight": "60"
@@ -105,92 +119,20 @@
   },
   "dataAnalytics": [
     {
-      "numberFullGlass": 1,
-      "numberPowerTraining": 0,
-      "numberCardioTraining": 0,
-      "date": "2021,03",
+      "numberFullGlass": 0,
+      "numberPowerTraining": 2,
+      "numberCardioTraining": 2,
       "userId": 1,
-      "id": 1
-    },
-    {
-      "1": {
-        "numberFullGlass": 1,
-        "numberPowerTraining": 0,
-        "numberCardioTraining": 0
-      },
+      "date": "15.02.2022",
       "id": 2
     },
     {
-      "1": {
-        "numberFullGlass": 1,
-        "numberPowerTraining": 0,
-        "numberCardioTraining": 0
-      },
+      "numberFullGlass": 4,
+      "numberPowerTraining": 3,
+      "numberCardioTraining": 4,
+      "userId": 1,
+      "date": "24.03.2022",
       "id": 3
-    },
-    {
-      "1": {
-        "numberFullGlass": 0,
-        "numberPowerTraining": 0,
-        "numberCardioTraining": 0
-      },
-      "id": 4
-    },
-    {
-      "numberFullGlass": 1,
-      "numberPowerTraining": 0,
-      "numberCardioTraining": 0,
-      "date": "2022,03",
-      "id": 5
-    },
-    {
-      "numberFullGlass": 1,
-      "numberPowerTraining": 1,
-      "numberCardioTraining": 0,
-      "date": "2022,03",
-      "id": 6
-    },
-    {
-      "numberFullGlass": 1,
-      "numberPowerTraining": 2,
-      "numberCardioTraining": 0,
-      "date": "2022,03",
-      "id": 7
-    },
-    {
-      "numberFullGlass": 1,
-      "numberPowerTraining": 2,
-      "numberCardioTraining": 0,
-      "date": "2022,03",
-      "id": 8
-    },
-    {
-      "numberFullGlass": 2,
-      "numberPowerTraining": 2,
-      "numberCardioTraining": 0,
-      "date": "2022,03",
-      "id": 9
-    },
-    {
-      "numberFullGlass": 3,
-      "numberPowerTraining": 2,
-      "numberCardioTraining": 0,
-      "date": "2022,03",
-      "id": 10
-    },
-    {
-      "numberFullGlass": 4,
-      "numberPowerTraining": 2,
-      "numberCardioTraining": 0,
-      "date": "2022,03",
-      "id": 11
-    },
-    {
-      "numberFullGlass": 4,
-      "numberPowerTraining": 2,
-      "numberCardioTraining": 0,
-      "date": "2022,03",
-      "id": 12
     }
   ],
   "dataTodayAnalytics": [
@@ -246,51 +188,9 @@
     {
       "numberSteps": "11000",
       "weight": "55",
-      "date": "20.03.2022",
-      "userId": 1,
-      "id": 8
-    },
-    {
-      "numberSteps": "11000",
-      "weight": "55",
-      "date": "20.03.2022",
-      "userId": 1,
-      "id": 9
-    },
-    {
-      "numberSteps": "11000",
-      "weight": "55",
-      "date": "20.03.2022",
-      "userId": 1,
-      "id": 10
-    },
-    {
-      "numberSteps": "11000",
-      "weight": "55",
-      "date": "20.03.2022",
-      "userId": 1,
-      "id": 11
-    },
-    {
-      "numberSteps": "11000",
-      "weight": "55",
       "date": "20.01.2022",
       "userId": 1,
       "id": 12
-    },
-    {
-      "numberSteps": "11000",
-      "weight": "55",
-      "date": "20.01.2022",
-      "userId": 1,
-      "id": 13
-    },
-    {
-      "numberSteps": "11000",
-      "weight": "55",
-      "date": "20.02.2022",
-      "userId": 1,
-      "id": 14
     },
     {
       "numberSteps": "17000",
@@ -298,6 +198,13 @@
       "date": "20.02.2022",
       "userId": 1,
       "id": 15
+    },
+    {
+      "numberSteps": "7000",
+      "weight": "70",
+      "date": "23.03.2022",
+      "userId": 1,
+      "id": 16
     }
   ]
 }

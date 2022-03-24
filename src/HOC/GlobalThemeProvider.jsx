@@ -57,7 +57,7 @@ input{
 export const globalDarkStyle = {
   cardBackGroundColor: '#bfbfbf',
   headerBackGroundColor: '#262626',
-  appBackGroundColor: '#009999',
+  appBackGroundColor: '#e7ffff',
   fontColor: '#1a0000',
   buttonColor: '#3eb6b0',
   toggleButtonColor: '#f1b7a6',

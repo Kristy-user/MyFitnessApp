@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import styled from 'styled-components';
 import { Formik, Form } from 'formik';
@@ -16,13 +16,24 @@ const StyledLoginHolder = styled.div`
   height: 25rem;
   text-align: center;
   padding: 20px;
+  padding-bottom: 5px;
   display: flex;
   align-self: center;
   flex-direction: column;
   justify-content: space-evenly;
   align-self: center;
   background-color: rgba(77, 74, 74, 0.7);
-
+  .footer_auth_card {
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0 0 0;
+    justify-content: center;
+    color: ${(props) => props.theme.fontColor};
+    & p {
+      margin: 0 10px;
+      align-self: center;
+    }
+  }
   .welcome {
     font-size: 32px;
     font-weight: 400;
@@ -38,16 +49,29 @@ const StyledLoginHolder = styled.div`
       color: white;
     }
   }
+  .button {
+    text-decoration: underline;
+    background: none;
+    font-size: 16px;
+    color: inherit;
+    padding: 3px;
+    border: none;
+    border-radius: 6px;
 
+    &:hover {
+      color: #e6e6e6;
+    }
+  }
   @media (max-width: 986px) {
     min-height: 25rem;
   }
 `;
 
-const Login = (props) => {
+const Login = () => {
   const dispatch = useDispatch();
   const navig = useNavigate();
   const isLogin = useSelector(userLoginSelector);
+  const [cardVie, setCardVie] = useState(isLogin);
 
   const validate = (values) => {
     const errors = {};
@@ -89,9 +113,8 @@ const Login = (props) => {
           <div className={'cardBody'}>
             <Formik
               initialValues={{
-                email: '',
-                password: '',
-                confirmPassword: '',
+                email: 'test@mail.ru',
+                password: '1111lL',
               }}
               validate={validate}
               onSubmit={(formValues) => {
@@ -101,7 +124,6 @@ const Login = (props) => {
                     password: formValues.password,
                   })
                   .then((response) => {
-                    console.log(response.data.user.id);
                     dispatch(
                       logIn({
                         userName: 'email',
@@ -121,6 +143,12 @@ const Login = (props) => {
               </Form>
             </Formik>
           </div>
+        </div>
+        <div className={'footer_auth_card'}>
+          <p>Dont have an account?</p>
+          <button className="button" onClick={() => setCardVie(false)}>
+            Register
+          </button>
         </div>
       </StyledLoginHolder>
     );
@@ -171,11 +199,17 @@ const Login = (props) => {
             </Formik>
           </div>
         </div>
+        <div className={'footer_auth_card'}>
+          <p>Have an account?</p>
+          <button className="button" onClick={() => setCardVie(true)}>
+            Log in
+          </button>
+        </div>
       </StyledLoginHolder>
     );
   };
 
-  if (isLogin) {
+  if (cardVie) {
     return getLoginCard();
   } else {
     return getRegisterCard();

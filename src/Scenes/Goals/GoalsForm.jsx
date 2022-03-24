@@ -12,7 +12,6 @@ import { userIdSelector } from '../../store/selectors/user';
 
 const GoalsFormStyle = styled.div`
   display: flex;
-
   flex-direction: column;
   h3 {
     ${HeaderTittle}

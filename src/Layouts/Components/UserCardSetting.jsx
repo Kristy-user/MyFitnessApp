@@ -64,6 +64,7 @@ const UserCardSetting = () => {
   const userId = useSelector(userIdSelector);
   const { name, surname, age, height, weight } = useSelector(userPersonalData);
   const navig = useNavigate();
+
   useEffect(() => {
     fakeServerAPI.get('/userPersonalData').then((response) => {
       if (response.data[userId]) {

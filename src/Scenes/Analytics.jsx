@@ -12,13 +12,14 @@ import {
 } from 'chart.js';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { everyDayAnalyticsSelector } from '../../../store/selectors/analyticsToday';
-import { userIdSelector } from '../../../store/selectors/user';
-import { loadingTodayAnalytics } from '../../../store/actions/todayAnalytics';
-import fakeServerAPI from '../../../api/fakeServerAPI';
-import { goalsSelector } from '../../../store/selectors/goals';
+import { everyDayAnalyticsSelector } from 'store/selectors/analyticsToday';
+import { userIdSelector } from 'store/selectors/user';
+import { loadingTodayAnalytics } from 'store/actions/todayAnalytics';
+import fakeServerAPI from 'api/fakeServerAPI';
+import { goalsSelector } from 'store/selectors/goals';
 import styled from 'styled-components';
-import { TrainingAnalytics } from './TrainingAnalytics';
+import { TrainingAnalytics } from 'Layouts/Components/Analytics/TrainingAnalytics';
+import WeightAnalytics from 'Layouts/Components/Analytics/WeightAnalytics';
 
 ChartJS.register(
   CategoryScale,
@@ -34,23 +35,25 @@ const AnalyticsStyle = styled.div`
     margin: 5px;
     display: flex;
     flex-direction: row;
+    justify-content: center;
   }
   .tittle {
     font-size: 16px;
-    align-self: center;
+    color: ${(props) => props.theme.headerBackGroundColor};
     padding: 9.5px;
-    background-color: ${(props) => props.theme.buttonColor};
+    background-color: gray;
     border-radius: 6px 0 0 6px;
-    color: ${(props) => props.theme.fontColor};
   }
 
   .css-1s2u09g-control {
+    margin-right: 10px;
     border: none;
     border-radius: 0 6px 6px 0;
     width: fit-content;
-    background-color: ${(props) => props.theme.buttonColor};
+    background-color: gray;
     .css-qc6sy-singleValue {
-      color: ${(props) => props.theme.fontColor};
+      color: rgb(197, 230, 227);
+      text-shadow: 0px 0px 2px ${(props) => props.theme.buttonColor};
     }
   }
 `;
@@ -74,7 +77,19 @@ const Analytics = () => {
     { value: 10, label: 'November' },
     { value: 11, label: 'December' },
   ];
-  const [value, setValue] = useState(mounth[new Date().getMonth()]);
+  const years = [
+    { value: 2020, label: 2020 },
+    { value: 2021, label: 2021 },
+    { value: 2022, label: 2022 },
+    { value: 2023, label: 2023 },
+    { value: 2024, label: 2024 },
+    { value: 2025, label: 2025 },
+  ];
+
+  const [valueMounth, setValueMounth] = useState(mounth[new Date().getMonth()]);
+  const [valueYears, setValueYears] = useState(
+    years.find((item) => item.value == new Date().getFullYear())
+  );
 
   useEffect(() => {
     fakeServerAPI
@@ -89,19 +104,16 @@ const Analytics = () => {
       new Date(a.date.split('.').reverse().join('-')) -
       new Date(b.date.split('.').reverse().join('-'))
   );
-  let indexOfMounth = mounth.map((item) => item.value).indexOf(value.value);
 
   const labels = sortAnalyticsForDays.map((item) =>
-    new Date(item.date.split('.').reverse().join('-')).getMonth() == value.value
+    new Date(item.date.split('.').reverse().join('-')).getMonth() ==
+      valueMounth.value &&
+    new Date(item.date.split('.').reverse().join('-')).getFullYear() ==
+      valueYears.value
       ? item.date.split('').splice(0, 5).join('')
       : null
   );
-  console.log(
-    sortAnalyticsForDays.map((item) =>
-      item.date.split('').splice(3, 2).join('')
-    ),
-    value.value
-  );
+
   const options = {
     responsive: true,
     plugins: {
@@ -110,7 +122,9 @@ const Analytics = () => {
       },
       title: {
         display: true,
-        text: `Analytics of your steps (${mounth[value.value].label})`,
+        text: `Analytics of your steps (${mounth[valueMounth.value].label}, ${
+          valueYears.value
+        })`,
       },
     },
   };
@@ -120,35 +134,43 @@ const Analytics = () => {
       {
         label: 'Steps goal',
         data: labels.map((item) => goals.steps),
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        borderColor: '#e6e6e6',
+        backgroundColor: 'gray',
       },
       {
         label: 'Steps you done',
         data: sortAnalyticsForDays.map((item) =>
-          item.date.split('').splice(3, 2).join('') == +value.value + 1
+          item.date.split('').splice(3, 2).join('') == +valueMounth.value + 1
             ? item.numberSteps
             : null
         ),
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        borderColor: '#e6e6e6',
+        backgroundColor: '#3eb6b0',
       },
     ],
   };
 
   return (
     <AnalyticsStyle>
-      <Bar options={options} data={data} />
       <div className={'chooseForm'}>
         <div className={'tittle'}>Choose mounth:</div>
         <Select
-          className={'selectValue'}
-          value={value}
+          className={'selectValueMounth'}
+          value={valueMounth}
           options={mounth}
-          onChange={setValue}
+          onChange={setValueMounth}
+        />{' '}
+        <div className={'tittle'}>Choose year:</div>
+        <Select
+          className={'selectValueYears'}
+          value={valueYears}
+          options={years}
+          onChange={setValueYears}
         />
       </div>
-      <TrainingAnalytics />
+      <Bar options={options} data={data} />
+      <TrainingAnalytics mounth={valueMounth.value} year={valueYears.value} />
+      <WeightAnalytics mounth={valueMounth.value} year={valueYears.value} />
     </AnalyticsStyle>
   );
 };

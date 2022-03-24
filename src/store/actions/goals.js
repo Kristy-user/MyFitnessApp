@@ -21,15 +21,3 @@ export const createNewGoals = (goals, id) => {
       .then(() => dispatch(createGoals(goals)));
   };
 };
-
-export const EditUserGoals = (goal, value, id) => {
-  return (dispatch) => {
-    fakeServerAPI
-      .put(`/dataGoals`, {
-        [id]: {
-          goal: value,
-        },
-      })
-      .then(() => dispatch(editGoal(goal, value)));
-  };
-};
