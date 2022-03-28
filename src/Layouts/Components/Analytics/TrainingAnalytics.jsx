@@ -3,7 +3,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { goalsSelector } from '../../../store/selectors/goals';
+import { currentGoalsSelector } from '../../../store/selectors/goals';
 import { allActivitiesDoneSelector } from '../../../store/selectors/analytics';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -14,10 +14,15 @@ const PieStyle = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+
+  .power,
+  .cardio {
+    padding: 10px;
+  }
 `;
 
 export function TrainingAnalytics(props) {
-  const goals = useSelector(goalsSelector);
+  const goals = useSelector(currentGoalsSelector);
   const numberPowerTrainingForGoal = goals.powerTraining;
   const numberCardioTrainingForGoal = goals.cardioTraining;
 
@@ -47,6 +52,43 @@ export function TrainingAnalytics(props) {
       },
     ],
   };
+
+  const options1 = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: {
+          font: {
+            size: 16,
+          },
+        },
+      },
+      title: {
+        display: true,
+        text: `Analytics of your power training (number)`,
+        font: { size: 20 },
+      },
+    },
+  };
+  const options2 = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: {
+          font: {
+            size: 16,
+          },
+        },
+      },
+      title: {
+        display: true,
+        text: `Analytics of your cardio training (number)`,
+        font: { size: 20 },
+      },
+    },
+  };
   const dataCardio = {
     labels: ['Cardio trainings you have done', 'Cardio trainigs(your goal)'],
     datasets: [
@@ -61,8 +103,8 @@ export function TrainingAnalytics(props) {
   };
   return (
     <PieStyle>
-      <Pie data={dataPower} />
-      <Pie data={dataCardio} />
+      <Pie data={dataPower} options={options1} className={'power'} />
+      <Pie data={dataCardio} options={options2} className={'cardio'} />
     </PieStyle>
   );
 }

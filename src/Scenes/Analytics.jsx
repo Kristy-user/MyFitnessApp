@@ -16,10 +16,11 @@ import { everyDayAnalyticsSelector } from 'store/selectors/analyticsToday';
 import { userIdSelector } from 'store/selectors/user';
 import { loadingTodayAnalytics } from 'store/actions/todayAnalytics';
 import fakeServerAPI from 'api/fakeServerAPI';
-import { goalsSelector } from 'store/selectors/goals';
+
 import styled from 'styled-components';
 import { TrainingAnalytics } from 'Layouts/Components/Analytics/TrainingAnalytics';
 import WeightAnalytics from 'Layouts/Components/Analytics/WeightAnalytics';
+import { currentGoalsSelector } from '../store/selectors/goals';
 
 ChartJS.register(
   CategoryScale,
@@ -44,7 +45,10 @@ const AnalyticsStyle = styled.div`
     background-color: gray;
     border-radius: 6px 0 0 6px;
   }
-
+  .steps {
+    width: 80%;
+    margin: 25px auto;
+  }
   .css-1s2u09g-control {
     margin-right: 10px;
     border: none;
@@ -59,7 +63,7 @@ const AnalyticsStyle = styled.div`
 `;
 
 const Analytics = () => {
-  const goals = useSelector(goalsSelector);
+  const goals = useSelector(currentGoalsSelector);
   const userId = useSelector(userIdSelector);
   const dispatch = useDispatch();
 
@@ -116,15 +120,23 @@ const Analytics = () => {
 
   const options = {
     responsive: true,
+
     plugins: {
       legend: {
         position: 'top',
+        labels: {
+          font: {
+            size: 16,
+          },
+        },
       },
+
       title: {
         display: true,
         text: `Analytics of your steps (${mounth[valueMounth.value].label}, ${
           valueYears.value
         })`,
+        font: { size: 20 },
       },
     },
   };
@@ -159,7 +171,7 @@ const Analytics = () => {
           value={valueMounth}
           options={mounth}
           onChange={setValueMounth}
-        />{' '}
+        />
         <div className={'tittle'}>Choose year:</div>
         <Select
           className={'selectValueYears'}
@@ -168,9 +180,18 @@ const Analytics = () => {
           onChange={setValueYears}
         />
       </div>
-      <Bar options={options} data={data} />
+      <div className={'steps'}>
+        {' '}
+        <Bar options={options} data={data} />
+      </div>
+
       <TrainingAnalytics mounth={valueMounth.value} year={valueYears.value} />
-      <WeightAnalytics mounth={valueMounth.value} year={valueYears.value} />
+      <WeightAnalytics
+        mounth={valueMounth.value}
+        year={valueYears.value}
+        labels={labels}
+        data={sortAnalyticsForDays}
+      />
     </AnalyticsStyle>
   );
 };

@@ -17,8 +17,9 @@ const StyledModalWrapper = styled.div`
     border-radius: 6px;
     margin: 0 auto;
     padding: 10px;
-    min-width: 60%;
-    height: 80%;
+    min-width: 45%;
+    max-width: 60%;
+    height: fit-content;
     background-color: ${(props) => props.theme.modalWindow};
   }
 `;

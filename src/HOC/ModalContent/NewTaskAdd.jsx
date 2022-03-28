@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { ButtonStyle } from '../../Components/Button';
 import TasksList from '../../Layouts/Components/Tasks/TasksList';
 import { taskListSelector } from '../../store/selectors/tasksList';
-import { userIdSelector } from '../../store/selectors/user';
 
 const NewTaskStyle = styled.div`
   display: flex;

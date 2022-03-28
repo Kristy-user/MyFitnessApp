@@ -2,13 +2,20 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { CardStyle } from '../../Components/CardTemplate';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import fakeServerAPI from '../../api/fakeServerAPI';
-import { userPersonalData } from '../../store/selectors/userPersonalData';
+import {
+  currentUserPersonalData,
+  userPersonalData,
+} from '../../store/selectors/userPersonalData';
 import { useDispatch, useSelector } from 'react-redux';
 import { userIdSelector } from '../../store/selectors/user';
-import { setUserPersonalData } from '../../store/actions/userPersonalData';
+import {
+  loadingUserPersonalData,
+  setUserPersonalData,
+} from '../../store/actions/userPersonalData';
 import lendingImg from '../../assets/images/login.jpg';
+import UserCardSetting from '../Components/UserCardSetting';
 
 const UserCardStyle = styled.div`
   ${CardStyle}
@@ -69,41 +76,39 @@ const UserCardStyle = styled.div`
 const UserCard = () => {
   const userId = useSelector(userIdSelector);
   const dispatch = useDispatch();
-  useEffect(() => {
-    fakeServerAPI.get('/userPersonalData').then((response) => {
-      if (response.data[userId]) {
-        dispatch(setUserPersonalData(response.data[userId]));
-      }
-    });
-  }, []);
+  const currentUser = useSelector(currentUserPersonalData);
 
-  const { name, surname, age, height, weight } = useSelector(userPersonalData);
-  if (name) {
-    return (
-      <UserCardStyle>
-        <div className={'edit'}>
-          <Link to={'personalData'} className={'edit_user icon'}></Link>
-        </div>
-        <div className={'userName'}>
-          <h3>
-            {name} {surname},
-          </h3>
-          <p>{age} years</p>
-        </div>
-        <div className={'userData'}>
-          <p>
-            Height: <span className="number"> {height} sm</span>
-          </p>
-          <p>
-            Weight:<span className="number"> {weight} kg</span>
-          </p>
-        </div>
-        <div className={'logout'}>
-          <Link to={'/autorization'} className={'logout_user icon'}></Link>
-        </div>
-      </UserCardStyle>
-    );
-  } else return <div></div>;
+  return (
+    <UserCardStyle>
+      <div className={'edit'}>
+        <Link to={'personalData'} className={'edit_user icon'}></Link>
+      </div>
+      <div className={'userName'}>
+        <h3>
+          {currentUser ? currentUser.name : 'Name'}
+          {currentUser ? currentUser.surname : 'Surname'},
+        </h3>
+        <p>{currentUser ? currentUser.age : '--'} years</p>
+      </div>
+      <div className={'userData'}>
+        <p>
+          Height:
+          <span className="number">
+            {currentUser ? currentUser.height : '--'} sm
+          </span>
+        </p>
+        <p>
+          Weight:
+          <span className="number">
+            {currentUser ? currentUser.weight : '--'} kg
+          </span>
+        </p>
+      </div>
+      <div className={'logout'}>
+        <Link to={'/autorization'} className={'logout_user icon'}></Link>
+      </div>
+    </UserCardStyle>
+  );
 };
 
 export default UserCard;

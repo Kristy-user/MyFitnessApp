@@ -2,27 +2,23 @@
   "users": [
     {
       "email": "test@mail.ru",
-      "password": "$2a$10$LOKXQKYDMTpzM6ms/SdeZe50lCW/Kzhx69V1hMEXLHJ2kNRus/PZK",
+      "password": "$2a$10$0wA60f90T7Vu0IWtLEoBY.ku74EXab04jKJtoG65Q1.VvAnxxwEMG",
       "id": 1
     }
   ],
-  "userPersonalData": {
-    "1": {
-      "name": "Some",
-      "surname": "User",
-      "age": "29",
-      "height": "170",
-      "weight": "57"
-    }
-  },
-  "tasks": [
+  "userPersonalData": [
     {
       "userId": 1,
-      "date": "10.03.2022",
-      "title": "bgsgsd",
-      "completed": false,
-      "id": 14
-    },
+      "name": "Name",
+      "surname": "Surname",
+      "age": "29",
+      "height": "59",
+      "weight": "170",
+      "filled": true,
+      "id": 1
+    }
+  ],
+  "tasks": [
     {
       "userId": 1,
       "date": "10.03.2022",
@@ -106,17 +102,27 @@
       "title": " call someone",
       "completed": false,
       "id": 39
+    },
+    {
+      "userId": 1,
+      "date": "25.03.2022",
+      "title": "uykmdm",
+      "completed": false,
+      "id": 40
     }
   ],
-  "dataGoals": {
-    "1": {
-      "water": "2700",
-      "powerTraining": "6",
-      "cardioTraining": "8",
-      "steps": "10000",
-      "weight": "60"
+  "dataGoals": [
+    {
+      "userId": 1,
+      "water": "2400",
+      "powerTraining": "5",
+      "cardioTraining": "6",
+      "steps": "12000",
+      "weight": "55",
+      "filled": true,
+      "id": 2
     }
-  },
+  ],
   "dataAnalytics": [
     {
       "numberFullGlass": 0,
@@ -127,11 +133,11 @@
       "id": 2
     },
     {
-      "numberFullGlass": 4,
-      "numberPowerTraining": 3,
-      "numberCardioTraining": 4,
+      "numberFullGlass": 2,
+      "numberPowerTraining": 1,
+      "numberCardioTraining": 1,
       "userId": 1,
-      "date": "24.03.2022",
+      "date": "28.03.2022",
       "id": 3
     }
   ],
@@ -205,6 +211,13 @@
       "date": "23.03.2022",
       "userId": 1,
       "id": 16
+    },
+    {
+      "numberSteps": "15000",
+      "weight": "57",
+      "date": "25.03.2022",
+      "userId": 1,
+      "id": 17
     }
   ]
 }

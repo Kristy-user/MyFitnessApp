@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadingTaskList } from 'store/actions/tasks';
@@ -8,14 +8,17 @@ import 'react-datepicker/dist/react-datepicker.css';
 import fakeServerAPI from '../../api/fakeServerAPI';
 import { newTask } from '../../store/actions/tasks';
 import { ButtonStyle } from '../../Components/Button';
-import { StyledLoader } from '../../Components/Loader';
 import { taskListSelector } from '../../store/selectors/tasksList';
-import { personalDataisCreated } from '../../store/selectors/userPersonalData';
-import UserCardSetting from '../Components/UserCardSetting';
+import { currentUserPersonalData } from '../../store/selectors/userPersonalData';
 import { HeaderTittle } from '../../Components/HeaderTittle';
 import { userIdSelector } from '../../store/selectors/user';
 import GoalsManagement from '../Components/GoalsManagement';
 import DataAnalyticsToday from '../Components/Analytics/DataAnalyticsToday';
+import { currentGoalsSelector } from '../../store/selectors/goals';
+import { loadingUserPersonalData } from '../../store/actions/userPersonalData';
+import { loadingUserGoals } from '../../store/actions/goals';
+import PromptWindow from '../../HOC/ModalContent/PromptWindow';
+import { ModalContext } from '../../HOC/GlobalModalProvider';
 
 const CardTaskStyle = styled.div`
   font-size: 18px;
@@ -41,7 +44,6 @@ const CardTaskStyle = styled.div`
       max-width: 130px;
     }
   }
-
   .date_picker {
     text-shadow: 0px 0px 6px ${(props) => props.theme.buttonColor};
     border: none;
@@ -89,15 +91,43 @@ const DayTasks = () => {
   const [task, setTask] = useState('');
   const dispatch = useDispatch();
   const userId = useSelector(userIdSelector);
-  const personalDataUserisCreated = useSelector(personalDataisCreated);
+  const openModal = useContext(ModalContext);
+  const currentGoals = useSelector(currentGoalsSelector);
+  const currentUser = useSelector(currentUserPersonalData);
 
   useEffect(() => {
-    fakeServerAPI
-      .get(`/tasks?userId=${userId}`)
-      .then((response) => dispatch(loadingTaskList(response.data)));
+    fakeServerAPI.get(`/userPersonalData?userId=${userId}`).then((response) => {
+      if (response.data) {
+        dispatch(loadingUserPersonalData(response.data));
+      }
+    });
   }, []);
 
-  if (personalDataUserisCreated) {
+  useEffect(() => {
+    fakeServerAPI.get(`/tasks?userId=${userId}`).then((response) => {
+      if (response.data) {
+        dispatch(loadingTaskList(response.data));
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    fakeServerAPI.get(`/dataGoals?userId=${userId}`).then((response) => {
+      if (response.data) {
+        dispatch(loadingUserGoals(response.data));
+      }
+    });
+  }, []);
+
+  if (!currentGoals) {
+    openModal(<PromptWindow setModal={openModal} link={'goals'} />);
+    return <CardTaskStyle></CardTaskStyle>;
+  }
+  if (!currentUser) {
+    openModal(<PromptWindow setModal={openModal} link={'personalData'} />);
+    return <CardTaskStyle></CardTaskStyle>;
+  } else {
+    openModal(false);
     return (
       <React.Fragment>
         <CardTaskStyle>
@@ -112,7 +142,6 @@ const DayTasks = () => {
               onChange={(date) => setStartDate(date)}
             />
           </div>
-
           {tasksList.filter(
             (task) => task.date === startDate.toLocaleDateString()
           ).length === 0 ? (
@@ -148,8 +177,6 @@ const DayTasks = () => {
         <GoalsManagement />
       </React.Fragment>
     );
-  } else {
-    return <UserCardSetting />;
   }
 };
 

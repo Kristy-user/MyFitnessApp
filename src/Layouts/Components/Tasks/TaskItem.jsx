@@ -76,7 +76,7 @@ const TaskItem = ({ task, index }) => {
   if (task.completed) {
     classes.push('done');
   }
-  console.log(task.title);
+
   return (
     <ListStyle>
       <li>

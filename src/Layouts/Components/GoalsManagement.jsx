@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { goalsSelector } from '../../store/selectors/goals';
+import { currentGoalsSelector } from '../../store/selectors/goals';
 import { userIdSelector } from '../../store/selectors/user';
 import {
   addNewMounthAnalytics,
@@ -17,6 +17,8 @@ import {
   isSelector,
 } from '../../store/selectors/analytics';
 import { StyledLoader } from '../../Components/Loader';
+import MyGoals from '../../Scenes/Goals/MyGoals';
+import { useNavigate } from 'react-router-dom';
 
 const ActivityStyleWrapper = styled.div`
   display: flex;
@@ -91,9 +93,8 @@ const ActivityStyleWrapper = styled.div`
 
 const GoalsManagement = () => {
   const userId = useSelector(userIdSelector);
-  const goals = useSelector(goalsSelector);
+  const currentGoals = useSelector(currentGoalsSelector);
   const dispatch = useDispatch();
-  const allWaterGlasses = goals.water / 300;
   const userGoalsFullfilling = useSelector(allActivitiesDoneSelector);
   const dataIsLoaded = useSelector(isLoadedDataSelector);
 
@@ -106,6 +107,7 @@ const GoalsManagement = () => {
   useEffect(() => {
     dispatch(loadingUserAnalytics(userId));
   }, []);
+
   let thisMounthData = {};
   thisMounthData =
     userGoalsFullfilling.find(
@@ -125,19 +127,19 @@ const GoalsManagement = () => {
       ? thisMounthData.numberCardioTraining
       : 0
   );
-
+  const allWaterGlasses = currentGoals.water / 300;
   const glasses = [];
   const fullGlasses = [];
   glasses.length = allWaterGlasses - numberFullGlass;
   fullGlasses.length = numberFullGlass;
 
-  const allPowerTraining = goals.powerTraining;
+  const allPowerTraining = currentGoals.powerTraining;
   let plainPowerTraining = [];
   let completedPowerTraining = [];
   completedPowerTraining.length = numberPowerTraining;
   plainPowerTraining.length = allPowerTraining - numberPowerTraining;
 
-  const allCardioTraining = goals.cardioTraining;
+  const allCardioTraining = currentGoals.cardioTraining;
   let plainCardioTraining = [];
   let completedCardioTraining = [];
   completedCardioTraining.length = numberCardioTraining;
@@ -182,69 +184,62 @@ const GoalsManagement = () => {
         : dispatch(addNewMounthAnalytics(analyticsData));
     }
   }, [numberFullGlass, numberPowerTraining, numberCardioTraining]);
+  console.log(dataIsLoaded, currentGoals);
 
-  console.log(goals.water, dataIsLoaded);
-  if (dataIsLoaded) {
-    return (
-      <ActivityStyleWrapper>
-        <div className={'water_part'}>
-          <div className={'water_wrapper'}>
-            {fullGlasses.fill(
-              <div className={'icon fullglass'} onClick={handleCompletedGoal}>
-                <p>300ml</p>
-              </div>
-            )}
-            {glasses.fill(
-              <div className={'icon glass'} onClick={handleCompletedGoal}>
-                <p>300ml</p>
-              </div>
-            )}
-          </div>
-          <p className={'title'}>
-            *click if you drank <span>water</span> today.
-          </p>
+  return (
+    <ActivityStyleWrapper>
+      <div className={'water_part'}>
+        <div className={'water_wrapper'}>
+          {fullGlasses.fill(
+            <div className={'icon fullglass'} onClick={handleCompletedGoal}>
+              <p>300ml</p>
+            </div>
+          )}
+          {glasses.fill(
+            <div className={'icon glass'} onClick={handleCompletedGoal}>
+              <p>300ml</p>
+            </div>
+          )}
         </div>
-        <p className={'analytic_title'}>current data for mounth</p>
-        <div className={'power_part'}>
-          <div className={'power_wrapper'}>
-            {completedPowerTraining.fill(
-              <div
-                className={'icon completedPower'}
-                onClick={handleCompletedGoal}
-              ></div>
-            )}
-            {plainPowerTraining.fill(
-              <div className={'icon power'} onClick={handleCompletedGoal}></div>
-            )}
-          </div>
-          <p className={'title'}>
-            *click if you have done <span>power</span> training
-          </p>
+        <p className={'title'}>
+          *click if you drank <span>water</span> today.
+        </p>
+      </div>
+      <p className={'analytic_title'}>current data for mounth</p>
+      <div className={'power_part'}>
+        <div className={'power_wrapper'}>
+          {completedPowerTraining.fill(
+            <div
+              className={'icon completedPower'}
+              onClick={handleCompletedGoal}
+            ></div>
+          )}
+          {plainPowerTraining.fill(
+            <div className={'icon power'} onClick={handleCompletedGoal}></div>
+          )}
         </div>
-        <div className={'cardio_part'}>
-          <div className={'cardio_wrapper'}>
-            {completedCardioTraining.fill(
-              <div
-                className={'icon completedCardio'}
-                onClick={handleCompletedGoal}
-              ></div>
-            )}
-            {plainCardioTraining.fill(
-              <div
-                className={'icon cardio'}
-                onClick={handleCompletedGoal}
-              ></div>
-            )}
-          </div>
-          <p className={'title'}>
-            *click if you have done <span>cardio</span> training
-          </p>
+        <p className={'title'}>
+          *click if you have done <span>power</span> training
+        </p>
+      </div>
+      <div className={'cardio_part'}>
+        <div className={'cardio_wrapper'}>
+          {completedCardioTraining.fill(
+            <div
+              className={'icon completedCardio'}
+              onClick={handleCompletedGoal}
+            ></div>
+          )}
+          {plainCardioTraining.fill(
+            <div className={'icon cardio'} onClick={handleCompletedGoal}></div>
+          )}
         </div>
-      </ActivityStyleWrapper>
-    );
-  } else {
-    return <ActivityStyleWrapper></ActivityStyleWrapper>;
-  }
+        <p className={'title'}>
+          *click if you have done <span>cardio</span> training
+        </p>
+      </div>
+    </ActivityStyleWrapper>
+  );
 };
 
 export default GoalsManagement;

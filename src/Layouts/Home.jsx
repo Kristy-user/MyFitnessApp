@@ -1,13 +1,20 @@
-import React, { useContext, useState } from 'react';
-import styled, { css, createGlobalStyle } from 'styled-components';
+import React, { useContext, useEffect } from 'react';
+import styled from 'styled-components';
 import { ThemeContext } from 'HOC/GlobalThemeProvider';
-import RootRouter from '../Route/ReactRouter';
+
 import NavigateBlock from './MainLayout/NavigateBlock';
 import UserCard from './MainLayout/UserCard';
-import lendingImg from 'assets/images/login.jpg';
-import { Outlet } from 'react-router-dom';
+
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import background from 'assets/images/background.jpg';
 import { LogoStyle } from '../Components/Logo';
+
+import { userIdSelector } from '../store/selectors/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { userPersonalData } from '../store/selectors/userPersonalData';
+import Loader from '../Components/Loader';
+import fakeServerAPI from '../api/fakeServerAPI';
+import { loadingUserPersonalData } from '../store/actions/userPersonalData';
 
 const StyledLayout = styled.div`
   margin: auto;
@@ -112,8 +119,19 @@ const StyledLayout = styled.div`
   }
 `;
 
-const Home = (props) => {
+const Home = () => {
   const changeTheme = useContext(ThemeContext);
+  const usersData = useSelector(userPersonalData);
+  const dispatch = useDispatch();
+  const currentUser = usersData.find((data) => data.id === userId);
+  const userId = useSelector(userIdSelector);
+  useEffect(() => {
+    fakeServerAPI.get(`/userPersonalData?userId=${userId}`).then((response) => {
+      if (response.data) {
+        dispatch(loadingUserPersonalData(response.data));
+      }
+    });
+  }, []);
 
   return (
     <StyledLayout>
@@ -139,7 +157,6 @@ const Home = (props) => {
         </div>
         <div className="rightLayout">
           <UserCard />
-          {/* <Calendar /> */}
         </div>
       </div>
     </StyledLayout>

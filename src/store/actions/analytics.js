@@ -36,7 +36,8 @@ export const refreshAnalytics = (analytics, id) => {
           id: id,
         })
       )
-      .then(() =>
+      .then((response) => {
+        console.log(response.data);
         dispatch(
           setUserAnalytics({
             numberFullGlass: analytics.numberFullGlass,
@@ -46,8 +47,8 @@ export const refreshAnalytics = (analytics, id) => {
             date: analytics.date,
             id: id,
           })
-        )
-      );
+        );
+      });
   };
 };
 export const addNewMounthAnalytics = (analytics) => {

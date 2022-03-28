@@ -15,7 +15,7 @@ const RootRouter = () => {
   const user = useSelector((state) => state.userReduser);
 
   const renderForLoggedInUser = (component) =>
-    user.isLoggedIn ? component : <Navigate to={'/autorization'} />;
+    !user.isLoggedIn ? <Navigate to={'/autorization'} /> : component;
 
   const getUserStartPage = () =>
     user.isLoggedIn ? (

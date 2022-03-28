@@ -10,6 +10,10 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { useSelector } from 'react-redux';
+
+import { currentGoalsSelector } from '../../../store/selectors/goals';
+import styled from 'styled-components';
 
 ChartJS.register(
   CategoryScale,
@@ -21,34 +25,62 @@ ChartJS.register(
   Legend
 );
 
+const LineStyle = styled.div`
+  width: 80%;
+  margin: 30px auto;
+  font-size: 20px;
+`;
+
 export const options = {
   responsive: true,
   plugins: {
     legend: {
       position: 'top',
+      labels: {
+        font: {
+          size: 16,
+        },
+      },
     },
     title: {
       display: true,
-      text: 'Chart.js Line Chart',
+      text: 'Analitycs of your weight, (kg)',
+      font: { size: 20 },
     },
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const WeightAnalytics = (props) => {
+  const goals = useSelector(currentGoalsSelector);
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: [55, 57, 58, 60, 52, 55, 60],
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-  ],
-};
+  const data = {
+    labels: props.labels,
+    datasets: [
+      {
+        label: 'Desired weight',
+        data: props.labels.map((item) => goals.weight),
+        borderColor: '#ec9696',
+        backgroundColor: '#e6e6e6',
+        // borderWidth: 2,
+      },
+      {
+        label: 'Current weight',
+        data: props.data.map((item) =>
+          item.date.split('').splice(3, 2).join('') == +props.mounth + 1
+            ? item.weight
+            : null
+        ),
+        borderColor: '#3eb6b0',
+        backgroundColor: '#e6e6e6',
+        // borderWidth: 3,
+      },
+    ],
+  };
 
-const WeightAnalytics = () => {
-  return <Line options={options} data={data} />;
+  return (
+    <LineStyle>
+      <Line options={options} data={data} />
+    </LineStyle>
+  );
 };
 export default WeightAnalytics;

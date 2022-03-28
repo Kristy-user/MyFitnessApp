@@ -1,3 +1,6 @@
-export const userPersonalData = (store) => store.userPersonalDataReduser;
-export const personalDataisCreated = (store) =>
-  store.userPersonalDataReduser.isCreated;
+export const userPersonalData = (store) =>
+  store.userPersonalDataReduser.userPersonalData;
+export const currentUserPersonalData = (store) =>
+  store.userPersonalDataReduser.userPersonalData.find(
+    (data) => data.userId === store.userReduser.id
+  );

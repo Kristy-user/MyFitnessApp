@@ -1,20 +1,19 @@
 import { Form, Formik } from 'formik';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import fakeServerAPI from '../../api/fakeServerAPI';
+
 import { ButtonStyle } from '../../Components/Button';
 import FormikInput from '../../Components/formikFields/FormikInput';
 import FormikInputNumber from '../../Components/formikFields/FormikInputNumber';
 import { HeaderTittle } from '../../Components/HeaderTittle';
 import {
-  editUserPersonalData,
+  newUserPersonalData,
   refreshUserPersonalData,
-  setUserPersonalData,
 } from '../../store/actions/userPersonalData';
 import { userIdSelector } from '../../store/selectors/user';
-import { userPersonalData } from '../../store/selectors/userPersonalData';
+import { currentUserPersonalData } from '../../store/selectors/userPersonalData';
 
 const UserDataStyle = styled.div`
   box-shadow: 0 5px 30px 0 ${(props) => props.theme.cardBackGroundColor};
@@ -62,16 +61,8 @@ const UserDataStyle = styled.div`
 const UserCardSetting = () => {
   const dispatch = useDispatch();
   const userId = useSelector(userIdSelector);
-  const { name, surname, age, height, weight } = useSelector(userPersonalData);
+  const currentUser = useSelector(currentUserPersonalData);
   const navig = useNavigate();
-
-  useEffect(() => {
-    fakeServerAPI.get('/userPersonalData').then((response) => {
-      if (response.data[userId]) {
-        dispatch(setUserPersonalData(response.data[userId]));
-      }
-    });
-  }, []);
 
   const validate = (values) => {
     const errors = {};
@@ -95,16 +86,20 @@ const UserCardSetting = () => {
 
       <Formik
         initialValues={{
-          name: name ? name : '',
-          surname: surname ? surname : '',
-          age: age ? age : '',
-          height: height ? height : '',
-          weight: weight ? weight : '',
+          name: currentUser ? currentUser.name : '',
+          surname: currentUser ? currentUser.surname : '',
+          age: currentUser ? currentUser.age : '',
+          height: currentUser ? currentUser.height : '',
+          weight: currentUser ? currentUser.weight : '',
         }}
         validate={validate}
         onSubmit={(formValues) => {
-          dispatch(refreshUserPersonalData(formValues, userId));
-          dispatch(editUserPersonalData(true));
+          if (currentUser) {
+            dispatch(refreshUserPersonalData(formValues, currentUser));
+          } else {
+            dispatch(newUserPersonalData(formValues, userId));
+          }
+
           navig('/home');
         }}
       >

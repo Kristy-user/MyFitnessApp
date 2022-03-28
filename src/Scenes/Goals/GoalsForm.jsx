@@ -6,9 +6,18 @@ import styled from 'styled-components';
 import fakeServerAPI from '../../api/fakeServerAPI';
 import { ButtonStyle } from '../../Components/Button';
 import { HeaderTittle } from '../../Components/HeaderTittle';
-import { editGoal, loadingUserGoals } from '../../store/actions/goals';
-import { goalsSelector } from '../../store/selectors/goals';
+import {
+  editGoal,
+  loadingUserGoals,
+  showEditGoalsCard,
+} from '../../store/actions/goals';
+import {
+  currentGoalsSelector,
+  goalsSelector,
+  showEditGoalsSelector,
+} from '../../store/selectors/goals';
 import { userIdSelector } from '../../store/selectors/user';
+import MyGoals from './MyGoals';
 
 const GoalsFormStyle = styled.div`
   display: flex;
@@ -45,19 +54,13 @@ const GoalsFormStyle = styled.div`
 `;
 
 const GoalsForm = () => {
-  const goals = useSelector(goalsSelector);
+  const currentGoals = useSelector(currentGoalsSelector);
   const dispatch = useDispatch();
-  const userId = useSelector(userIdSelector);
-  useEffect(() => {
-    fakeServerAPI.get('/dataGoals').then((response) => {
-      if (response.data[userId]) {
-        dispatch(loadingUserGoals(response.data[userId]));
-      }
-    });
-  }, []);
+
   const handleEditGoal = () => {
-    dispatch(editGoal(false));
+    dispatch(showEditGoalsCard(false));
   };
+
   return (
     <GoalsFormStyle>
       <div>
@@ -65,28 +68,28 @@ const GoalsForm = () => {
         <ul>
           <li>
             The amount of water per day:
-            <span>{goals.water} </span>ml.
+            <span>{currentGoals.water} </span>ml.
           </li>
           <li>
             The number of steps per day:
             <span>
-              {goals.steps
-                ? goals.steps.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+              {currentGoals.steps
+                ? currentGoals.steps.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
                 : ''}
             </span>
             steps.
           </li>
           <li>
             The required number of power training per month:
-            <span>{goals.powerTraining}</span> pcs.
+            <span>{currentGoals.powerTraining}</span> pcs.
           </li>
           <li>
             The required number of cardio training you need per month:
-            <span>{goals.cardioTraining}</span>pcs.
+            <span>{currentGoals.cardioTraining}</span>pcs.
           </li>
           <li>
             The weight you want to reach:
-            <span>{goals.weight}</span>kg.
+            <span>{currentGoals.weight}</span>kg.
           </li>
         </ul>
       </div>

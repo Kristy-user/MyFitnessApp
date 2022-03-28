@@ -166,8 +166,8 @@ const Login = () => {
           <div className={'cardBody'}>
             <Formik
               initialValues={{
-                email: '',
-                password: '',
+                email: 'test@mail.ru',
+                password: '1111lL',
                 confirmPassword: '',
               }}
               validate={validate}

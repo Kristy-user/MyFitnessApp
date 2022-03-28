@@ -1,5 +1,5 @@
 import { Form, Formik } from 'formik';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 ('../../../store/actions/goals');
@@ -7,14 +7,13 @@ import GoalsForm from './GoalsForm';
 import { HeaderTittle } from '../../Components/HeaderTittle';
 import { ButtonStyle } from '../../Components/Button';
 
-import {
-  createNewGoals,
-  editGoal,
-  loadingUserGoals,
-} from '../../store/actions/goals';
+import { createNewGoals, refreshGoals } from '../../store/actions/goals';
 import { userIdSelector } from '../../store/selectors/user';
-import { goalsSelector } from '../../store/selectors/goals';
-import fakeServerAPI from '../../api/fakeServerAPI';
+import {
+  currentGoalsSelector,
+  showEditGoalsSelector,
+} from '../../store/selectors/goals';
+
 import FormikInputNumber from '../../Components/formikFields/FormikInputNumber';
 import FormikRadio from '../../Components/formikFields/FormikRadio';
 
@@ -54,21 +53,13 @@ const MyGoalsStyle = styled.div`
 const MyGoals = () => {
   const dispatch = useDispatch();
   const userId = useSelector(userIdSelector);
-  const goals = useSelector(goalsSelector);
-
-  useEffect(() => {
-    fakeServerAPI.get('/dataGoals').then((response) => {
-      if (response.data[userId]) {
-        dispatch(loadingUserGoals(response.data[userId]));
-      }
-    });
-  }, []);
+  const currentGoals = useSelector(currentGoalsSelector);
+  const showEditGoals = useSelector(showEditGoalsSelector);
 
   const validate = (values) => {
     const errors = {};
     let isError = false;
     const keys = Object.keys(values);
-
     keys.forEach((key) => {
       if (!values[key]) {
         errors[key] = 'Required';
@@ -81,7 +72,8 @@ const MyGoals = () => {
 
     if (isError) return errors;
   };
-  if (!goals.isEdited) {
+
+  if (!showEditGoals) {
     return (
       <MyGoalsStyle>
         <div className={'goalsTitle'}>
@@ -90,16 +82,21 @@ const MyGoals = () => {
 
         <Formik
           initialValues={{
-            water: goals.water ? goals.water : 'null',
-            powerTraining: goals.powerTraining ? goals.powerTraining : '',
-            cardioTraining: goals.cardioTraining ? goals.cardioTraining : '',
-            steps: goals.steps ? goals.steps : '',
-            weight: goals.weight ? goals.weight : '',
+            water: currentGoals ? currentGoals.water : 'null',
+            powerTraining: currentGoals ? currentGoals.powerTraining : '',
+            cardioTraining: currentGoals ? currentGoals.cardioTraining : '',
+            steps: currentGoals ? currentGoals.steps : '',
+            weight: currentGoals ? currentGoals.weight : '',
           }}
           validate={validate}
           onSubmit={(formValues) => {
-            dispatch(createNewGoals(formValues, userId));
-            dispatch(editGoal(true));
+            if (currentGoals) {
+              console.log('refresh');
+              dispatch(refreshGoals(formValues, currentGoals));
+            } else {
+              console.log('NewGoals');
+              dispatch(createNewGoals(formValues, userId));
+            }
           }}
         >
           <Form>

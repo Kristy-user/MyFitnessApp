@@ -1,31 +1,28 @@
-import { createReducer } from '@reduxjs/toolkit';
+import { createReducer, isAsyncThunkAction } from '@reduxjs/toolkit';
 import {
-  editUserPersonalData,
+  loadingUserPersonalData,
+  removeUserPersonalData,
   setUserPersonalData,
 } from '../actions/userPersonalData';
 
 const initialState = {
-  name: null,
-  surname: null,
-  age: null,
-  height: null,
-  weight: null,
-  isCreated: false,
+  userPersonalData: [],
 };
 
 export const userPersonalDataReduser = createReducer(
   initialState,
   (builder) => {
     builder
-      .addCase(setUserPersonalData, (state, action) => {
-        state.name = action.payload.name;
-        state.surname = action.payload.surname;
-        state.age = action.payload.age;
-        state.height = action.payload.height;
-        state.weight = action.payload.weight;
+      .addCase(loadingUserPersonalData, (state, action) => {
+        state.userPersonalData = action.payload;
       })
-      .addCase(editUserPersonalData, (state, action) => {
-        state.isCreated = true;
+      .addCase(setUserPersonalData, (state, action) => {
+        state.userPersonalData = [...state.userPersonalData, action.payload];
+      })
+      .addCase(removeUserPersonalData, (state, action) => {
+        state.userPersonalData = state.userPersonalData.filter(
+          (data) => data.id !== action.payload
+        );
       });
   }
 );

@@ -103,7 +103,9 @@ const DataAnalyticsToday = () => {
   useEffect(() => {
     fakeServerAPI
       .get(`/dataTodayAnalytics?userId=${userId}`)
-      .then((response) => dispatch(loadingTodayAnalytics(response.data)));
+      .then((response) =>
+        response.data ? dispatch(loadingTodayAnalytics(response.data)) : null
+      );
   }, []);
 
   const isDataToday =
@@ -129,13 +131,14 @@ const DataAnalyticsToday = () => {
     });
     if (isError) return errors;
   };
+  console.log(isDataToday);
   return (
     <DataTodayWrapper>
       <p className={'analytic_title'}>current data for today</p>
       <Formik
         initialValues={{
-          numberSteps: isDataToday.numberSteps ? isDataToday.numberSteps : '',
-          weight: isDataToday.weight ? isDataToday.weight : '',
+          numberSteps: isDataToday ? isDataToday.numberSteps : '',
+          weight: isDataToday ? isDataToday.weight : '',
           date: new Date().toLocaleDateString(),
           userId: userId,
         }}
