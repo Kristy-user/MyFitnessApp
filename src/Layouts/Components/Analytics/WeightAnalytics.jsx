@@ -52,27 +52,30 @@ export const options = {
 
 const WeightAnalytics = (props) => {
   const goals = useSelector(currentGoalsSelector);
+  const arrayOfWeight = props.data
+    .filter(
+      (item) => item.date.split('').splice(3, 2).join('') == +props.mounth + 1
+    )
+    .map((item) => item.weight);
 
   const data = {
     labels: props.labels,
     datasets: [
       {
         label: 'Desired weight',
-        data: props.labels.map((item) => goals.weight),
-        borderColor: '#ec9696',
+        data: arrayOfWeight.map(() => goals.weight),
+        borderColor: '#d697d8',
         backgroundColor: '#e6e6e6',
-        // borderWidth: 2,
       },
       {
         label: 'Current weight',
-        data: props.data.map((item) =>
-          item.date.split('').splice(3, 2).join('') == +props.mounth + 1
-            ? item.weight
-            : null
-        ),
+        data: [
+          ...arrayOfWeight,
+          Math.min.apply(null, arrayOfWeight) - 3,
+          Math.max.apply(null, arrayOfWeight) + 3,
+        ],
         borderColor: '#3eb6b0',
         backgroundColor: '#e6e6e6',
-        // borderWidth: 3,
       },
     ],
   };

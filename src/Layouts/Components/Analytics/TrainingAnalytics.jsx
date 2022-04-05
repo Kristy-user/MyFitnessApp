@@ -6,18 +6,30 @@ import { useSelector } from 'react-redux';
 import { currentGoalsSelector } from '../../../store/selectors/goals';
 import { allActivitiesDoneSelector } from '../../../store/selectors/analytics';
 
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PieStyle = styled.div`
+const ProgressbarStyle = styled.div`
   margin: 30px auto;
-  width: 45%;
+  width: 75%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-
+  p {
+    font-size: 20px;
+    color: #5a5a5aca;
+    font-weight: bold;
+    margin: 20px;
+  }
+  .circularBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
   .power,
   .cardio {
-    padding: 10px;
+    margin: 10px;
   }
 `;
 
@@ -40,71 +52,48 @@ export function TrainingAnalytics(props) {
   const numberPowerTrainingDone = thisMounthData.numberPowerTraining;
   const numberCardioTrainingDone = thisMounthData.numberCardioTraining;
 
-  const dataPower = {
-    labels: ['Power trainings you have done', 'Power trainigs(your goal)'],
-    datasets: [
-      {
-        label: 'dvdsfbryjtydmn ',
-        data: [numberPowerTrainingDone, numberPowerTrainingForGoal],
-        backgroundColor: ['#3eb6b0', '#262626'],
-        borderColor: ['#e6e6e6', '#e6e6e6'],
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  const options1 = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-        labels: {
-          font: {
-            size: 16,
-          },
-        },
-      },
-      title: {
-        display: true,
-        text: `Analytics of your power training (number)`,
-        font: { size: 20 },
-      },
-    },
-  };
-  const options2 = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-        labels: {
-          font: {
-            size: 16,
-          },
-        },
-      },
-      title: {
-        display: true,
-        text: `Analytics of your cardio training (number)`,
-        font: { size: 20 },
-      },
-    },
-  };
-  const dataCardio = {
-    labels: ['Cardio trainings you have done', 'Cardio trainigs(your goal)'],
-    datasets: [
-      {
-        label: '',
-        data: [numberCardioTrainingDone, numberCardioTrainingForGoal],
-        backgroundColor: ['rgba(255, 99, 132, 0.2)', 'gray'],
-        borderColor: ['#e6e6e6', '#e6e6e6'],
-        borderWidth: 1,
-      },
-    ],
-  };
   return (
-    <PieStyle>
-      <Pie data={dataPower} options={options1} className={'power'} />
-      <Pie data={dataCardio} options={options2} className={'cardio'} />
-    </PieStyle>
+    <ProgressbarStyle>
+      <p>Analytics of your training for {props.labelMounth} (number)</p>
+      <div className={'circularBar'}>
+        <div className={'cardio'}>
+          <p>Cardio training</p>
+          <CircularProgressbar
+            value={
+              (numberCardioTrainingDone / numberCardioTrainingForGoal) * 100 ||
+              0
+            }
+            text={
+              `${
+                numberCardioTrainingDone || '0'
+              } / ${numberCardioTrainingForGoal}
+        ` || 0
+            }
+            styles={buildStyles({
+              textColor: 'gray',
+              pathColor: '#3eb6b0',
+              trailColor: '#857a7a',
+            })}
+          />
+        </div>
+        <div className={'power'}>
+          <p>Power training</p>
+          <CircularProgressbar
+            value={
+              (numberPowerTrainingDone / numberPowerTrainingForGoal) * 100 || 0
+            }
+            text={`${
+              numberPowerTrainingDone || '0'
+            } / ${numberPowerTrainingForGoal}
+        `}
+            styles={buildStyles({
+              textColor: 'gray',
+              pathColor: '#d697d8',
+              trailColor: '#857a7a',
+            })}
+          />
+        </div>
+      </div>
+    </ProgressbarStyle>
   );
 }

@@ -10,6 +10,8 @@ import { useNavigate } from 'react-router-dom';
 
 import FormikInput from '../../Components/formikFields/FormikInput';
 import { ButtonStyle } from '../../Components/Button';
+import { showEditGoalsCard } from '../../store/actions/goals';
+import { apiError } from '../../store/selectors/globalAppState';
 
 const StyledLoginHolder = styled.div`
   max-width: 35rem;
@@ -65,6 +67,11 @@ const StyledLoginHolder = styled.div`
   @media (max-width: 986px) {
     min-height: 25rem;
   }
+  .error {
+    color: ${(props) => props.theme.appBackGroundColor};
+    font-size: 24px;
+    text-shadow: 0px 0px 6px rgba(24, 27, 27, 0.7);
+  }
 `;
 
 const Login = () => {
@@ -72,7 +79,7 @@ const Login = () => {
   const navig = useNavigate();
   const isLogin = useSelector(userLoginSelector);
   const [cardVie, setCardVie] = useState(isLogin);
-
+  const error = useSelector(apiError);
   const validate = (values) => {
     const errors = {};
     let isError = false;
@@ -124,6 +131,7 @@ const Login = () => {
                     password: formValues.password,
                   })
                   .then((response) => {
+                    console.log(response);
                     dispatch(
                       logIn({
                         userName: 'email',
@@ -132,7 +140,11 @@ const Login = () => {
                         id: response.data.user.id,
                       })
                     );
+                    dispatch(showEditGoalsCard(false));
                     navig('/home');
+                  })
+                  .catch((error) => {
+                    console.log('api call catch', error);
                   });
               }}
             >
@@ -187,6 +199,9 @@ const Login = () => {
                       })
                     );
                     navig('/home');
+                  })
+                  .then.catch((error) => {
+                    console.log('api call catch', error);
                   });
               }}
             >
@@ -211,9 +226,17 @@ const Login = () => {
 
   if (cardVie) {
     return getLoginCard();
+  }
+  if (error) {
+    return (
+      <StyledLoginHolder>
+        <div className="error">
+          Sorry, server is not available due to: {error.message}
+        </div>
+      </StyledLoginHolder>
+    );
   } else {
     return getRegisterCard();
   }
 };
 export default Login;
-//

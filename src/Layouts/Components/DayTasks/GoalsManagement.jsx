@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { currentGoalsSelector } from '../../store/selectors/goals';
-import { userIdSelector } from '../../store/selectors/user';
+
 import {
-  addNewMounthAnalytics,
-  loadingUserAnalytics,
-  loadingUserAnalyticsSuccess,
+  addNewMonthAnalytics,
   refreshAnalytics,
-} from '../../store/actions/analytics';
-import fakeServerAPI from '../../api/fakeServerAPI';
+} from '../../../store/actions/analytics';
+import Loader from '../../../Components/Loader';
 import { useDispatch } from 'react-redux';
 import {
   allActivitiesDoneSelector,
   isLoadedDataSelector,
-  isSelector,
-} from '../../store/selectors/analytics';
-import { StyledLoader } from '../../Components/Loader';
-import MyGoals from '../../Scenes/Goals/MyGoals';
-import { useNavigate } from 'react-router-dom';
+} from '../../../store/selectors/analytics';
+import { userIdSelector } from '../../../store/selectors/user';
+import { currentGoalsSelector } from '../../../store/selectors/goals';
+import WaterIcon from '../Analytics/WaterIcon';
+import PowerTrainingIcon from '../Analytics/PowerTrainingIcon';
+import CardioTrainingIcon from '../Analytics/CardioTrainingIcon';
 
 const ActivityStyleWrapper = styled.div`
   display: flex;
@@ -91,59 +89,63 @@ const ActivityStyleWrapper = styled.div`
   }
 `;
 
-const GoalsManagement = () => {
+const GoalsManagement = (props) => {
   const userId = useSelector(userIdSelector);
   const currentGoals = useSelector(currentGoalsSelector);
   const dispatch = useDispatch();
   const userGoalsFullfilling = useSelector(allActivitiesDoneSelector);
-  const dataIsLoaded = useSelector(isLoadedDataSelector);
 
-  const mounthNow = new Date()
-    .toLocaleDateString()
-    .split('.')
-    .slice(-2)
-    .join('');
+  const getMonth = (date) =>
+    date.toLocaleDateString().split('.').slice(-2).join('');
+
+  const monthChecked = getMonth(props.date);
+
+  const [thisMonthData, setThisMonthData] = useState(
+    userGoalsFullfilling.find(
+      (item) => item.date.split('.').slice(-2).join('') === monthChecked
+    ) || {}
+  );
 
   useEffect(() => {
-    dispatch(loadingUserAnalytics(userId));
-  }, []);
-
-  let thisMounthData = {};
-  thisMounthData =
+    setThisMonthData(
+      userGoalsFullfilling.find(
+        (item) => item.date.split('.').slice(-2).join('') === monthChecked
+      ) || {}
+    );
+  }, [props.date]);
+  console.log(
     userGoalsFullfilling.find(
-      (item) => item.date.split('.').slice(-2).join('') === mounthNow
-    ) || thisMounthData;
-
+      (item) => item.date.split('.').slice(-2).join('') === monthChecked
+    ),
+    thisMonthData
+  );
   const [numberFullGlass, setNumberFullGlass] = useState(
-    thisMounthData.date == new Date().toLocaleDateString()
-      ? thisMounthData.numberFullGlass
+    thisMonthData.date == new Date().toLocaleDateString()
+      ? thisMonthData.numberFullGlass
       : 0
   );
   const [numberPowerTraining, setNumberPowerTraining] = useState(
-    thisMounthData.numberPowerTraining ? thisMounthData.numberPowerTraining : 0
+    thisMonthData.numberPowerTraining ? thisMonthData.numberPowerTraining : 0
   );
   const [numberCardioTraining, setNumberCardioTraining] = useState(
-    thisMounthData.numberCardioTraining
-      ? thisMounthData.numberCardioTraining
-      : 0
+    thisMonthData.numberCardioTraining ? thisMonthData.numberCardioTraining : 0
   );
   const allWaterGlasses = currentGoals.water / 300;
-  const glasses = [];
-  const fullGlasses = [];
-  glasses.length = allWaterGlasses - numberFullGlass;
-  fullGlasses.length = numberFullGlass;
+  let glasses = new Array(allWaterGlasses - numberFullGlass).fill('');
+  let fullGlasses = new Array(numberFullGlass).fill('');
 
   const allPowerTraining = currentGoals.powerTraining;
-  let plainPowerTraining = [];
-  let completedPowerTraining = [];
-  completedPowerTraining.length = numberPowerTraining;
-  plainPowerTraining.length = allPowerTraining - numberPowerTraining;
+  let plainPowerTraining = new Array(
+    allPowerTraining - numberPowerTraining
+  ).fill('');
+  let completedPowerTraining = new Array(numberPowerTraining).fill('');
 
   const allCardioTraining = currentGoals.cardioTraining;
-  let plainCardioTraining = [];
-  let completedCardioTraining = [];
-  completedCardioTraining.length = numberCardioTraining;
-  plainCardioTraining.length = allCardioTraining - numberCardioTraining;
+
+  let plainCardioTraining = new Array(
+    allCardioTraining - numberCardioTraining
+  ).fill('');
+  let completedCardioTraining = new Array(numberCardioTraining).fill('');
 
   function handleCompletedGoal(e) {
     const className = e.target.classList;
@@ -175,48 +177,60 @@ const GoalsManagement = () => {
       numberPowerTraining,
       numberCardioTraining,
       userId,
-      date: new Date().toLocaleDateString(),
+      date: props.date.toLocaleDateString(),
     };
-    if (dataIsLoaded) {
-      thisMounthData.date &&
-      thisMounthData.date.split('.').slice(-2).join('') == mounthNow
-        ? dispatch(refreshAnalytics(analyticsData, thisMounthData.id))
-        : dispatch(addNewMounthAnalytics(analyticsData));
+
+    if (!thisMonthData.date) {
+      console.log('new');
+      dispatch(addNewMonthAnalytics(analyticsData));
+    } else if (
+      thisMonthData.date.split('.').slice(-2).join('') === monthChecked
+    ) {
+      console.log('refresh');
+      dispatch(refreshAnalytics(analyticsData, thisMonthData.id));
     }
-  }, [numberFullGlass, numberPowerTraining, numberCardioTraining]);
-  console.log(dataIsLoaded, currentGoals);
+  }, [numberCardioTraining, numberPowerTraining, numberFullGlass]);
 
   return (
     <ActivityStyleWrapper>
       <div className={'water_part'}>
         <div className={'water_wrapper'}>
-          {fullGlasses.fill(
-            <div className={'icon fullglass'} onClick={handleCompletedGoal}>
-              <p>300ml</p>
-            </div>
-          )}
-          {glasses.fill(
-            <div className={'icon glass'} onClick={handleCompletedGoal}>
-              <p>300ml</p>
-            </div>
-          )}
+          {fullGlasses.map((item, index) => (
+            <WaterIcon
+              key={index}
+              handleCompletedGoal={handleCompletedGoal}
+              name={'full'}
+            />
+          ))}
+          {glasses.map((item, index) => (
+            <WaterIcon
+              key={index}
+              handleCompletedGoal={handleCompletedGoal}
+              name={''}
+            />
+          ))}
         </div>
         <p className={'title'}>
           *click if you drank <span>water</span> today.
         </p>
       </div>
-      <p className={'analytic_title'}>current data for mounth</p>
+      <p className={'analytic_title'}>current data for Month</p>
       <div className={'power_part'}>
         <div className={'power_wrapper'}>
-          {completedPowerTraining.fill(
-            <div
-              className={'icon completedPower'}
-              onClick={handleCompletedGoal}
-            ></div>
-          )}
-          {plainPowerTraining.fill(
-            <div className={'icon power'} onClick={handleCompletedGoal}></div>
-          )}
+          {completedPowerTraining.map((item, index) => (
+            <PowerTrainingIcon
+              key={index}
+              handleCompletedGoal={handleCompletedGoal}
+              name={'completed'}
+            />
+          ))}
+          {plainPowerTraining.map((item, index) => (
+            <PowerTrainingIcon
+              key={index}
+              handleCompletedGoal={handleCompletedGoal}
+              name={''}
+            />
+          ))}
         </div>
         <p className={'title'}>
           *click if you have done <span>power</span> training
@@ -224,15 +238,20 @@ const GoalsManagement = () => {
       </div>
       <div className={'cardio_part'}>
         <div className={'cardio_wrapper'}>
-          {completedCardioTraining.fill(
-            <div
-              className={'icon completedCardio'}
-              onClick={handleCompletedGoal}
-            ></div>
-          )}
-          {plainCardioTraining.fill(
-            <div className={'icon cardio'} onClick={handleCompletedGoal}></div>
-          )}
+          {completedCardioTraining.map((item, index) => (
+            <CardioTrainingIcon
+              key={index}
+              name={'cardio'}
+              handleCompletedGoal={handleCompletedGoal}
+            />
+          ))}
+          {plainCardioTraining.map((item, index) => (
+            <CardioTrainingIcon
+              key={index}
+              className={''}
+              handleCompletedGoal={handleCompletedGoal}
+            />
+          ))}
         </div>
         <p className={'title'}>
           *click if you have done <span>cardio</span> training

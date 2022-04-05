@@ -2,17 +2,23 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { ButtonStyle } from '../../Components/Button';
+import { CardStyle } from '../../Components/CardTemplate';
 import TasksList from '../../Layouts/Components/Tasks/TasksList';
 import { taskListSelector } from '../../store/selectors/tasksList';
 
 const NewTaskStyle = styled.div`
+  ${CardStyle}
+  background-color: ${(props) => props.theme.appBackGroundColor};
+  color: ${(props) => props.theme.fontColor};
+  font-size: 18px;
   display: flex;
   flex-direction: column;
+
   .newTask,
   .currentTask {
     text-align: center;
     padding: 20px;
-    width: 100%;
+    width: 100vh;
   }
 
   h4 {
@@ -56,6 +62,9 @@ const NewTaskStyle = styled.div`
 const NewTaskAdd = (props) => {
   const [task, setTask] = useState('');
   const tasksList = useSelector(taskListSelector);
+  console.log(
+    tasksList.filter((task) => task.date === props.datePicked).length > 0
+  );
   return (
     <NewTaskStyle>
       <div className="currentTask">

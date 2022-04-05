@@ -1,15 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Calendar from 'react-calendar';
 import styled from 'styled-components';
 import 'react-calendar/dist/Calendar.css';
-import { ModalContext } from '../HOC/GlobalModalProvider';
-import NewTaskAdd from '../HOC/ModalContent/NewTaskAdd';
+import { ModalContext } from 'HOC/GlobalModalProvider';
+import NewTaskAdd from 'HOC/ModalContent/NewTaskAdd';
 import { useDispatch, useSelector } from 'react-redux';
-import { userIdSelector } from '../store/selectors/user';
-import { HeaderTittle } from '../Components/HeaderTittle';
+import { userIdSelector } from 'store/selectors/user';
+import { HeaderTittle } from 'Components/HeaderTittle';
+import { newTask } from 'store/actions/tasks';
+import AllTaskOfMonth from './AllTaskOfMonth';
+import { currentTaskListSelector } from '../../store/selectors/tasksList';
 
 const StyledCalendar = styled.div`
-  font-style: u;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   h3 {
     ${HeaderTittle}
   }
@@ -24,13 +29,19 @@ const StyledCalendar = styled.div`
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
       rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
   }
-  .react-calendar__navigation button {
-    color: ${(props) => props.theme.fontColor};
-    width: 44px;
-    height: 100%;
-    border-radius: 6px 6px 0 0;
-    background-color: '#fff';
-    font-size: 20px;
+  .react-calendar__viewContainer {
+    padding: 0 10px 20px 10px;
+  }
+  .react-calendar__navigation {
+    padding-top: 20px;
+    & button {
+      color: ${(props) => props.theme.fontColor};
+      width: 44px;
+      height: 100%;
+      border-radius: 6px 6px 0 0;
+      background-color: '#fff';
+      font-size: 20px;
+    }
   }
   .react-calendar__navigation button:enabled:hover,
   .react-calendar__navigation button:enabled:focus {
@@ -80,14 +91,28 @@ const StyledCalendar = styled.div`
     background: ${(props) => props.theme.buttonColor};
     color: ${(props) => props.theme.fontColor};
   }
+  .react-calendar__month-view__days__day {
+    margin: 3px;
+  }
+  .react-calendar__month-view__days__day--weekend {
+    color: inherit;
+  }
+  .mark {
+    background-color: #cfd3d3;
+    color: black;
+    font-weight: bold;
+    border-radius: 6px;
+    box-shadow: 0px 0px 4px ${(props) => props.theme.buttonColor};
+  }
 `;
 
 export const Shedule = () => {
   const [date, setDate] = useState(new Date());
+  const [dateView, setDateView] = useState(new Date());
   const dispatch = useDispatch();
   const openModal = useContext(ModalContext);
   const userId = useSelector(userIdSelector);
-
+  const taskList = useSelector(currentTaskListSelector);
   const addNewTask = (task, date) => {
     let newUserTask = {};
     newUserTask.date = date;
@@ -103,15 +128,25 @@ export const Shedule = () => {
       />
     );
   };
+  const setMarkView = (date, view) =>
+    taskList.map((task) =>
+      task.date == date.toLocaleDateString() && view === 'month' ? 'mark' : null
+    );
 
   return (
     <StyledCalendar>
       <h3>Choose the day to set a task or an exercise.</h3>
       <Calendar
+        locale={'en'}
         onChange={setDate}
         value={date}
         onClickDay={(date) => openModalTask(date)}
+        tileClassName={({ date, view }) => setMarkView(date, view)}
+        onActiveStartDateChange={({ activeStartDate }) =>
+          setDateView(activeStartDate)
+        }
       />
+      <AllTaskOfMonth date={dateView} />
     </StyledCalendar>
   );
 };

@@ -1,11 +1,18 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { ButtonStyle } from '../../Components/Button';
+import { ButtonStyle } from '../../../Components/Button';
+import { showEditGoalsCard } from '../../../store/actions/goals';
 
 const CardPromptStyle = styled.div`
   display: flex;
   flex-direction: column;
+  align-self: center;
+  margin-top: 20%;
+  border: 1px solid ${(props) => props.theme.buttonColor};
+  background-color: ${(props) => props.theme.appBackGroundColor};
+  border-radius: 6px;
   p {
     text-transform: uppercase;
     text-align: center;
@@ -16,23 +23,24 @@ const CardPromptStyle = styled.div`
   button {
     ${ButtonStyle}
     align-self: center;
-    padding: 8px;
-    background-color: gray;
+    padding: 10px 15px;
+    background-color: ${(props) => props.theme.headerBackGroundColor};
     color: #fff;
     text-shadow: 0px 0px 6px ${(props) => props.theme.buttonColor};
     margin-bottom: 10px;
     &:hover {
       background-color: ${(props) => props.theme.buttonColor};
-      color: ${(props) => props.theme.fontColor};
+      color: ${(props) => props.theme.appBackGroundColor};
     }
   }
 `;
 
 const PromptWindow = (props) => {
   const navig = useNavigate();
+  const dispatch = useDispatch();
   const buttonNavigateTo = () => {
     navig(`/home/${props.link}`);
-    props.setModal(false);
+    dispatch(showEditGoalsCard(true));
   };
   return (
     <CardPromptStyle>
@@ -40,7 +48,7 @@ const PromptWindow = (props) => {
         <p>To contine use this app you should fill your {props.link}.</p>
       </div>
       <button className={'button_navigate'} onClick={buttonNavigateTo}>
-        Clik
+        Fill
       </button>
     </CardPromptStyle>
   );

@@ -12,6 +12,7 @@ const ListStyle = styled.div`
     justify-content: space-between;
     align-items: center;
     margin: 5px;
+    width: 100vh;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     border-radius: 6px;
   }
@@ -23,7 +24,8 @@ const ListStyle = styled.div`
     border-radius: 50%;
     line-height: 0.4;
   }
-
+  label {
+  }
   input[type='checkbox'] {
     align-self: center;
     margin-right: 13px;
@@ -88,7 +90,8 @@ const TaskItem = ({ task, index }) => {
             onChange={() => dispatch(completeTask(task.id))}
           />
           <label htmlFor={task.id} data-content={task.title}>
-            {task.title}
+            {task.title} &emsp;
+            {task.date}
           </label>
         </div>
         <button

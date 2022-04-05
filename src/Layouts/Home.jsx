@@ -1,27 +1,28 @@
 import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { ThemeContext } from 'HOC/GlobalThemeProvider';
-
 import NavigateBlock from './MainLayout/NavigateBlock';
 import UserCard from './MainLayout/UserCard';
-
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import background from 'assets/images/background.jpg';
 import { LogoStyle } from '../Components/Logo';
-
 import { userIdSelector } from '../store/selectors/user';
 import { useDispatch, useSelector } from 'react-redux';
-import { userPersonalData } from '../store/selectors/userPersonalData';
-import Loader from '../Components/Loader';
+
 import fakeServerAPI from '../api/fakeServerAPI';
 import { loadingUserPersonalData } from '../store/actions/userPersonalData';
+import BMI from './Components/UserPersonalInfo/BMI';
+import { apiError } from '../store/selectors/globalAppState';
 
 const StyledLayout = styled.div`
   margin: auto;
   text-align: center;
   background-image: url(${background});
-  flex-direction: column;
+
   justify-content: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
   .logo {
     ${LogoStyle}
     margin: 0 5%;
@@ -46,6 +47,7 @@ const StyledLayout = styled.div`
   .content {
     background-color: '#dde0e0';
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     padding: 20px;
   }
@@ -56,10 +58,13 @@ const StyledLayout = styled.div`
     display: flex;
     flex-direction: column;
   }
+  .leftLayout,
+  .rightLayout {
+    max-width: 20%;
+  }
   .mainLayout {
-    width: 100%;
     border-radius: 6px;
-    padding: 15px;
+    padding: 25px;
     background-color: ${(props) => props.theme.cardBackGroundColor};
   }
   .switch {
@@ -121,16 +126,21 @@ const StyledLayout = styled.div`
 
 const Home = () => {
   const changeTheme = useContext(ThemeContext);
-  const usersData = useSelector(userPersonalData);
+  const error = useSelector(apiError);
   const dispatch = useDispatch();
-  const currentUser = usersData.find((data) => data.id === userId);
+
   const userId = useSelector(userIdSelector);
   useEffect(() => {
-    fakeServerAPI.get(`/userPersonalData?userId=${userId}`).then((response) => {
-      if (response.data) {
-        dispatch(loadingUserPersonalData(response.data));
-      }
-    });
+    fakeServerAPI
+      .get(`/userPersonalData?userId=${userId}`)
+      .then((response) => {
+        if (response.data) {
+          dispatch(loadingUserPersonalData(response.data));
+        }
+      })
+      .catch((error) => {
+        console.log('api call catch', error);
+      });
   }, []);
 
   return (
@@ -157,6 +167,7 @@ const Home = () => {
         </div>
         <div className="rightLayout">
           <UserCard />
+          <BMI />
         </div>
       </div>
     </StyledLayout>

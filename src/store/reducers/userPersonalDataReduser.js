@@ -1,12 +1,18 @@
 import { createReducer, isAsyncThunkAction } from '@reduxjs/toolkit';
 import {
+  loadingUserAvatar,
   loadingUserPersonalData,
+  removeUserAvatar,
   removeUserPersonalData,
+  setUserAvatar,
+  setUserAvatarStart,
+  setUserAvatarSuccess,
   setUserPersonalData,
 } from '../actions/userPersonalData';
 
 const initialState = {
   userPersonalData: [],
+  userAvatar: [],
 };
 
 export const userPersonalDataReduser = createReducer(
@@ -23,6 +29,17 @@ export const userPersonalDataReduser = createReducer(
         state.userPersonalData = state.userPersonalData.filter(
           (data) => data.id !== action.payload
         );
+      })
+      .addCase(loadingUserAvatar, (state, action) => {
+        state.userAvatar = action.payload;
+      })
+      .addCase(removeUserAvatar, (state, action) => {
+        state.userAvatar = state.userPersonalData.filter(
+          (data) => data.id !== action.payload
+        );
+      })
+      .addCase(setUserAvatar, (state, action) => {
+        state.userAvatar = [...state.userAvatar, action.payload];
       });
   }
 );

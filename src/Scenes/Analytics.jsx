@@ -12,7 +12,7 @@ import {
 } from 'chart.js';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { everyDayAnalyticsSelector } from 'store/selectors/analyticsToday';
+
 import { userIdSelector } from 'store/selectors/user';
 import { loadingTodayAnalytics } from 'store/actions/todayAnalytics';
 import fakeServerAPI from 'api/fakeServerAPI';
@@ -21,6 +21,7 @@ import styled from 'styled-components';
 import { TrainingAnalytics } from 'Layouts/Components/Analytics/TrainingAnalytics';
 import WeightAnalytics from 'Layouts/Components/Analytics/WeightAnalytics';
 import { currentGoalsSelector } from '../store/selectors/goals';
+import { todayAnalyticsDateSelector } from '../store/selectors/todayAnalytics';
 
 ChartJS.register(
   CategoryScale,
@@ -102,20 +103,23 @@ const Analytics = () => {
         dispatch(loadingTodayAnalytics(response.data));
       });
   }, []);
-  const analyticsForDays = useSelector(everyDayAnalyticsSelector);
-  const sortAnalyticsForDays = [...analyticsForDays].sort(
-    (a, b) =>
-      new Date(a.date.split('.').reverse().join('-')) -
-      new Date(b.date.split('.').reverse().join('-'))
-  );
+  const analyticsForDays = useSelector(todayAnalyticsDateSelector);
+  const sortAnalyticsForDays = [...analyticsForDays]
+    .sort(
+      (a, b) =>
+        new Date(a.date.split('.').reverse().join('-')) -
+        new Date(b.date.split('.').reverse().join('-'))
+    )
+    .filter(
+      (item) =>
+        new Date(item.date.split('.').reverse().join('-')).getMonth() ==
+          valueMounth.value &&
+        new Date(item.date.split('.').reverse().join('-')).getFullYear() ==
+          valueYears.value
+    );
 
   const labels = sortAnalyticsForDays.map((item) =>
-    new Date(item.date.split('.').reverse().join('-')).getMonth() ==
-      valueMounth.value &&
-    new Date(item.date.split('.').reverse().join('-')).getFullYear() ==
-      valueYears.value
-      ? item.date.split('').splice(0, 5).join('')
-      : null
+    item.date.split('').splice(0, 5).join('')
   );
 
   const options = {
@@ -145,17 +149,13 @@ const Analytics = () => {
     datasets: [
       {
         label: 'Steps goal',
-        data: labels.map((item) => goals.steps),
+        data: labels.map(() => goals.steps),
         borderColor: '#e6e6e6',
         backgroundColor: 'gray',
       },
       {
         label: 'Steps you done',
-        data: sortAnalyticsForDays.map((item) =>
-          item.date.split('').splice(3, 2).join('') == +valueMounth.value + 1
-            ? item.numberSteps
-            : null
-        ),
+        data: sortAnalyticsForDays.map((item) => item.numberSteps),
         borderColor: '#e6e6e6',
         backgroundColor: '#3eb6b0',
       },
@@ -185,10 +185,13 @@ const Analytics = () => {
         <Bar options={options} data={data} />
       </div>
 
-      <TrainingAnalytics mounth={valueMounth.value} year={valueYears.value} />
-      <WeightAnalytics
+      <TrainingAnalytics
         mounth={valueMounth.value}
         year={valueYears.value}
+        labelMounth={mounth[valueMounth.value].label}
+      />
+      <WeightAnalytics
+        mounth={valueMounth.value}
         labels={labels}
         data={sortAnalyticsForDays}
       />

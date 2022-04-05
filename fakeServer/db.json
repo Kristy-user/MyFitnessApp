@@ -9,78 +9,42 @@
   "userPersonalData": [
     {
       "userId": 1,
-      "name": "Name",
-      "surname": "Surname",
+      "name": "Kristy",
+      "surname": "Klepik",
       "age": "29",
-      "height": "59",
-      "weight": "170",
-      "filled": true,
+      "height": "170",
+      "weight": "60",
+      "id": 1
+    }
+  ],
+  "userAvatar": [
+    {
+      "userId": 1,
+      "image": "/7f991f9d412586ea2796db55654963a8.jpg",
       "id": 1
     }
   ],
   "tasks": [
     {
       "userId": 1,
-      "date": "10.03.2022",
-      "title": "5ejr5i6r",
-      "completed": false,
-      "id": 15
-    },
-    {
-      "userId": 1,
-      "date": "15.04.2022",
-      "title": "srhjnrstjngb",
-      "completed": false,
-      "id": 22
-    },
-    {
-      "userId": 1,
       "date": "15.03.2022",
-      "title": "gaergaerg",
+      "title": "Quis autem vel eum iure reprehenderit qui in ea voluptate.",
       "completed": false,
       "id": 26
     },
     {
       "userId": 1,
       "date": "15.03.2022",
-      "title": "rgagargawreg",
+      "title": "But I must explain to you how all this mistaken.",
       "completed": false,
       "id": 27
     },
     {
       "userId": 1,
       "date": "02.03.2022",
-      "title": "dsdcc",
+      "title": "Ut enim ad minima veniam.",
       "completed": false,
       "id": 28
-    },
-    {
-      "userId": 1,
-      "date": "05.03.2022",
-      "title": "fbdfnd",
-      "completed": false,
-      "id": 33
-    },
-    {
-      "userId": 1,
-      "date": "05.03.2022",
-      "title": "",
-      "completed": false,
-      "id": 34
-    },
-    {
-      "userId": 1,
-      "date": "05.03.2022",
-      "title": "",
-      "completed": false,
-      "id": 35
-    },
-    {
-      "userId": 1,
-      "date": "05.03.2022",
-      "title": "",
-      "completed": false,
-      "id": 36
     },
     {
       "userId": 1,
@@ -92,101 +56,136 @@
     {
       "userId": 1,
       "date": "24.03.2022",
-      "title": "Run 10km",
+      "title": "Walk 1 km",
       "completed": false,
       "id": 38
     },
     {
       "userId": 1,
       "date": "24.03.2022",
-      "title": " call someone",
+      "title": "At vero eos et accusamus et iusto.",
       "completed": false,
       "id": 39
     },
     {
       "userId": 1,
       "date": "25.03.2022",
-      "title": "uykmdm",
+      "title": "Nam libero tempore, cum soluta nobis est eligend.",
       "completed": false,
       "id": 40
+    },
+    {
+      "userId": 1,
+      "date": "28.03.2022",
+      "title": "On the other hand, we denounce with.",
+      "completed": false,
+      "id": 41
+    },
+    {
+      "userId": 1,
+      "date": "17.03.2022",
+      "title": "The wise man therefore always holds.",
+      "completed": false,
+      "id": 42
+    },
+    {
+      "userId": 1,
+      "date": "03.04.2022",
+      "title": "Go to shop",
+      "completed": false,
+      "id": 43
+    },
+    {
+      "userId": 1,
+      "date": "12.04.2022",
+      "title": "Fill up the car ",
+      "completed": false,
+      "id": 44
+    },
+    {
+      "userId": 4,
+      "date": "02.04.2022",
+      "title": "bfgnfgbn",
+      "completed": false,
+      "id": 45
     }
   ],
   "dataGoals": [
     {
       "userId": 1,
-      "water": "2400",
-      "powerTraining": "5",
-      "cardioTraining": "6",
+      "water": "1500",
+      "powerTraining": "8",
+      "cardioTraining": "8",
       "steps": "12000",
       "weight": "55",
       "filled": true,
-      "id": 2
+      "id": 1
     }
   ],
   "dataAnalytics": [
     {
       "numberFullGlass": 0,
-      "numberPowerTraining": 2,
-      "numberCardioTraining": 2,
+      "numberPowerTraining": 3,
+      "numberCardioTraining": 0,
       "userId": 1,
-      "date": "15.02.2022",
-      "id": 2
+      "date": "27.03.2022",
+      "id": 48
     },
     {
-      "numberFullGlass": 2,
-      "numberPowerTraining": 1,
-      "numberCardioTraining": 1,
+      "numberFullGlass": 5,
+      "numberPowerTraining": 5,
+      "numberCardioTraining": 6,
       "userId": 1,
-      "date": "28.03.2022",
-      "id": 3
+      "date": "27.02.2022",
+      "id": 50
     }
   ],
   "dataTodayAnalytics": [
     {
       "numberSteps": "5000",
-      "weight": "55",
+      "weight": "57",
       "date": "15.03.2022",
       "userId": 1,
       "id": 1
     },
     {
       "numberSteps": "8000",
-      "weight": "55",
+      "weight": "56",
       "date": "16.03.2022",
       "userId": 1,
       "id": 2
     },
     {
       "numberSteps": "10000",
-      "weight": "55",
+      "weight": "54",
       "date": "17.03.2022",
       "userId": 1,
       "id": 3
     },
     {
       "numberSteps": "20000",
-      "weight": "55",
+      "weight": "58",
       "date": "18.03.2022",
       "userId": 1,
       "id": 4
     },
     {
       "numberSteps": "6000",
-      "weight": "55",
+      "weight": "59",
       "date": "19.03.2022",
       "userId": 1,
       "id": 5
     },
     {
       "numberSteps": "12000",
-      "weight": "55",
+      "weight": "57",
       "date": "14.03.2022",
       "userId": 1,
       "id": 6
     },
     {
       "numberSteps": "11000",
-      "weight": "55",
+      "weight": "56",
       "date": "20.03.2022",
       "userId": 1,
       "id": 7
@@ -207,17 +206,73 @@
     },
     {
       "numberSteps": "7000",
-      "weight": "70",
+      "weight": "65",
       "date": "23.03.2022",
       "userId": 1,
       "id": 16
     },
     {
       "numberSteps": "15000",
-      "weight": "57",
+      "weight": "62",
       "date": "25.03.2022",
       "userId": 1,
       "id": 17
+    },
+    {
+      "numberSteps": "15000",
+      "weight": "57",
+      "date": "28.03.2022",
+      "userId": 1,
+      "id": 18
+    },
+    {
+      "numberSteps": "18000",
+      "weight": "54",
+      "date": "29.03.2022",
+      "userId": 1,
+      "id": 23
+    },
+    {
+      "numberSteps": "11000",
+      "weight": "56",
+      "date": "30.03.2022",
+      "userId": 1,
+      "id": 25
+    },
+    {
+      "numberSteps": "16000",
+      "weight": "57",
+      "date": "31.03.2022",
+      "userId": 1,
+      "id": 26
+    },
+    {
+      "numberSteps": "13000",
+      "weight": "58",
+      "date": "02.04.2022",
+      "userId": 1,
+      "id": 27
+    },
+    {
+      "numberSteps": "11000",
+      "weight": "58",
+      "date": "03.04.2022",
+      "userId": 1,
+      "id": 30
+    },
+    {
+      "numberSteps": "11000",
+      "weight": "60",
+      "date": "04.04.2022",
+      "userId": 1,
+      "id": 31
+    },
+    {
+      "numberSteps": "12000",
+      "weight": "55",
+      "date": "01.04.2022",
+      "userId": 1,
+      "id": 32
     }
   ]
 }

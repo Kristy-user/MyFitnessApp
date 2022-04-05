@@ -1,23 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-
-import fakeServerAPI from '../../api/fakeServerAPI';
 import { ButtonStyle } from '../../Components/Button';
 import { HeaderTittle } from '../../Components/HeaderTittle';
-import {
-  editGoal,
-  loadingUserGoals,
-  showEditGoalsCard,
-} from '../../store/actions/goals';
-import {
-  currentGoalsSelector,
-  goalsSelector,
-  showEditGoalsSelector,
-} from '../../store/selectors/goals';
-import { userIdSelector } from '../../store/selectors/user';
-import MyGoals from './MyGoals';
+import { showEditGoalsCard } from '../../store/actions/goals';
+import { currentGoalsSelector } from '../../store/selectors/goals';
 
 const GoalsFormStyle = styled.div`
   display: flex;
@@ -58,7 +46,7 @@ const GoalsForm = () => {
   const dispatch = useDispatch();
 
   const handleEditGoal = () => {
-    dispatch(showEditGoalsCard(false));
+    dispatch(showEditGoalsCard(true));
   };
 
   return (

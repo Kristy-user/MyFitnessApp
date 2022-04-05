@@ -12,15 +12,20 @@ import { taskListSelector } from '../../store/selectors/tasksList';
 import { currentUserPersonalData } from '../../store/selectors/userPersonalData';
 import { HeaderTittle } from '../../Components/HeaderTittle';
 import { userIdSelector } from '../../store/selectors/user';
-import GoalsManagement from '../Components/GoalsManagement';
-import DataAnalyticsToday from '../Components/Analytics/DataAnalyticsToday';
 import { currentGoalsSelector } from '../../store/selectors/goals';
-import { loadingUserPersonalData } from '../../store/actions/userPersonalData';
 import { loadingUserGoals } from '../../store/actions/goals';
-import PromptWindow from '../../HOC/ModalContent/PromptWindow';
-import { ModalContext } from '../../HOC/GlobalModalProvider';
+import PromptWindow from '../Components/DayTasks/PromptWindow';
+import { loadingUserAnalytics } from '../../store/actions/analytics';
+import DataAnalyticsToday from '../Components/DayTasks/DataAnalyticsToday';
+import GoalsManagement from '../Components/DayTasks/GoalsManagement';
+import { isLoadedDataSelector } from '../../store/selectors/analytics';
+import Loader from '../../Components/Loader';
 
 const CardTaskStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   font-size: 18px;
   color: ${(props) => props.theme.fontColor};
   h3 {
@@ -67,16 +72,16 @@ const CardTaskStyle = styled.div`
     align-items: center;
     align-self: center;
     text-align: center;
-    display: flex;
+
     & button {
       ${ButtonStyle}
     }
     & input {
       font-size: 18px;
       border: 3px solid ${(props) => props.theme.cardBackGroundColor};
-      margin: 5px;
+      align-self: center;
       padding: 10px;
-      width: 100%;
+      width: 95vh;
       &:focus {
         border: 2px solid ${(props) => props.theme.buttonColor};
         box-shadow: 0px 0px 3px 0px ${(props) => props.theme.buttonColor};
@@ -91,25 +96,9 @@ const DayTasks = () => {
   const [task, setTask] = useState('');
   const dispatch = useDispatch();
   const userId = useSelector(userIdSelector);
-  const openModal = useContext(ModalContext);
   const currentGoals = useSelector(currentGoalsSelector);
   const currentUser = useSelector(currentUserPersonalData);
-
-  useEffect(() => {
-    fakeServerAPI.get(`/userPersonalData?userId=${userId}`).then((response) => {
-      if (response.data) {
-        dispatch(loadingUserPersonalData(response.data));
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    fakeServerAPI.get(`/tasks?userId=${userId}`).then((response) => {
-      if (response.data) {
-        dispatch(loadingTaskList(response.data));
-      }
-    });
-  }, []);
+  const dataIsLoaded = useSelector(isLoadedDataSelector);
 
   useEffect(() => {
     fakeServerAPI.get(`/dataGoals?userId=${userId}`).then((response) => {
@@ -117,17 +106,28 @@ const DayTasks = () => {
         dispatch(loadingUserGoals(response.data));
       }
     });
+    dispatch(loadingUserAnalytics(userId));
+    fakeServerAPI.get(`/tasks?userId=${userId}`).then((response) => {
+      if (response.data) {
+        dispatch(loadingTaskList(response.data));
+      }
+    });
   }, []);
 
-  if (!currentGoals) {
-    openModal(<PromptWindow setModal={openModal} link={'goals'} />);
-    return <CardTaskStyle></CardTaskStyle>;
-  }
   if (!currentUser) {
-    openModal(<PromptWindow setModal={openModal} link={'personalData'} />);
-    return <CardTaskStyle></CardTaskStyle>;
-  } else {
-    openModal(false);
+    return (
+      <CardTaskStyle>
+        <PromptWindow link={'personalData'} />
+      </CardTaskStyle>
+    );
+  }
+  if (!currentGoals) {
+    return (
+      <CardTaskStyle>
+        <PromptWindow link={'goals'} />
+      </CardTaskStyle>
+    );
+  } else
     return (
       <React.Fragment>
         <CardTaskStyle>
@@ -173,11 +173,16 @@ const DayTasks = () => {
             </button>
           </div>
         </CardTaskStyle>
-        <DataAnalyticsToday />
-        <GoalsManagement />
+        {dataIsLoaded ? (
+          <>
+            <DataAnalyticsToday date={startDate} />
+            <GoalsManagement date={startDate} />{' '}
+          </>
+        ) : (
+          <Loader />
+        )}
       </React.Fragment>
     );
-  }
 };
 
 export default DayTasks;

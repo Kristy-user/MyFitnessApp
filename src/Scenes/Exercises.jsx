@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { CardStyle } from '../Components/CardTemplate';
 import { loadingExercisesList } from '../store/actions/exercises';
 import { exercisesListSelector } from '../store/selectors/exercises';
 import ExerciseItem from '../Layouts/Components/Exercises/ExerciseItem';
@@ -10,6 +9,7 @@ import exercisesDbAPI from '../api/exerciseDB';
 import { HeaderTittle } from '../Components/HeaderTittle';
 
 const ExercisesCardStyle = styled.div`
+  width: 100%;
   h3 {
     font-size: 18px;
     color: ${(props) => props.theme.fontColor};
@@ -17,7 +17,7 @@ const ExercisesCardStyle = styled.div`
   }
   .grid_list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 150px);
+    grid-template-columns: repeat(auto-fill, 180px);
     justify-content: center;
   }
   .bodyMap {

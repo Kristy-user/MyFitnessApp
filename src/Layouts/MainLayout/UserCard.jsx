@@ -1,21 +1,17 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-
 import { CardStyle } from '../../Components/CardTemplate';
 import { Link, useNavigate } from 'react-router-dom';
-import fakeServerAPI from '../../api/fakeServerAPI';
 import {
+  currentUserAvatar,
   currentUserPersonalData,
-  userPersonalData,
 } from '../../store/selectors/userPersonalData';
 import { useDispatch, useSelector } from 'react-redux';
 import { userIdSelector } from '../../store/selectors/user';
-import {
-  loadingUserPersonalData,
-  setUserPersonalData,
-} from '../../store/actions/userPersonalData';
-import lendingImg from '../../assets/images/login.jpg';
-import UserCardSetting from '../Components/UserCardSetting';
+import { logOut } from '../../store/actions/user';
+import UserAvatar from '../Components/UserPersonalInfo/UserAvatar';
+import { loadingUserAvatar } from '../../store/actions/userPersonalData';
+import fakeServerAPI from '../../api/fakeServerAPI';
 
 const UserCardStyle = styled.div`
   ${CardStyle}
@@ -37,6 +33,7 @@ const UserCardStyle = styled.div`
     &:hover {
       color: ${(props) => props.theme.buttonColor};
       text-shadow: 0px 0px 6px #e6e6e6;
+      cursor: pointer;
     }
   }
   .logout,
@@ -57,14 +54,13 @@ const UserCardStyle = styled.div`
   }
   .userData {
     display: flex;
-    padding: 20px;
+    padding: 10px;
     width: max-content;
-
+    margin: 0 auto;
     & p {
       box-shadow: 0px 0px 6px #e6e6e6;
-      margin: 4px;
+      margin: 6px;
       border-radius: 6px;
-      padding: 10px;
     }
   }
   p,
@@ -77,15 +73,30 @@ const UserCard = () => {
   const userId = useSelector(userIdSelector);
   const dispatch = useDispatch();
   const currentUser = useSelector(currentUserPersonalData);
+  const navig = useNavigate();
 
+  useEffect(() => {
+    fakeServerAPI.get(`/userAvatar?userId=${userId}`).then((response) => {
+      if (response.data) {
+        dispatch(loadingUserAvatar(response.data));
+      }
+    });
+  }, []);
+
+  const logOutUser = () => {
+    navig('/autorization');
+    <Link to={'/autorization'} className={'logout_user icon'}></Link>;
+    dispatch(logOut());
+  };
   return (
     <UserCardStyle>
       <div className={'edit'}>
         <Link to={'personalData'} className={'edit_user icon'}></Link>
       </div>
+      <UserAvatar userId={userId} button={false} />
       <div className={'userName'}>
         <h3>
-          {currentUser ? currentUser.name : 'Name'}
+          {currentUser ? currentUser.name : 'Name'}&nbsp;
           {currentUser ? currentUser.surname : 'Surname'},
         </h3>
         <p>{currentUser ? currentUser.age : '--'} years</p>
@@ -104,8 +115,8 @@ const UserCard = () => {
           </span>
         </p>
       </div>
-      <div className={'logout'}>
-        <Link to={'/autorization'} className={'logout_user icon'}></Link>
+      <div className={'logout'} onClick={logOutUser}>
+        <div className={'logout_user icon'}></div>
       </div>
     </UserCardStyle>
   );

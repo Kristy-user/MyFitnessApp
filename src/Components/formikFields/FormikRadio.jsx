@@ -40,6 +40,7 @@ const FormikRadio = (props) => {
         value={props.value}
         onChange={field.onChange}
         onBlur={field.onBlur}
+        checked={props.cheked === props.value}
       />
 
       <label htmlFor={props.value}>{props.label} ml</label>

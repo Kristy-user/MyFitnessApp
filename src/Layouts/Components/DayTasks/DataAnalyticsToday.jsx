@@ -1,10 +1,11 @@
 import { Form, Formik } from 'formik';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import fakeServerAPI from '../../../api/fakeServerAPI';
 import { ButtonStyle } from '../../../Components/Button';
 import FormikInputNumber from '../../../Components/formikFields/FormikInputNumber';
+import { ModalContext } from 'HOC/GlobalModalProvider';
 import {
   refreshTodayAnalyticsInfo,
   setTodayAnalyticsInfo,
@@ -12,6 +13,9 @@ import {
 import { loadingTodayAnalytics } from '../../../store/actions/todayAnalytics';
 import { todayAnalyticsDateSelector } from '../../../store/selectors/todayAnalytics';
 import { userIdSelector } from '../../../store/selectors/user';
+import SubmitWindow from '../../../HOC/ModalContent/SubmitWindow';
+import Loader from '../../../Components/Loader';
+import { values } from 'json-server-auth';
 
 const DataTodayWrapper = styled.div`
   border-top: 1px solid gray;
@@ -93,26 +97,41 @@ const DataTodayWrapper = styled.div`
     height: min-content;
   }
 `;
-const DataAnalyticsToday = () => {
+const DataAnalyticsToday = (props) => {
   const [isShownSteps, setIsShownSteps] = useState(false);
   const [isShownWeight, setIsShownWeight] = useState(false);
   const dispatch = useDispatch();
   const userId = useSelector(userIdSelector);
   const analyticsDataByDays = useSelector(todayAnalyticsDateSelector);
 
+  const openModal = useContext(ModalContext);
+  const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     fakeServerAPI
       .get(`/dataTodayAnalytics?userId=${userId}`)
       .then((response) =>
         response.data ? dispatch(loadingTodayAnalytics(response.data)) : null
-      );
+      )
+      .then(() => {
+        console.log('hi');
+        setIsLoaded(true);
+      });
   }, []);
 
-  const isDataToday =
-    analyticsDataByDays.find(
-      (dataInfo) => dataInfo.date === new Date().toLocaleDateString()
-    ) || {};
+  const [dataInfoForChekedDate, setDataInfoForChekedDate] = useState();
 
+  useEffect(() => {
+    setDataInfoForChekedDate(
+      analyticsDataByDays.find(
+        (dataInfo) =>
+          dataInfo.date === props.date.toLocaleDateString() &&
+          dataInfo.userId === userId
+      )
+    );
+  }, [props.date]);
+
+  console.log(dataInfoForChekedDate);
   const validate = (values) => {
     const errors = {};
     let isError = false;
@@ -131,58 +150,75 @@ const DataAnalyticsToday = () => {
     });
     if (isError) return errors;
   };
-  console.log(isDataToday);
-  return (
-    <DataTodayWrapper>
-      <p className={'analytic_title'}>current data for today</p>
-      <Formik
-        initialValues={{
-          numberSteps: isDataToday ? isDataToday.numberSteps : '',
-          weight: isDataToday ? isDataToday.weight : '',
-          date: new Date().toLocaleDateString(),
-          userId: userId,
-        }}
-        validate={validate}
-        onSubmit={(formValues) => {
-          if (isDataToday.numberSteps && isDataToday.weight) {
-            dispatch(refreshTodayAnalyticsInfo(formValues, isDataToday.id));
-          } else {
-            dispatch(setTodayAnalyticsInfo(formValues));
-          }
-        }}
-      >
-        <Form>
-          <div className={'data_input'}>
-            <div
-              onMouseEnter={() => setIsShownSteps(true)}
-              onMouseLeave={() => setIsShownSteps(false)}
-              className={'icon steps'}
-            ></div>
-            <FormikInputNumber className={'inputNumber'} name="numberSteps" />
+  if (isLoaded) {
+    return (
+      <DataTodayWrapper>
+        <p className={'analytic_title'}>current data for today</p>
+        <Formik
+          initialValues={{
+            numberSteps: dataInfoForChekedDate
+              ? dataInfoForChekedDate.numberSteps
+              : '',
+            weight: dataInfoForChekedDate ? dataInfoForChekedDate.weight : '',
+            date: props.date.toLocaleDateString(),
+            userId: userId,
+          }}
+          validate={validate}
+          onSubmit={(formValues) => {
+            if (
+              dataInfoForChekedDate.numberSteps &&
+              dataInfoForChekedDate.weight
+            ) {
+              dispatch(
+                refreshTodayAnalyticsInfo(formValues, dataInfoForChekedDate.id)
+              );
+              openModal(
+                <SubmitWindow type={'refreshData'} setModal={openModal} />
+              );
+            } else {
+              dispatch(setTodayAnalyticsInfo(formValues));
+              openModal(
+                <SubmitWindow type={'setNewData'} setModal={openModal} />
+              );
+            }
+          }}
+          enableReinitialize={true}
+        >
+          <Form>
+            <div className={'data_input'}>
+              <div
+                onMouseEnter={() => setIsShownSteps(true)}
+                onMouseLeave={() => setIsShownSteps(false)}
+                className={'icon steps'}
+              ></div>
+              <FormikInputNumber className={'inputNumber'} name="numberSteps" />
+            </div>
+            <button className="buttonSubmit" type="submit">
+              Submit
+            </button>
+            <div className={'data_input'}>
+              <div
+                onMouseEnter={() => setIsShownWeight(true)}
+                onMouseLeave={() => setIsShownWeight(false)}
+                className={'icon weight'}
+              ></div>
+              <FormikInputNumber className={'inputNumber'} name="weight" />
+            </div>
+          </Form>
+        </Formik>
+        {isShownSteps ? (
+          <div className={'steps_today hint'}>
+            *enter the number of steps you have walked for today.
           </div>
-          <button className="buttonSubmit" type="submit">
-            Submit
-          </button>
-          <div className={'data_input'}>
-            <div
-              onMouseEnter={() => setIsShownWeight(true)}
-              onMouseLeave={() => setIsShownWeight(false)}
-              className={'icon weight'}
-            ></div>
-            <FormikInputNumber className={'inputNumber'} name="weight" />
+        ) : null}
+        {isShownWeight ? (
+          <div className={'weight_today hint'}>
+            *enter your weight for today.
           </div>
-        </Form>
-      </Formik>
-      {isShownSteps ? (
-        <div className={'steps_today hint'}>
-          *enter the number of steps you have walked for today.
-        </div>
-      ) : null}
-      {isShownWeight ? (
-        <div className={'weight_today hint'}>*enter your weight for today.</div>
-      ) : null}
-    </DataTodayWrapper>
-  );
+        ) : null}
+      </DataTodayWrapper>
+    );
+  } else return <Loader />;
 };
 
 export default DataAnalyticsToday;

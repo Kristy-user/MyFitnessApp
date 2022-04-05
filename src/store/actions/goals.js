@@ -25,9 +25,8 @@ export const refreshGoals = (goals, current) => {
     fakeServerAPI
       .delete(`/dataGoals/${current.id}`)
       .then(() => dispatch(removeUserGoals(current.id)))
-      .then((response) => {
-        console.log('true');
-        dispatch(showEditGoalsCard(true));
+      .then(() => {
+        dispatch(showEditGoalsCard(false));
       });
   };
 };
@@ -48,6 +47,8 @@ export const createNewGoals = (goals, id) => {
       .then((response) => {
         dispatch(createGoals(response.data));
       })
-      .then(() => showEditGoalsCard(true));
+      .then(() => {
+        showEditGoalsCard(false);
+      });
   };
 };
