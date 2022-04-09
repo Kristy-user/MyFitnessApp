@@ -20,8 +20,7 @@ const StyledCard = styled.div`
     grid-template-columns: repeat(2, 1fr);
   }
   li {
-    text-shadow: 0px 0px 6px ${(props) => props.theme.appBackGroundColor};
-    color: ${(props) => props.theme.headerBackGroundColor};
+    color: ${(props) => props.theme.appackGroundColor};
     padding: 20px;
   }
   img {
@@ -63,7 +62,6 @@ const TypeOfExercise = () => {
               .map((exercise, index) => (
                 <li key={exercise.id} index={index}>
                   <p>
-                    {' '}
                     <strong>{index + 1}.</strong>
                     &nbsp; {exercise.name.toUpperCase()}
                   </p>

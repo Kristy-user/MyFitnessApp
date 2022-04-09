@@ -7,13 +7,14 @@ import Home from '../Layouts/Home';
 import TypeOfExercise from '../Layouts/Components/Exercises/TypeOfExercise';
 import Exercises from '../Scenes/Exercises';
 import MyGoals from '../Scenes/Goals/MyGoals';
-
 import UserCardSetting from '../Layouts/Components/UserPersonalInfo/UserCardSetting';
 import Analytics from '../Scenes/Analytics';
 import { Shedule } from '../Scenes/Shedule/Shedule';
+import { apiError } from '../store/selectors/globalAppState';
 
 const RootRouter = () => {
   const user = useSelector((state) => state.userReduser);
+  const isError = useSelector(apiError);
 
   const renderForLoggedInUser = (component) =>
     !user.isLoggedIn ? <Navigate to={'/autorization'} /> : component;

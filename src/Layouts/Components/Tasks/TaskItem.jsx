@@ -12,7 +12,7 @@ const ListStyle = styled.div`
     justify-content: space-between;
     align-items: center;
     margin: 5px;
-    width: 100vh;
+    width: 90vh;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     border-radius: 6px;
   }
@@ -62,9 +62,6 @@ const ListStyle = styled.div`
       &::before {
         opacity: 1;
       }
-      /* ~ label::before {
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-      } */
     }
   }
   .done {

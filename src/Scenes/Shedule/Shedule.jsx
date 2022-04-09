@@ -82,7 +82,7 @@ const StyledCalendar = styled.div`
     border-radius: 6px;
     font-weight: bold;
     font-size: 18px;
-    color: ${(props) => props.theme.headerBackGroundColor};
+    color: ${(props) => props.theme.fontColor};
     background: none;
     box-shadow: 0px 0px 6px gray;
   }

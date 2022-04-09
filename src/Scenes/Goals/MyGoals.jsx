@@ -30,7 +30,6 @@ const MyGoalsStyle = styled.div`
     font-size: 18px;
   }
   .inputNumber {
-    text-shadow: 0px 0px 6px ${(props) => props.theme.buttonColor};
     align-self: center;
     display: inline-block;
     margin: 20px 0 0 10px;
@@ -40,7 +39,7 @@ const MyGoalsStyle = styled.div`
     color: ${(props) => props.theme.fontColor};
     border-radius: 4px;
     padding: 5px;
-    background-color: gray;
+    background-color: ${(props) => props.theme.unmarckColor};
     text-align: center;
   }
   .buttonSubmit {

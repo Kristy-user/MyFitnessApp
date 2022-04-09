@@ -11,12 +11,12 @@ const StyledNav = styled.div`
 
   li {
     &:hover {
-      color: ${(props) => props.theme.fontColor};
+      color: ${(props) => props.theme.headerBackGroundColor};
       border-radius: 8px;
       background-color: ${(props) => props.theme.buttonColor};
       box-shadow: 0px 0px 6px #e6e6e6;
       a {
-        color: ${(props) => props.theme.fontColor};
+        color: ${(props) => props.theme.headerBackGroundColor};
       }
     }
   }

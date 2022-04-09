@@ -15,11 +15,10 @@ const GoalsFormStyle = styled.div`
   }
   span {
     margin: 0 10px;
-    text-shadow: 0px 0px 6px ${(props) => props.theme.buttonColor};
-    color: ${(props) => props.theme.fontColor};
+    color: ${(props) => props.theme.appBackGroundColor};
     border-radius: 4px;
     padding: 5px;
-    background-color: gray;
+    background-color: ${(props) => props.theme.unmarckColor};
   }
   li {
     color: ${(props) => props.theme.fontColor};

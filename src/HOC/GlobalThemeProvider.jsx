@@ -60,18 +60,20 @@ export const globalDarkStyle = {
   appBackGroundColor: '#ededed',
   fontColor: '#1a0000',
   buttonColor: '#3eb6b0',
-  toggleButtonColor: '#f1b7a6',
-  modalWindow: '#f2f2f2',
+  toggleButtonColor: '#684f7087',
+  shadowColor: '#e6e6e6',
+  unmarckColor: '#808080',
 };
 
 export const globalLightStyle = {
-  cardBackGroundColor: '#f8bcaa68',
-  headerBackGroundColor: '#f8f5f876',
-  appBackGroundColor: '#ede0b750',
-  fontColor: '#86090fa9',
-  buttonColor: '#f8f7f7',
-  toggleButtonColor: '#0a747084',
-  modalWindow: '#f2f2f2',
+  cardBackGroundColor: '#bfbfbf',
+  headerBackGroundColor: '#ffffff',
+  appBackGroundColor: '#262626',
+  fontColor: '#0909099f',
+  buttonColor: '#3f0b4f',
+  toggleButtonColor: '#80ddd8eb',
+  shadowColor: '#343333',
+  unmarckColor: '#f9f9f9',
 };
 
 const GlobalThemeProvider = (props) => {

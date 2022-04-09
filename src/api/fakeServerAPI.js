@@ -2,6 +2,7 @@ import axios from 'axios';
 import { store } from '../store/initStore';
 import { logOut } from '../store/actions/user';
 import { gotApiError } from '../store/actions/globalAppStateAction';
+import { apiError } from '../store/selectors/globalAppState';
 const fakeServerAPI = axios.create({
   baseURL: 'http://localhost:3001',
   timeout: 1000,
@@ -9,24 +10,25 @@ const fakeServerAPI = axios.create({
 
 fakeServerAPI.interceptors.request.use(
   (request) => {
-    console.log('success', request);
+    store.dispatch(gotApiError(''));
     request.headers.acces = store.getState().userReduser.isLoggedIn;
     return request;
   },
-  (err) => console.log('error', err)
+  (error) => {
+    store.dispatch(gotApiError(error.message));
+  }
 );
 
 fakeServerAPI.interceptors.response.use(
   (responce) => {
-    console.log('response', responce);
+    store.dispatch(gotApiError(''));
     return responce;
   },
   (error) => {
-    console.log('success', error);
     if (error.code === 401) {
-      store.dispatch(logOut({ logOutReason: 'session time out' }));
-    } else {
-      store.dispatch(gotApiError(error));
+      store.dispatch(logOut());
+    } else if (error) {
+      store.dispatch(gotApiError(error.message));
       throw error;
     }
   }

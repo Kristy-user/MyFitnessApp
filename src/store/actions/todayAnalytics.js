@@ -31,18 +31,18 @@ export const setTodayAnalyticsInfo = (analytics) => {
 export const refreshTodayAnalyticsInfo = (analytics, id) => {
   return (dispatch) => {
     dispatch(removeTodayInfoSuccess(id));
-    // fakeServerAPI.put(`/dataTodayAnalytics/${id}`, analytics);
-    // .then((response) => {
-
-    //   dispatch(
-    //     newDayAnalytics({
-    //       numberSteps: analytics.numberSteps,
-    //       weight: analytics.weight,
-    //       date: analytics.date,
-    //       userId: analytics.userId,
-    //       id: response.data.id,
-    //     })
-    //   );
-    // });
+    fakeServerAPI
+      .put(`/dataTodayAnalytics/${id}`, analytics)
+      .then((response) => {
+        dispatch(
+          newDayAnalytics({
+            numberSteps: response.data.numberSteps,
+            weight: response.data.weight,
+            date: response.data.date,
+            userId: response.data.userId,
+            id: response.data.id,
+          })
+        );
+      });
   };
 };

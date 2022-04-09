@@ -52,8 +52,6 @@ const UserDataStyle = styled.div`
       display: inline-block;
       box-shadow: rgba(3, 3, 12, 0.25) 0px 30px 60px -12px inset,
         rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-
-      text-shadow: 0px 0px 6px ${(props) => props.theme.buttonColor};
       font-size: 24px;
       height: 30px;
       border-radius: 6px;
@@ -64,7 +62,7 @@ const UserDataStyle = styled.div`
   .buttonSubmit {
     ${ButtonStyle}
     margin-top: 50px;
-    color: ${(props) => props.theme.fontColor};
+    color: ${(props) => props.theme.headerBackGroundColor};
   }
 `;
 

@@ -11,11 +11,11 @@ import {
   setTodayAnalyticsInfo,
 } from '../../../store/actions/todayAnalytics';
 import { loadingTodayAnalytics } from '../../../store/actions/todayAnalytics';
-import { todayAnalyticsDateSelector } from '../../../store/selectors/todayAnalytics';
+import { userAnalyticsDateSelector } from '../../../store/selectors/todayAnalytics';
 import { userIdSelector } from '../../../store/selectors/user';
 import SubmitWindow from '../../../HOC/ModalContent/SubmitWindow';
 import Loader from '../../../Components/Loader';
-import { values } from 'json-server-auth';
+import { gotApiError } from '../../../store/actions/globalAppStateAction';
 
 const DataTodayWrapper = styled.div`
   border-top: 1px solid gray;
@@ -45,14 +45,16 @@ const DataTodayWrapper = styled.div`
     padding: 10px;
   }
   .hint {
+    position: relative;
+    top: 0px;
     border: 1px inset ${(props) => props.theme.buttonColor};
     border-radius: 6px;
     padding: 8px;
     text-align: left;
     margin-left: 10%;
     width: 200px;
-    background-color: rgb(222, 255, 253);
-    color: ${(props) => props.theme.headerBackGroundColor};
+    background-color: ${(props) => props.theme.unmarckColor};
+    color: ${(props) => props.theme.fontColor};
   }
   .steps_today {
     margin-left: 12%;
@@ -64,12 +66,10 @@ const DataTodayWrapper = styled.div`
   .icon:before {
     display: inline;
     margin-right: 10px;
-    text-shadow: 0px 0px 6px #e6e6e6;
     font-weight: 700;
     font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Brands';
     font-size: 60px;
     cursor: pointer;
-    text-shadow: 0px 0px 6px ${(props) => props.theme.buttonColor};
     color: ${(props) => props.theme.fontColor};
   }
   .steps:before {
@@ -80,14 +80,13 @@ const DataTodayWrapper = styled.div`
     content: '\f496';
   }
   .inputNumber {
-    text-shadow: 0px 0px 6px ${(props) => props.theme.buttonColor};
     width: 100px;
     height: 60px;
     font-size: 30px;
     color: ${(props) => props.theme.fontColor};
     border-radius: 4px;
     margin-top: 4px;
-    background-color: gray;
+    background-color: ${(props) => props.theme.unmarckColor};
     text-align: center;
   }
   .buttonSubmit {
@@ -102,36 +101,40 @@ const DataAnalyticsToday = (props) => {
   const [isShownWeight, setIsShownWeight] = useState(false);
   const dispatch = useDispatch();
   const userId = useSelector(userIdSelector);
-  const analyticsDataByDays = useSelector(todayAnalyticsDateSelector);
+  const analyticsDataByDays = useSelector(userAnalyticsDateSelector);
 
   const openModal = useContext(ModalContext);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    setIsLoaded(false);
     fakeServerAPI
       .get(`/dataTodayAnalytics?userId=${userId}`)
-      .then((response) =>
-        response.data ? dispatch(loadingTodayAnalytics(response.data)) : null
-      )
+      .then((response) => {
+        if (response) {
+          dispatch(loadingTodayAnalytics(response.data));
+        }
+      })
       .then(() => {
-        console.log('hi');
         setIsLoaded(true);
       });
+    // .catch((error) => dispatch(gotApiError(error.message)));
   }, []);
 
-  const [dataInfoForChekedDate, setDataInfoForChekedDate] = useState();
+  const [dataForChekedMonth, setDataForChekedMonth] = useState(
+    analyticsDataByDays.find(
+      (dataInfo) => dataInfo.date === props.date.toLocaleDateString()
+    )
+  );
 
   useEffect(() => {
-    setDataInfoForChekedDate(
+    setDataForChekedMonth(
       analyticsDataByDays.find(
-        (dataInfo) =>
-          dataInfo.date === props.date.toLocaleDateString() &&
-          dataInfo.userId === userId
+        (dataInfo) => dataInfo.date === props.date.toLocaleDateString()
       )
     );
-  }, [props.date]);
+  }, [props.date, analyticsDataByDays]);
 
-  console.log(dataInfoForChekedDate);
   const validate = (values) => {
     const errors = {};
     let isError = false;
@@ -150,27 +153,26 @@ const DataAnalyticsToday = (props) => {
     });
     if (isError) return errors;
   };
-  if (isLoaded) {
+  if (!isLoaded) {
+    return <Loader />;
+  } else
     return (
       <DataTodayWrapper>
         <p className={'analytic_title'}>current data for today</p>
         <Formik
           initialValues={{
-            numberSteps: dataInfoForChekedDate
-              ? dataInfoForChekedDate.numberSteps
+            numberSteps: dataForChekedMonth
+              ? dataForChekedMonth.numberSteps
               : '',
-            weight: dataInfoForChekedDate ? dataInfoForChekedDate.weight : '',
+            weight: dataForChekedMonth ? dataForChekedMonth.weight : '',
             date: props.date.toLocaleDateString(),
             userId: userId,
           }}
           validate={validate}
           onSubmit={(formValues) => {
-            if (
-              dataInfoForChekedDate.numberSteps &&
-              dataInfoForChekedDate.weight
-            ) {
+            if (dataForChekedMonth && dataForChekedMonth.id) {
               dispatch(
-                refreshTodayAnalyticsInfo(formValues, dataInfoForChekedDate.id)
+                refreshTodayAnalyticsInfo(formValues, dataForChekedMonth.id)
               );
               openModal(
                 <SubmitWindow type={'refreshData'} setModal={openModal} />
@@ -218,7 +220,6 @@ const DataAnalyticsToday = (props) => {
         ) : null}
       </DataTodayWrapper>
     );
-  } else return <Loader />;
 };
 
 export default DataAnalyticsToday;

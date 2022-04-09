@@ -4,22 +4,24 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const StyledLinkItem = styled.li`
-  margin: 15px 5px;
+  margin: 15px;
   text-align: center;
   padding: 12px 0;
   font-size: 22px;
   font-weight: 600;
   border-radius: 8px;
-  text-shadow: 0px 0px 6px #fff;
   box-shadow: 0px 0px 6px gray;
   color: ${(props) => props.theme.fontColor};
-
   &:hover {
     border-radius: 8px;
     background-color: ${(props) => props.theme.buttonColor};
-    text-shadow: 0px 0px 6px #fff;
+    color: ${(props) => props.theme.headerBackGroundColor};
+    a {
+      color: ${(props) => props.theme.headerBackGroundColor};
+    }
   }
   .exerciseLink {
+    color: ${(props) => props.theme.fontColor};
     text-transform: capitalize;
   }
 `;

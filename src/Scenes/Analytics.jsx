@@ -21,7 +21,7 @@ import styled from 'styled-components';
 import { TrainingAnalytics } from 'Layouts/Components/Analytics/TrainingAnalytics';
 import WeightAnalytics from 'Layouts/Components/Analytics/WeightAnalytics';
 import { currentGoalsSelector } from '../store/selectors/goals';
-import { todayAnalyticsDateSelector } from '../store/selectors/todayAnalytics';
+import { userAnalyticsDateSelector } from '../store/selectors/todayAnalytics';
 
 ChartJS.register(
   CategoryScale,
@@ -103,7 +103,7 @@ const Analytics = () => {
         dispatch(loadingTodayAnalytics(response.data));
       });
   }, []);
-  const analyticsForDays = useSelector(todayAnalyticsDateSelector);
+  const analyticsForDays = useSelector(userAnalyticsDateSelector);
   const sortAnalyticsForDays = [...analyticsForDays]
     .sort(
       (a, b) =>
