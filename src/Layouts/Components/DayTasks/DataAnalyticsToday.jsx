@@ -11,10 +11,14 @@ import {
   setTodayAnalyticsInfo,
 } from '../../../store/actions/todayAnalytics';
 import { loadingTodayAnalytics } from '../../../store/actions/todayAnalytics';
+<<<<<<< HEAD
 import {
   isTodayAnalyticsSelector,
   userAnalyticsDateSelector,
 } from '../../../store/selectors/todayAnalytics';
+=======
+import { userAnalyticsDateSelector } from '../../../store/selectors/todayAnalytics';
+>>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
 import { userIdSelector } from '../../../store/selectors/user';
 import SubmitWindow from '../../../HOC/ModalContent/SubmitWindow';
 import Loader from '../../../Components/Loader';
@@ -105,7 +109,11 @@ const DataAnalyticsToday = (props) => {
   const dispatch = useDispatch();
   const userId = useSelector(userIdSelector);
   const analyticsDataByDays = useSelector(userAnalyticsDateSelector);
+<<<<<<< HEAD
   const isTodayAnalyticsSet = useSelector(isTodayAnalyticsSelector);
+=======
+
+>>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
   const openModal = useContext(ModalContext);
   const [isLoaded, setIsLoaded] = useState(false);
   console.log(isTodayAnalyticsSet);
@@ -120,8 +128,13 @@ const DataAnalyticsToday = (props) => {
       })
       .then(() => {
         setIsLoaded(true);
+<<<<<<< HEAD
       })
       .catch((error) => error);
+=======
+      });
+    // .catch((error) => dispatch(gotApiError(error.message)));
+>>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
   }, []);
 
   const [dataForChekedMonth, setDataForChekedMonth] = useState(

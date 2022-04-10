@@ -11,7 +11,10 @@ import UserCardSetting from '../Layouts/Components/UserPersonalInfo/UserCardSett
 import Analytics from '../Scenes/Analytics';
 import { Shedule } from '../Scenes/Shedule/Shedule';
 import { apiError } from '../store/selectors/globalAppState';
+<<<<<<< HEAD
 import Page404 from '../Scenes/Page404';
+=======
+>>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
 
 const RootRouter = () => {
   const user = useSelector((state) => state.userReduser);

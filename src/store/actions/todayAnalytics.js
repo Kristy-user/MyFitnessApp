@@ -51,8 +51,12 @@ export const refreshTodayAnalyticsInfo = (analytics, id) => {
             id: response.data.id,
           })
         );
+<<<<<<< HEAD
         dispatch(setTodayAnalyticsSuccess(response.data));
       })
       .catch((error) => error);
+=======
+      });
+>>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
   };
 };

@@ -85,7 +85,13 @@ const UserCard = () => {
           dispatch(loadingUserAvatar(response.data));
         }
       })
+<<<<<<< HEAD
       .catch((error) => error);
+=======
+      .catch((error) => {
+        dispatch(gotApiError(error.message));
+      });
+>>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
   }, []);
 
   const logOutUser = () => {

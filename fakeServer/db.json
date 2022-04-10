@@ -9,11 +9,14 @@
       "email": "test1@mail.ru",
       "password": "$2a$10$3SQ8fHJkCFZkXVTkSpYE0uuF4wMwg6km.Jrknp3hRb13R2UScq8Eu",
       "id": 2
+<<<<<<< HEAD
     },
     {
       "email": "test@mail.ruc",
       "password": "$2a$10$5xeQRT1cGx0Xf8CtgRNjT.XR.GhoSJ6qYTk9LB8S9cjVUrfAyTXSi",
       "id": 3
+=======
+>>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
     }
   ],
   "userPersonalData": [
@@ -108,6 +111,7 @@
   ],
   "dataGoals": [
     {
+<<<<<<< HEAD
       "water": "2400",
       "powerTraining": "8",
       "cardioTraining": "8",
@@ -115,6 +119,16 @@
       "weight": "56",
       "userId": 1,
       "id": 1
+=======
+      "userId": 1,
+      "water": "2700",
+      "powerTraining": "8",
+      "cardioTraining": "8",
+      "steps": "12000",
+      "weight": "55",
+      "filled": true,
+      "id": 3
+>>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
     }
   ],
   "dataAnalytics": [
@@ -125,6 +139,7 @@
       "userId": 1,
       "date": "30.01.2022",
       "id": 1
+<<<<<<< HEAD
     },
     {
       "numberFullGlass": 0,
@@ -138,16 +153,39 @@
       "numberFullGlass": 0,
       "numberPowerTraining": 7,
       "numberCardioTraining": 7,
+=======
+    },
+    {
+      "numberFullGlass": 0,
+      "numberPowerTraining": 3,
+      "numberCardioTraining": 3,
+      "userId": 1,
+      "date": "01.02.2022",
+      "id": 2
+    },
+    {
+      "numberFullGlass": 0,
+      "numberPowerTraining": 6,
+      "numberCardioTraining": 6,
+>>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
       "userId": 1,
       "date": "28.03.2022",
       "id": 6
     },
     {
+<<<<<<< HEAD
       "numberFullGlass": 2,
       "numberPowerTraining": 4,
       "numberCardioTraining": 3,
       "userId": 1,
       "date": "10.04.2022",
+=======
+      "numberFullGlass": 3,
+      "numberPowerTraining": 3,
+      "numberCardioTraining": 3,
+      "userId": 1,
+      "date": "09.04.2022",
+>>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
       "id": 7
     }
   ],
@@ -307,11 +345,16 @@
       "id": 35
     },
     {
+<<<<<<< HEAD
       "numberSteps": "11000",
+=======
+      "numberSteps": "9000",
+>>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
       "weight": "56",
       "date": "09.04.2022",
       "userId": 1,
       "id": 36
+<<<<<<< HEAD
     },
     {
       "numberSteps": "8000",
@@ -333,6 +376,8 @@
       "date": "10.04.2022",
       "userId": 1,
       "id": 39
+=======
+>>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
     }
   ]
 }

@@ -17,9 +17,14 @@ import { loadingUserGoals } from '../../store/actions/goals';
 import PromptWindow from '../Components/DayTasks/PromptWindow';
 import DataAnalyticsToday from '../Components/DayTasks/DataAnalyticsToday';
 import GoalsManagement from '../Components/DayTasks/GoalsManagement';
+<<<<<<< HEAD
 import { isLoadedDataSelector } from '../../store/selectors/analytics';
 import Loader from '../../Components/Loader';
 import { apiError } from '../../store/selectors/globalAppState';
+=======
+import { apiError } from '../../store/selectors/globalAppState';
+import { gotApiError } from '../../store/actions/globalAppStateAction';
+>>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
 
 const CardTaskStyle = styled.div`
   display: flex;
@@ -97,6 +102,7 @@ const DayTasks = () => {
   const userId = useSelector(userIdSelector);
   const currentGoals = useSelector(currentGoalsSelector);
   const currentUser = useSelector(currentUserPersonalData);
+<<<<<<< HEAD
   const isApiError = useSelector(apiError);
 
   useEffect(() => {
@@ -116,6 +122,21 @@ const DayTasks = () => {
         }
       })
       .catch((error) => error);
+=======
+  const error = useSelector(apiError);
+
+  useEffect(() => {
+    fakeServerAPI.get(`/dataGoals?userId=${userId}`).then((response) => {
+      if (response.data) {
+        dispatch(loadingUserGoals(response.data));
+      }
+    });
+    fakeServerAPI.get(`/tasks?userId=${userId}`).then((response) => {
+      if (response.data) {
+        dispatch(loadingTaskList(response.data));
+      }
+    });
+>>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
   }, []);
 
   if (isApiError) {
