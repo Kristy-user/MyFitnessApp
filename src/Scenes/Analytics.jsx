@@ -12,7 +12,7 @@ import {
 } from 'chart.js';
 
 import { useDispatch, useSelector } from 'react-redux';
-
+import Loader from '../Components/Loader';
 import { userIdSelector } from 'store/selectors/user';
 import { loadingTodayAnalytics } from 'store/actions/todayAnalytics';
 import fakeServerAPI from 'api/fakeServerAPI';
@@ -21,7 +21,7 @@ import styled from 'styled-components';
 import { TrainingAnalytics } from 'Layouts/Components/Analytics/TrainingAnalytics';
 import WeightAnalytics from 'Layouts/Components/Analytics/WeightAnalytics';
 import { currentGoalsSelector } from '../store/selectors/goals';
-import { todayAnalyticsDateSelector } from '../store/selectors/todayAnalytics';
+import { userAnalyticsDateSelector } from '../store/selectors/todayAnalytics';
 
 ChartJS.register(
   CategoryScale,
@@ -101,9 +101,11 @@ const Analytics = () => {
       .get(`/dataTodayAnalytics?userId=${userId}`)
       .then((response) => {
         dispatch(loadingTodayAnalytics(response.data));
-      });
+      })
+      .catch((error) => error);
   }, []);
-  const analyticsForDays = useSelector(todayAnalyticsDateSelector);
+
+  const analyticsForDays = useSelector(userAnalyticsDateSelector);
   const sortAnalyticsForDays = [...analyticsForDays]
     .sort(
       (a, b) =>

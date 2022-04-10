@@ -12,6 +12,7 @@ import { logOut } from '../../store/actions/user';
 import UserAvatar from '../Components/UserPersonalInfo/UserAvatar';
 import { loadingUserAvatar } from '../../store/actions/userPersonalData';
 import fakeServerAPI from '../../api/fakeServerAPI';
+import { gotApiError } from '../../store/actions/globalAppStateAction';
 
 const UserCardStyle = styled.div`
   ${CardStyle}
@@ -32,7 +33,7 @@ const UserCardStyle = styled.div`
     align-items: center;
     &:hover {
       color: ${(props) => props.theme.buttonColor};
-      text-shadow: 0px 0px 6px #e6e6e6;
+      text-shadow: 0px 0px 6px ${(props) => props.theme.shadowColor};
       cursor: pointer;
     }
   }
@@ -58,7 +59,7 @@ const UserCardStyle = styled.div`
     width: max-content;
     margin: 0 auto;
     & p {
-      box-shadow: 0px 0px 6px #e6e6e6;
+      box-shadow: 0px 0px 6px ${(props) => props.theme.shadowColor};
       margin: 6px;
       border-radius: 6px;
     }
@@ -76,11 +77,15 @@ const UserCard = () => {
   const navig = useNavigate();
 
   useEffect(() => {
-    fakeServerAPI.get(`/userAvatar?userId=${userId}`).then((response) => {
-      if (response.data) {
-        dispatch(loadingUserAvatar(response.data));
-      }
-    });
+    dispatch(gotApiError(''));
+    fakeServerAPI
+      .get(`/userAvatar?userId=${userId}`)
+      .then((response) => {
+        if (response.data) {
+          dispatch(loadingUserAvatar(response.data));
+        }
+      })
+      .catch((error) => error);
   }, []);
 
   const logOutUser = () => {

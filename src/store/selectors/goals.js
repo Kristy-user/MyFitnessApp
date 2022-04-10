@@ -5,3 +5,4 @@ export const currentGoalsSelector = (store) =>
 
 export const showEditGoalsSelector = (store) =>
   store.goalsReduser.showEditGoalsCard;
+export const isGoalsSetSelector = (store) => store.goalsReduser.isSetGoals;

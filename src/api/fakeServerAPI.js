@@ -1,7 +1,11 @@
 import axios from 'axios';
 import { store } from '../store/initStore';
 import { logOut } from '../store/actions/user';
-import { gotApiError } from '../store/actions/globalAppStateAction';
+import {
+  gotApiError,
+  gotStatusCode,
+} from '../store/actions/globalAppStateAction';
+
 const fakeServerAPI = axios.create({
   baseURL: 'http://localhost:3001',
   timeout: 1000,
@@ -9,24 +13,37 @@ const fakeServerAPI = axios.create({
 
 fakeServerAPI.interceptors.request.use(
   (request) => {
-    console.log('success', request);
     request.headers.acces = store.getState().userReduser.isLoggedIn;
     return request;
   },
-  (err) => console.log('error', err)
+  (error) => {
+    store.dispatch(gotApiError(error.message));
+    console.log(error.message, error.response);
+  }
 );
 
 fakeServerAPI.interceptors.response.use(
   (responce) => {
-    console.log('response', responce);
     return responce;
   },
   (error) => {
-    console.log('success', error);
     if (error.code === 401) {
-      store.dispatch(logOut({ logOutReason: 'session time out' }));
-    } else {
-      store.dispatch(gotApiError(error));
+      store.dispatch(logOut());
+      if (error.code === 404) {
+        store.dispatch(gotStatusCode(404));
+      }
+      if (error.code === 400) {
+        console.log(error.code);
+      }
+    } else if (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        store.dispatch(gotApiError(error.response.data));
+      } else {
+        store.dispatch(
+          gotApiError(`Sorry server is currently unavailable: ${error.message}`)
+        );
+      }
       throw error;
     }
   }

@@ -4,12 +4,15 @@ import styled from 'styled-components';
 const LiStyle = styled.li`
   .icon:before {
     margin: 10px;
-    text-shadow: 0px 0px 6px #e6e6e6;
+    text-shadow: #fff;
     font-weight: 700;
     font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Brands';
     font-size: 50px;
     cursor: pointer;
-    color: gray;
+    color: ${(props) => props.theme.unmarckColor};
+  }
+  .power:hover:before {
+    color: ${(props) => props.theme.fontColor};
   }
   .power:before,
   .completedPower:before {
@@ -17,7 +20,6 @@ const LiStyle = styled.li`
   }
 
   .completedPower:before {
-    text-shadow: 0px 0px 6px ${(props) => props.theme.buttonColor};
     color: ${(props) => props.theme.fontColor};
   }
 `;

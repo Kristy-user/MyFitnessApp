@@ -4,6 +4,16 @@
       "email": "test@mail.ru",
       "password": "$2a$10$0wA60f90T7Vu0IWtLEoBY.ku74EXab04jKJtoG65Q1.VvAnxxwEMG",
       "id": 1
+    },
+    {
+      "email": "test1@mail.ru",
+      "password": "$2a$10$3SQ8fHJkCFZkXVTkSpYE0uuF4wMwg6km.Jrknp3hRb13R2UScq8Eu",
+      "id": 2
+    },
+    {
+      "email": "test@mail.ruc",
+      "password": "$2a$10$5xeQRT1cGx0Xf8CtgRNjT.XR.GhoSJ6qYTk9LB8S9cjVUrfAyTXSi",
+      "id": 3
     }
   ],
   "userPersonalData": [
@@ -20,7 +30,7 @@
   "userAvatar": [
     {
       "userId": 1,
-      "image": "/7f991f9d412586ea2796db55654963a8.jpg",
+      "image": "/b9173d845486c1c6c9c05f84536d6fa4.jpg",
       "id": 1
     }
   ],
@@ -90,35 +100,20 @@
     },
     {
       "userId": 1,
-      "date": "03.04.2022",
-      "title": "Go to shop",
-      "completed": false,
-      "id": 43
-    },
-    {
-      "userId": 1,
       "date": "12.04.2022",
       "title": "Fill up the car ",
       "completed": false,
       "id": 44
-    },
-    {
-      "userId": 4,
-      "date": "02.04.2022",
-      "title": "bfgnfgbn",
-      "completed": false,
-      "id": 45
     }
   ],
   "dataGoals": [
     {
-      "userId": 1,
-      "water": "1500",
+      "water": "2400",
       "powerTraining": "8",
       "cardioTraining": "8",
       "steps": "12000",
-      "weight": "55",
-      "filled": true,
+      "weight": "56",
+      "userId": 1,
       "id": 1
     }
   ],
@@ -128,16 +123,32 @@
       "numberPowerTraining": 3,
       "numberCardioTraining": 0,
       "userId": 1,
-      "date": "27.03.2022",
-      "id": 48
+      "date": "30.01.2022",
+      "id": 1
     },
     {
-      "numberFullGlass": 5,
-      "numberPowerTraining": 5,
-      "numberCardioTraining": 6,
+      "numberFullGlass": 0,
+      "numberPowerTraining": 3,
+      "numberCardioTraining": 3,
       "userId": 1,
-      "date": "27.02.2022",
-      "id": 50
+      "date": "01.02.2022",
+      "id": 2
+    },
+    {
+      "numberFullGlass": 0,
+      "numberPowerTraining": 7,
+      "numberCardioTraining": 7,
+      "userId": 1,
+      "date": "28.03.2022",
+      "id": 6
+    },
+    {
+      "numberFullGlass": 2,
+      "numberPowerTraining": 4,
+      "numberCardioTraining": 3,
+      "userId": 1,
+      "date": "10.04.2022",
+      "id": 7
     }
   ],
   "dataTodayAnalytics": [
@@ -273,6 +284,55 @@
       "date": "01.04.2022",
       "userId": 1,
       "id": 32
+    },
+    {
+      "numberSteps": "12000",
+      "weight": "58",
+      "date": "05.04.2022",
+      "userId": 1,
+      "id": 33
+    },
+    {
+      "numberSteps": "9000",
+      "weight": "60",
+      "date": "06.04.2022",
+      "userId": 1,
+      "id": 34
+    },
+    {
+      "numberSteps": "15000",
+      "weight": "57",
+      "date": "07.04.2022",
+      "userId": 1,
+      "id": 35
+    },
+    {
+      "numberSteps": "11000",
+      "weight": "56",
+      "date": "09.04.2022",
+      "userId": 1,
+      "id": 36
+    },
+    {
+      "numberSteps": "8000",
+      "weight": "58",
+      "date": "08.04.2022",
+      "userId": 1,
+      "id": 37
+    },
+    {
+      "numberSteps": "4000",
+      "weight": "59",
+      "date": "21.03.2022",
+      "userId": 1,
+      "id": 38
+    },
+    {
+      "numberSteps": "13000",
+      "weight": "58",
+      "date": "10.04.2022",
+      "userId": 1,
+      "id": 39
     }
   ]
 }

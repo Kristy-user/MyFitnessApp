@@ -4,13 +4,17 @@ import styled from 'styled-components';
 const LiStyle = styled.li`
   .icon:before {
     margin: 10px;
-    text-shadow: 0px 0px 6px #e6e6e6;
+    text-shadow: #fff;
     font-weight: 700;
     font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Brands';
     font-size: 50px;
     cursor: pointer;
-    color: gray;
+    color: ${(props) => props.theme.unmarckColor};
   }
+  .glass:hover:before {
+    color: ${(props) => props.theme.fontColor};
+  }
+
   .glass:before {
     content: '\f7a0';
   }
@@ -18,7 +22,6 @@ const LiStyle = styled.li`
     content: '\f7a0';
   }
   .fullglass:before {
-    text-shadow: 0px 0px 6px ${(props) => props.theme.buttonColor};
     color: ${(props) => props.theme.fontColor};
   }
 `;

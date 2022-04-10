@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import fakeServerAPI from '../api/fakeServerAPI';
 import { loadingUserPersonalData } from '../store/actions/userPersonalData';
 import BMI from './Components/UserPersonalInfo/BMI';
-import { apiError } from '../store/selectors/globalAppState';
 
 const StyledLayout = styled.div`
   margin: auto;
@@ -29,6 +28,18 @@ const StyledLayout = styled.div`
     align-self: flex-start;
     font-size: 36px;
     text-shadow: 0px 0px 6px ${(props) => props.theme.buttonColor};
+
+    position: relative;
+    animation: glow 2s ease-in-out infinite;
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 20px ${(props) => props.theme.buttonColor};
+      }
+      to {
+        text-shadow: 0 0 30px ${(props) => props.theme.shadowColor},
+          0 0 10px ${(props) => props.theme.buttonColor};
+      }
+    }
   }
 
   .header {
@@ -85,7 +96,7 @@ const StyledLayout = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: ${(props) => props.theme.gradientColor_2};
+    background-color: ${(props) => props.theme.appBackGroundColor};
     -webkit-transition: 0.4s;
     transition: 0.4s;
 
@@ -103,7 +114,7 @@ const StyledLayout = styled.div`
   }
 
   input:checked + .slider {
-    background-color: ${(props) => props.theme.headerBackGroundColor};
+    background-color: ${(props) => props.theme.appBackGroundColor};
   }
 
   input:focus + .slider {
@@ -126,10 +137,9 @@ const StyledLayout = styled.div`
 
 const Home = () => {
   const changeTheme = useContext(ThemeContext);
-  const error = useSelector(apiError);
   const dispatch = useDispatch();
-
   const userId = useSelector(userIdSelector);
+
   useEffect(() => {
     fakeServerAPI
       .get(`/userPersonalData?userId=${userId}`)
@@ -138,16 +148,14 @@ const Home = () => {
           dispatch(loadingUserPersonalData(response.data));
         }
       })
-      .catch((error) => {
-        console.log('api call catch', error);
-      });
+      .catch((error) => error);
   }, []);
 
   return (
     <StyledLayout>
       <div className={'header'}>
         <div className={'logo'}>
-          <p>TimeToSport</p>
+          <span>TimeToSport</span>
         </div>
 
         <label className="switch">
@@ -167,6 +175,7 @@ const Home = () => {
         </div>
         <div className="rightLayout">
           <UserCard />
+
           <BMI />
         </div>
       </div>

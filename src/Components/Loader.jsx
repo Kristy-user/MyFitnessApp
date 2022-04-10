@@ -73,7 +73,7 @@ const StyledLoader = styled.div`
 const Loader = () => {
   return (
     <StyledLoader>
-      <div class="background">
+      <div className={'background'}>
         <span></span>
         <span></span>
         <span></span>

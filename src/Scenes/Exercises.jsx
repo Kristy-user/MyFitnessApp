@@ -41,9 +41,7 @@ const Exercises = () => {
       .then((response) => {
         dispatch(loadingExercisesList(response.data));
       })
-      .catch((err) => {
-        console.error(err);
-      });
+      .catch((error) => error);
   }, []);
 
   return (

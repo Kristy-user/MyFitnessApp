@@ -17,24 +17,24 @@ const SubmitWindowStyle = styled.div`
 `;
 
 const SubmitWindow = (props) => {
-  if (props.type === 'refreshData') {
+  if (!props.isTodayAnalyticsSet) {
     return (
       <SubmitWindowStyle>
-        <p>
-          Your current data for {new Date().toLocaleDateString()} has been
-          updated ✅
-        </p>
+        <p>Sorry, server is currently unavailable.</p>
         <button onClick={() => props.setModal(false)}>Ok</button>
       </SubmitWindowStyle>
     );
-  }
-  if (props.type === 'setNewData') {
+  } else if (props.type === 'refreshData') {
     return (
       <SubmitWindowStyle>
-        <p>
-          Your current data for {new Date().toLocaleDateString()} has been set
-          ✅
-        </p>
+        <p>Your current data for {props.date} has been updated ✅</p>
+        <button onClick={() => props.setModal(false)}>Ok</button>
+      </SubmitWindowStyle>
+    );
+  } else if (props.type === 'setNewData') {
+    return (
+      <SubmitWindowStyle>
+        <p>Your current data for {props.date} has been set ✅</p>
         <button onClick={() => props.setModal(false)}>Ok</button>
       </SubmitWindowStyle>
     );

@@ -3,7 +3,11 @@ import { useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
 import { ButtonStyle } from '../../../Components/Button';
-import { completeTask, removeTask } from '../../../store/actions/tasks';
+import {
+  completeTask,
+  removeTask,
+  setComplitedTask,
+} from '../../../store/actions/tasks';
 
 const ListStyle = styled.div`
   li {
@@ -12,7 +16,7 @@ const ListStyle = styled.div`
     justify-content: space-between;
     align-items: center;
     margin: 5px;
-    width: 100vh;
+    width: 90vh;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     border-radius: 6px;
   }
@@ -62,9 +66,6 @@ const ListStyle = styled.div`
       &::before {
         opacity: 1;
       }
-      /* ~ label::before {
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-      } */
     }
   }
   .done {
@@ -87,7 +88,7 @@ const TaskItem = ({ task, index }) => {
             checked={task.completed}
             type="checkbox"
             id={task.id}
-            onChange={() => dispatch(completeTask(task.id))}
+            onChange={() => dispatch(setComplitedTask(task))}
           />
           <label htmlFor={task.id} data-content={task.title}>
             {task.title} &emsp;

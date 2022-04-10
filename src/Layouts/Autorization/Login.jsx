@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,12 +6,14 @@ import { logIn } from '../../store/actions/user';
 import fakeServerAPI from '../../api/fakeServerAPI';
 import { userLoginSelector } from '../../store/selectors/user';
 import { useNavigate } from 'react-router-dom';
-
 import FormikInput from '../../Components/formikFields/FormikInput';
 import { ButtonStyle } from '../../Components/Button';
 import { showEditGoalsCard } from '../../store/actions/goals';
 import { apiError } from '../../store/selectors/globalAppState';
-
+import { toast, ToastContainer } from 'react-toastify';
+import { gotApiError } from '../../store/actions/globalAppStateAction';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContext } from '../../HOC/GlobalToastProvider';
 const StyledLoginHolder = styled.div`
   max-width: 35rem;
   height: 25rem;
@@ -30,7 +31,7 @@ const StyledLoginHolder = styled.div`
     flex-direction: row;
     margin: 20px 0 0 0;
     justify-content: center;
-    color: ${(props) => props.theme.fontColor};
+    color: black;
     & p {
       margin: 0 10px;
       align-self: center;
@@ -47,30 +48,30 @@ const StyledLoginHolder = styled.div`
     background-color: rgba(180, 182, 181, 0.7);
     margin-top: 30px;
     &:hover {
+      color: ${(props) => props.theme.appBackGroundColor};
       text-shadow: none;
-      color: white;
+      background-color: ${(props) => props.theme.fontColor};
     }
   }
   .button {
     text-decoration: underline;
     background: none;
     font-size: 16px;
-    color: inherit;
+    /* color: inherit; */
     padding: 3px;
     border: none;
     border-radius: 6px;
-
     &:hover {
-      color: #e6e6e6;
+      color: ${(props) => props.theme.headerBackGroundColor};
     }
   }
   @media (max-width: 986px) {
     min-height: 25rem;
   }
   .error {
-    color: ${(props) => props.theme.appBackGroundColor};
-    font-size: 24px;
-    text-shadow: 0px 0px 6px rgba(24, 27, 27, 0.7);
+    color: ${(props) => props.theme.headerBackGroundColor};
+    font-size: 16px;
+    text-shadow: 0px 0px 6px rgba(235, 23, 23, 0.7);
   }
 `;
 
@@ -80,33 +81,34 @@ const Login = () => {
   const isLogin = useSelector(userLoginSelector);
   const [cardVie, setCardVie] = useState(isLogin);
   const error = useSelector(apiError);
+  const addToast = useContext(ToastContext);
+
   const validate = (values) => {
     const errors = {};
     let isError = false;
     const correctPassword = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-    if (!values.email) {
-      errors.email = 'Required';
-      isError = true;
-    } else if (
-      !values.email.match(
-        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      )
-    ) {
-      errors.email = 'Invalid email address';
-      isError = true;
-    }
-    if (!values.password) {
-      errors.password = 'Required';
-      isError = true;
-    } else if (!values.password.match(correctPassword)) {
-      errors.password =
-        'Password must contain at least one number,one uppercase and lowercase letter, and at least 6 or more characters';
-      isError = true;
-    }
+    const correctEmail =
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    Object.keys(values).forEach((key) => {
+      if (!values[key]) {
+        errors[key] = 'Required';
+        isError = true;
+      } else if (!values.email.match(correctEmail)) {
+        errors.email = 'Invalid email address';
+        isError = true;
+      } else if (!values.password.match(correctPassword)) {
+        errors.password =
+          'Password must contain at least one number,one uppercase and lowercase letter, and at least 6 or more characters';
+        isError = true;
+      }
+    });
+
     if (values.confirmPassword && values.password !== values.confirmPassword) {
-      errors.confirmPassword = 'Password does not match';
+      errors.confirmPassword = 'Password doesn`t match';
       isError = true;
     }
+
     if (isError) return errors;
   };
 
@@ -131,7 +133,6 @@ const Login = () => {
                     password: formValues.password,
                   })
                   .then((response) => {
-                    console.log(response);
                     dispatch(
                       logIn({
                         userName: 'email',
@@ -143,21 +144,21 @@ const Login = () => {
                     dispatch(showEditGoalsCard(false));
                     navig('/home');
                   })
-                  .catch((error) => {
-                    console.log('api call catch', error);
-                  });
+                  .catch((error) => error);
               }}
             >
               <Form>
                 <FormikInput name="email" />
                 <FormikInput name="password" />
-                <button className="buttonSubmit">Login</button>
+                <button type="submit" className="buttonSubmit">
+                  Login
+                </button>
               </Form>
             </Formik>
           </div>
         </div>
         <div className={'footer_auth_card'}>
-          <p>Dont have an account?</p>
+          <p>Don't have an account?</p>
           <button className="button" onClick={() => setCardVie(false)}>
             Register
           </button>
@@ -170,8 +171,7 @@ const Login = () => {
     return (
       <StyledLoginHolder>
         <div className="welcome">
-          <p>Welcome! </p>
-          <p>Register to start.</p>
+          <p>Welcome! Register to start.</p>
         </div>
 
         <div className={'loginCard'}>
@@ -180,7 +180,7 @@ const Login = () => {
               initialValues={{
                 email: 'test@mail.ru',
                 password: '1111lL',
-                confirmPassword: '',
+                confirmPassword: '1111lL',
               }}
               validate={validate}
               onSubmit={(formValues) => {
@@ -200,16 +200,16 @@ const Login = () => {
                     );
                     navig('/home');
                   })
-                  .then.catch((error) => {
-                    console.log('api call catch', error);
-                  });
+                  .catch((error) => error);
               }}
             >
               <Form>
                 <FormikInput name="email" />
                 <FormikInput name="password" />
                 <FormikInput name="confirmPassword" />
-                <button className="buttonSubmit">Register now</button>
+                <button type="submit" className="buttonSubmit">
+                  Register now
+                </button>
               </Form>
             </Formik>
           </div>
@@ -226,15 +226,6 @@ const Login = () => {
 
   if (cardVie) {
     return getLoginCard();
-  }
-  if (error) {
-    return (
-      <StyledLoginHolder>
-        <div className="error">
-          Sorry, server is not available due to: {error.message}
-        </div>
-      </StyledLoginHolder>
-    );
   } else {
     return getRegisterCard();
   }

@@ -9,6 +9,7 @@ export const removeDataInfoSuccess = createAction('RemoveDataInfoSuccess');
 export const loadingUserAnalyticsSuccess = createAction(
   'LoadingUserAnalyticsSuccess'
 );
+export const setDataAnalyticsSuccess = createAction('SetDataAnalyticsSuccess');
 
 export const loadingUserAnalytics = (id) => {
   return (dispatch) => {
@@ -19,52 +20,34 @@ export const loadingUserAnalytics = (id) => {
           dispatch(loadingUserAnalyticsStart(response.data));
         }
       })
-      .then(() => {
-        dispatch(loadingUserAnalyticsSuccess(true));
-      });
+
+      .catch((error) => error);
   };
 };
 
 export const addNewMonthAnalytics = (analytics) => {
   return (dispatch) => {
+    dispatch(setDataAnalyticsSuccess(false));
     fakeServerAPI
-      .post(`/dataAnalytics`, {
-        numberFullGlass: analytics.numberFullGlass,
-        numberPowerTraining: analytics.numberPowerTraining,
-        numberCardioTraining: analytics.numberCardioTraining,
-        userId: analytics.userId,
-        date: analytics.date,
+      .post(`/dataAnalytics`, analytics)
+      .then((response) => {
+        dispatch(setUserAnalytics(response.data));
       })
-      .then((response) =>
-        dispatch(
-          setUserAnalytics({
-            numberFullGlass: analytics.numberFullGlass,
-            numberPowerTraining: analytics.numberPowerTraining,
-            numberCardioTraining: analytics.numberCardioTraining,
-            userId: analytics.userId,
-            date: analytics.date,
-            id: response.data.id,
-          })
-        )
-      );
+      .then(() => dispatch(setDataAnalyticsSuccess(true)))
+      .catch((error) => error);
   };
 };
-export const removeDataInfo = (id) => {
-  return (dispatch) => {
-    fakeServerAPI.delete(`/dataAnalytics/${id}`).then(() => {
-      dispatch(removeDataInfoSuccess(id));
-    });
-  };
-};
+
 export const refreshAnalytics = (analytics, id) => {
   return (dispatch) => {
+    dispatch(setDataAnalyticsSuccess(false));
+    dispatch(removeDataInfoSuccess(id));
     fakeServerAPI
-      .delete(`/dataAnalytics/${id}`)
-      .then(() => {
-        dispatch(removeDataInfoSuccess(id));
+      .put(`/dataAnalytics/${id}`, analytics)
+      .then((response) => {
+        dispatch(setUserAnalytics(response.data));
       })
-      .then(() => {
-        dispatch(addNewMonthAnalytics(analytics));
-      });
+      .then(() => dispatch(setDataAnalyticsSuccess(true)))
+      .catch((error) => error);
   };
 };

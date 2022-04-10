@@ -4,12 +4,14 @@ import {
   editGoal,
   loadingUserGoals,
   removeUserGoals,
+  setGoalsRefreshedSuccess,
   showEditGoalsCard,
 } from '../actions/goals';
 
 const initialState = {
   usersGoals: [],
   showEditGoalsCard: false,
+  isSetGoals: true,
 };
 
 export const goalsReduser = createReducer(initialState, (builder) => {
@@ -27,5 +29,8 @@ export const goalsReduser = createReducer(initialState, (builder) => {
       state.usersGoals = state.usersGoals.filter(
         (data) => data.id !== action.payload
       );
+    })
+    .addCase(setGoalsRefreshedSuccess, (state, action) => {
+      state.isSetGoals = action.payload;
     });
 });

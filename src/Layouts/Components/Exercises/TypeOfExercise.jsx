@@ -20,8 +20,7 @@ const StyledCard = styled.div`
     grid-template-columns: repeat(2, 1fr);
   }
   li {
-    text-shadow: 0px 0px 6px ${(props) => props.theme.appBackGroundColor};
-    color: ${(props) => props.theme.headerBackGroundColor};
+    color: ${(props) => props.theme.appackGroundColor};
     padding: 20px;
   }
   img {
@@ -34,7 +33,6 @@ const StyledCard = styled.div`
 
 const TypeOfExercise = () => {
   const params = useParams();
-  const [playing, setPlaying] = useState(false);
 
   const allExercises = useSelector(allExercisesSelector);
   const dispatch = useDispatch();
@@ -45,9 +43,7 @@ const TypeOfExercise = () => {
       .then((response) => {
         dispatch(loadingAllExercises(response.data.slice(1, 301)));
       })
-      .catch((err) => {
-        console.error(err);
-      });
+      .catch((err) => err);
   }, []);
 
   return (
@@ -63,7 +59,6 @@ const TypeOfExercise = () => {
               .map((exercise, index) => (
                 <li key={exercise.id} index={index}>
                   <p>
-                    {' '}
                     <strong>{index + 1}.</strong>
                     &nbsp; {exercise.name.toUpperCase()}
                   </p>
@@ -71,7 +66,6 @@ const TypeOfExercise = () => {
                     gif={exercise.gifUrl}
                     still={buttonPlay}
                     autoplay={false}
-                    onTooglePlay={() => setPlaying(!playing)}
                     title={exercise.name}
                   />
                 </li>

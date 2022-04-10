@@ -6,49 +6,43 @@ export const loadingUserGoals = createAction('LoadingGoals');
 export const createGoals = createAction('CreateGoals');
 export const showEditGoalsCard = createAction('ShowEditGoalsCard');
 export const removeUserGoals = createAction('RremoveUserGoals');
-
-export const refreshGoals = (goals, current) => {
+export const setGoalsRefreshedSuccess = createAction(
+  'SetGoalsRefreshedSuccess'
+);
+export const refreshGoals = (goals, id) => {
   return (dispatch) => {
+    dispatch(setGoalsRefreshedSuccess(false));
+    dispatch(removeUserGoals(id));
     fakeServerAPI
-      .post(`/dataGoals`, {
-        userId: current.userId,
-        water: goals.water,
-        powerTraining: goals.powerTraining,
-        cardioTraining: goals.cardioTraining,
-        steps: goals.steps,
-        weight: goals.weight,
-        filled: true,
-      })
+      .put(`/dataGoals/${id}`, goals)
       .then((response) => {
         dispatch(createGoals(response.data));
-      });
-    fakeServerAPI
-      .delete(`/dataGoals/${current.id}`)
-      .then(() => dispatch(removeUserGoals(current.id)))
+      })
+      .then(() => {
+        dispatch(setGoalsRefreshedSuccess(true));
+      })
       .then(() => {
         dispatch(showEditGoalsCard(false));
-      });
+      })
+      .catch((error) => error);
   };
 };
 
-export const createNewGoals = (goals, id) => {
+export const createNewGoals = (goals) => {
   return (dispatch) => {
-    console.log(goals);
+    dispatch(setGoalsRefreshedSuccess(false));
     fakeServerAPI
-      .post(`/dataGoals`, {
-        userId: id,
-        water: goals.water,
-        powerTraining: goals.powerTraining,
-        cardioTraining: goals.cardioTraining,
-        steps: goals.steps,
-        weight: goals.weight,
-        filled: true,
-      })
+      .post(`/dataGoals`, goals)
       .then((response) => {
         dispatch(createGoals(response.data));
       })
+
+      .then(() => {
+        dispatch(setGoalsRefreshedSuccess(true));
+      })
       .then(() => {
         showEditGoalsCard(false);
-      });
+      })
+      .catch((error) => error);
   };
 };

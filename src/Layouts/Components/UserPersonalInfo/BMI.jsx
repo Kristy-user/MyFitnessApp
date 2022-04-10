@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { CardStyle } from '../../../Components/CardTemplate';
 import { useSelector } from 'react-redux';
@@ -31,9 +31,7 @@ const StyledIMT = styled.div`
     margin: 10px auto;
     align-items: center;
   }
-  .title {
-    /* margin: 0 auto; */
-  }
+
   .icon:before {
     display: block;
     font-weight: 700;

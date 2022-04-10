@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadingTaskList } from 'store/actions/tasks';
@@ -15,11 +15,11 @@ import { userIdSelector } from '../../store/selectors/user';
 import { currentGoalsSelector } from '../../store/selectors/goals';
 import { loadingUserGoals } from '../../store/actions/goals';
 import PromptWindow from '../Components/DayTasks/PromptWindow';
-import { loadingUserAnalytics } from '../../store/actions/analytics';
 import DataAnalyticsToday from '../Components/DayTasks/DataAnalyticsToday';
 import GoalsManagement from '../Components/DayTasks/GoalsManagement';
 import { isLoadedDataSelector } from '../../store/selectors/analytics';
 import Loader from '../../Components/Loader';
+import { apiError } from '../../store/selectors/globalAppState';
 
 const CardTaskStyle = styled.div`
   display: flex;
@@ -50,16 +50,15 @@ const CardTaskStyle = styled.div`
     }
   }
   .date_picker {
-    text-shadow: 0px 0px 6px ${(props) => props.theme.buttonColor};
     border: none;
     font-size: 22px;
     text-align: center;
     width: min-content;
-    box-shadow: 0px 0px 6px #e6e6e6;
+    box-shadow: 0px 0px 6px ${(props) => props.theme.shadowColor};
     margin: 10px;
     padding: 5px;
     display: inline-block;
-    background-color: gray;
+    background-color: ${(props) => props.theme.unmarckColor};
     color: ${(props) => props.theme.fontColor};
     border-radius: 6px;
     &:focus {
@@ -98,30 +97,36 @@ const DayTasks = () => {
   const userId = useSelector(userIdSelector);
   const currentGoals = useSelector(currentGoalsSelector);
   const currentUser = useSelector(currentUserPersonalData);
-  const dataIsLoaded = useSelector(isLoadedDataSelector);
+  const isApiError = useSelector(apiError);
 
   useEffect(() => {
-    fakeServerAPI.get(`/dataGoals?userId=${userId}`).then((response) => {
-      if (response.data) {
-        dispatch(loadingUserGoals(response.data));
-      }
-    });
-    dispatch(loadingUserAnalytics(userId));
-    fakeServerAPI.get(`/tasks?userId=${userId}`).then((response) => {
-      if (response.data) {
-        dispatch(loadingTaskList(response.data));
-      }
-    });
+    fakeServerAPI
+      .get(`/dataGoals?userId=${userId}`)
+      .then((response) => {
+        if (response.data) {
+          dispatch(loadingUserGoals(response.data));
+        }
+      })
+      .catch((error) => error);
+    fakeServerAPI
+      .get(`/tasks?userId=${userId}`)
+      .then((response) => {
+        if (response.data) {
+          dispatch(loadingTaskList(response.data));
+        }
+      })
+      .catch((error) => error);
   }, []);
 
-  if (!currentUser) {
+  if (isApiError) {
+    return <CardTaskStyle>{isApiError}</CardTaskStyle>;
+  } else if (!currentUser) {
     return (
       <CardTaskStyle>
         <PromptWindow link={'personalData'} />
       </CardTaskStyle>
     );
-  }
-  if (!currentGoals) {
+  } else if (!currentGoals) {
     return (
       <CardTaskStyle>
         <PromptWindow link={'goals'} />
@@ -173,14 +178,8 @@ const DayTasks = () => {
             </button>
           </div>
         </CardTaskStyle>
-        {dataIsLoaded ? (
-          <>
-            <DataAnalyticsToday date={startDate} />
-            <GoalsManagement date={startDate} />{' '}
-          </>
-        ) : (
-          <Loader />
-        )}
+        <DataAnalyticsToday date={startDate} />
+        <GoalsManagement date={startDate} />
       </React.Fragment>
     );
 };

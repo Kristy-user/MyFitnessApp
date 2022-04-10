@@ -21,7 +21,8 @@ export const newUserPersonalData = (data, id) => {
       })
       .then((response) => {
         dispatch(setUserPersonalData(response.data));
-      });
+      })
+      .catch((error) => error);
   };
 };
 export const refreshUserPersonalData = (data, current) => {
@@ -31,7 +32,8 @@ export const refreshUserPersonalData = (data, current) => {
       .then(() => dispatch(removeUserPersonalData(current.id)))
       .then(() => {
         dispatch(newUserPersonalData(data, current.userId));
-      });
+      })
+      .catch((error) => error);
   };
 };
 
@@ -44,7 +46,8 @@ export const setNewUserAvatar = (image, id) => {
       })
       .then((response) => {
         dispatch(setUserAvatar(response.data));
-      });
+      })
+      .catch((error) => error);
   };
 };
 export const refreshUserAvatar = (image, avatar) => {

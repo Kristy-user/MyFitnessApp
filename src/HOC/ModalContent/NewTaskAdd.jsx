@@ -8,7 +8,7 @@ import { taskListSelector } from '../../store/selectors/tasksList';
 
 const NewTaskStyle = styled.div`
   ${CardStyle}
-  background-color: ${(props) => props.theme.appBackGroundColor};
+  background-color: ${(props) => props.theme.unmarckColor};
   color: ${(props) => props.theme.fontColor};
   font-size: 18px;
   display: flex;
@@ -62,9 +62,7 @@ const NewTaskStyle = styled.div`
 const NewTaskAdd = (props) => {
   const [task, setTask] = useState('');
   const tasksList = useSelector(taskListSelector);
-  console.log(
-    tasksList.filter((task) => task.date === props.datePicked).length > 0
-  );
+
   return (
     <NewTaskStyle>
       <div className="currentTask">

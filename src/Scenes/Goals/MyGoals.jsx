@@ -16,6 +16,7 @@ import {
 
 import FormikInputNumber from '../../Components/formikFields/FormikInputNumber';
 import FormikRadio from '../../Components/formikFields/FormikRadio';
+import { apiError } from '../../store/selectors/globalAppState';
 
 const MyGoalsStyle = styled.div`
   h4 {
@@ -30,7 +31,6 @@ const MyGoalsStyle = styled.div`
     font-size: 18px;
   }
   .inputNumber {
-    text-shadow: 0px 0px 6px ${(props) => props.theme.buttonColor};
     align-self: center;
     display: inline-block;
     margin: 20px 0 0 10px;
@@ -40,7 +40,7 @@ const MyGoalsStyle = styled.div`
     color: ${(props) => props.theme.fontColor};
     border-radius: 4px;
     padding: 5px;
-    background-color: gray;
+    background-color: ${(props) => props.theme.unmarckColor};
     text-align: center;
   }
   .buttonSubmit {
@@ -56,6 +56,7 @@ const MyGoals = () => {
   const currentGoals = useSelector(currentGoalsSelector);
   const showEditGoals = useSelector(showEditGoalsSelector);
   const [viewGoals, setViewGoals] = useState(showEditGoals);
+  const isApiError = useSelector(apiError);
 
   useEffect(() => {
     setViewGoals(showEditGoals);
@@ -76,7 +77,9 @@ const MyGoals = () => {
 
     if (isError) return errors;
   };
-
+  if (isApiError) {
+    return <div>{isApiError}</div>;
+  }
   if (viewGoals) {
     return (
       <MyGoalsStyle>
@@ -94,10 +97,11 @@ const MyGoals = () => {
           }}
           validate={validate}
           onSubmit={(formValues) => {
+            formValues.userId = userId;
             if (currentGoals) {
-              dispatch(refreshGoals(formValues, currentGoals));
+              dispatch(refreshGoals(formValues, currentGoals.id));
             } else {
-              dispatch(createNewGoals(formValues, userId));
+              dispatch(createNewGoals(formValues));
             }
           }}
           enableReinitialize={true}

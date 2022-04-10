@@ -3,10 +3,12 @@ import {
   loadingTodayAnalytics,
   newDayAnalytics,
   removeTodayInfoSuccess,
+  setTodayAnalyticsSuccess,
 } from '../actions/todayAnalytics';
 
 const initialState = {
   analyticsData: [],
+  isTodayAnalytics: '',
 };
 
 export const todayAnalyticsReducer = createReducer(initialState, (builder) => {
@@ -21,5 +23,8 @@ export const todayAnalyticsReducer = createReducer(initialState, (builder) => {
       state.analyticsData = state.analyticsData.filter(
         (data) => data.id !== action.payload
       );
+    })
+    .addCase(setTodayAnalyticsSuccess, (state, action) => {
+      state.isTodayAnalytics = action.payload;
     });
 });

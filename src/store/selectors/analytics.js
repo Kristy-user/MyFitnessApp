@@ -3,3 +3,4 @@ export const allActivitiesDoneSelector = (store) =>
     (data) => data.userId === store.userReduser.id
   );
 export const isLoadedDataSelector = (store) => store.analyticsReducer.isLoaded;
+export const isDataSetSelector = (store) => store.analyticsReducer.isSetData;

@@ -11,27 +11,21 @@ const CardPromptStyle = styled.div`
   align-self: center;
   margin-top: 20%;
   border: 1px solid ${(props) => props.theme.buttonColor};
-  background-color: ${(props) => props.theme.appBackGroundColor};
+  background-color: ${(props) => props.theme.headerBackGroundColor};
   border-radius: 6px;
   p {
     text-transform: uppercase;
     text-align: center;
     font-size: 22px;
     padding: 10px;
-    color: #2c2b2b;
+    color: ${(props) => props.theme.appBackGroundColor};
   }
   button {
     ${ButtonStyle}
     align-self: center;
     padding: 10px 15px;
-    background-color: ${(props) => props.theme.headerBackGroundColor};
-    color: #fff;
     text-shadow: 0px 0px 6px ${(props) => props.theme.buttonColor};
     margin-bottom: 10px;
-    &:hover {
-      background-color: ${(props) => props.theme.buttonColor};
-      color: ${(props) => props.theme.appBackGroundColor};
-    }
   }
 `;
 
