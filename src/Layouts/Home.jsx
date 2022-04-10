@@ -12,13 +12,6 @@ import { toast, ToastContainer } from 'react-toastify';
 import fakeServerAPI from '../api/fakeServerAPI';
 import { loadingUserPersonalData } from '../store/actions/userPersonalData';
 import BMI from './Components/UserPersonalInfo/BMI';
-<<<<<<< HEAD
-=======
-import { apiError } from '../store/selectors/globalAppState';
-import { gotApiError } from '../store/actions/globalAppStateAction';
-import { ModalContext } from 'HOC/GlobalModalProvider';
-import ErrorWindow from '../HOC/ModalContent/ErrorWindow';
->>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
 
 const StyledLayout = styled.div`
   margin: auto;
@@ -146,7 +139,6 @@ const Home = () => {
   const changeTheme = useContext(ThemeContext);
   const dispatch = useDispatch();
   const userId = useSelector(userIdSelector);
-<<<<<<< HEAD
 
   useEffect(() => {
     fakeServerAPI
@@ -157,29 +149,9 @@ const Home = () => {
         }
       })
       .catch((error) => error);
-=======
-  const error = useSelector(apiError);
-  const openModal = useContext(ModalContext);
-  useEffect(() => {
-    fakeServerAPI.get(`/userPersonalData?userId=${userId}`).then((response) => {
-      if (response.data) {
-        dispatch(loadingUserPersonalData(response.data));
-      }
-    });
-    // .catch((error) => {
-    //   dispatch(gotApiError(error.message));
-    // });
->>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
   }, []);
 
-  // const openModalTask = (error) => {
-  //   openModal(<ErrorWindow error={error} setModal={openModal} />);
-  // };
-  // useEffect(() => {
-  //   if (error) {
-  //     openModalTask(error);
-  //   }
-  // }, [error]);
+ 
   return (
     <StyledLayout>
       <div className={'header'}>
@@ -204,11 +176,6 @@ const Home = () => {
         </div>
         <div className="rightLayout">
           <UserCard />
-<<<<<<< HEAD
-
-=======
-          <ToastContainer />
->>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
           <BMI />
         </div>
       </div>

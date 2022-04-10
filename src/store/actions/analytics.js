@@ -13,7 +13,6 @@ export const setDataAnalyticsSuccess = createAction('SetDataAnalyticsSuccess');
 
 export const loadingUserAnalytics = (id) => {
   return (dispatch) => {
-<<<<<<< HEAD
     fakeServerAPI
       .get(`/dataAnalytics?userId=${id}`)
       .then((response) => {
@@ -23,13 +22,6 @@ export const loadingUserAnalytics = (id) => {
       })
 
       .catch((error) => error);
-=======
-    fakeServerAPI.get(`/dataAnalytics?userId=${id}`).then((response) => {
-      if (response.data) {
-        dispatch(loadingUserAnalyticsStart(response.data));
-      }
-    });
->>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
   };
 };
 
@@ -41,12 +33,8 @@ export const addNewMonthAnalytics = (analytics) => {
       .then((response) => {
         dispatch(setUserAnalytics(response.data));
       })
-<<<<<<< HEAD
       .then(() => dispatch(setDataAnalyticsSuccess(true)))
       .catch((error) => error);
-=======
-      .then(() => dispatch(setDataAnalyticsSuccess(true)));
->>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
   };
 };
 
@@ -59,11 +47,7 @@ export const refreshAnalytics = (analytics, id) => {
       .then((response) => {
         dispatch(setUserAnalytics(response.data));
       })
-<<<<<<< HEAD
       .then(() => dispatch(setDataAnalyticsSuccess(true)))
       .catch((error) => error);
-=======
-      .then(() => dispatch(setDataAnalyticsSuccess(true)));
->>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
   };
 };

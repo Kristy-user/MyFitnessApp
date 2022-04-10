@@ -85,12 +85,8 @@ const GoalsManagement = (props) => {
           dispatch(loadingUserAnalyticsStart(response.data));
         }
       })
-<<<<<<< HEAD
       .then(() => dispatch(loadingUserAnalyticsSuccess(true)))
       .catch((error) => error);
-=======
-      .then(() => dispatch(loadingUserAnalyticsSuccess(true)));
->>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
   }, []);
 
   const [thisMonthData, setThisMonthData] = useState(
