@@ -35,12 +35,5 @@ export const tasksReduser = createReducer(initialState, (builder) => {
     .addCase(newTaskSuccess, (state, action) => {
       state.tasksList = [...state.tasksList, action.payload];
     });
-  // .addMatcher(
-  //   (action) => {
-  //     return action.type == 'AddTask';
-  //   },
-  //   (state) => {
-  //     state.tasksEdited = true;
-  //   }
-  // );
+ 
 });

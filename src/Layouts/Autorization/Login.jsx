@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React, { useContext, useEffect, useState } from 'react';
-=======
-import React, { useEffect, useState } from 'react';
->>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,13 +10,8 @@ import FormikInput from '../../Components/formikFields/FormikInput';
 import { ButtonStyle } from '../../Components/Button';
 import { showEditGoalsCard } from '../../store/actions/goals';
 import { apiError } from '../../store/selectors/globalAppState';
-import { toast, ToastContainer } from 'react-toastify';
-import { gotApiError } from '../../store/actions/globalAppStateAction';
-import 'react-toastify/dist/ReactToastify.css';
-<<<<<<< HEAD
-import { ToastContext } from '../../HOC/GlobalToastProvider';
-=======
->>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
+
+
 const StyledLoginHolder = styled.div`
   max-width: 35rem;
   height: 25rem;
@@ -55,11 +46,7 @@ const StyledLoginHolder = styled.div`
     background-color: rgba(180, 182, 181, 0.7);
     margin-top: 30px;
     &:hover {
-<<<<<<< HEAD
       color: ${(props) => props.theme.appBackGroundColor};
-=======
-      color: ${(props) => props.theme.headerBackGroundColor};
->>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
       text-shadow: none;
       background-color: ${(props) => props.theme.fontColor};
     }
@@ -91,11 +78,7 @@ const Login = () => {
   const navig = useNavigate();
   const isLogin = useSelector(userLoginSelector);
   const [cardVie, setCardVie] = useState(isLogin);
-<<<<<<< HEAD
-  const error = useSelector(apiError);
-  const addToast = useContext(ToastContext);
-=======
->>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
+  
 
   const validate = (values) => {
     const errors = {};
@@ -111,22 +94,12 @@ const Login = () => {
       } else if (!values.email.match(correctEmail)) {
         errors.email = 'Invalid email address';
         isError = true;
-<<<<<<< HEAD
       } else if (!values.password.match(correctPassword)) {
         errors.password =
           'Password must contain at least one number,one uppercase and lowercase letter, and at least 6 or more characters';
         isError = true;
       }
     });
-=======
-      }
-    });
-    if (!values.password.match(correctPassword)) {
-      errors.password =
-        'Password must contain at least one number,one uppercase and lowercase letter, and at least 6 or more characters';
-      isError = true;
-    }
->>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
 
     if (values.confirmPassword && values.password !== values.confirmPassword) {
       errors.confirmPassword = 'Password doesn`t match';
@@ -149,7 +122,7 @@ const Login = () => {
                 email: 'test@mail.ru',
                 password: '1111lL',
               }}
-              // validate={validate}
+              validate={validate}
               onSubmit={(formValues) => {
                 fakeServerAPI
                   .post('/login', {
@@ -167,12 +140,8 @@ const Login = () => {
                     );
                     dispatch(showEditGoalsCard(false));
                     navig('/home');
-<<<<<<< HEAD
                   })
                   .catch((error) => error);
-=======
-                  });
->>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
               }}
             >
               <Form>
@@ -198,8 +167,7 @@ const Login = () => {
   const getRegisterCard = () => {
     return (
       <StyledLoginHolder>
-        {/* <ToastContainer /> */}
-        <div className="welcome">
+          <div className="welcome">
           <p>Welcome! Register to start.</p>
         </div>
 
@@ -228,12 +196,8 @@ const Login = () => {
                       })
                     );
                     navig('/home');
-<<<<<<< HEAD
                   })
                   .catch((error) => error);
-=======
-                  });
->>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
               }}
             >
               <Form>

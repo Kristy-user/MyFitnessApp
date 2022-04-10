@@ -104,10 +104,6 @@ const Analytics = () => {
       })
       .catch((error) => error);
   }, []);
-<<<<<<< HEAD
-
-=======
->>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
   const analyticsForDays = useSelector(userAnalyticsDateSelector);
   const sortAnalyticsForDays = [...analyticsForDays]
     .sort(

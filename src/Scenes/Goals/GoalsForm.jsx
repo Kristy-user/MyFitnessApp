@@ -10,7 +10,7 @@ import {
   currentGoalsSelector,
   isGoalsSetSelector,
 } from '../../store/selectors/goals';
-import { apiError } from '../../store/selectors/globalAppState';
+
 
 const GoalsFormStyle = styled.div`
   display: flex;
@@ -50,7 +50,7 @@ const GoalsForm = () => {
   const dispatch = useDispatch();
   const isSetDataGoals = useSelector(isGoalsSetSelector);
   const [isLoadedGoals, setIsLoadedGoals] = useState(isSetDataGoals);
-  const isApiError = useSelector(apiError);
+ 
 
   useEffect(() => {
     setIsLoadedGoals(isSetDataGoals);

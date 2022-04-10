@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { ButtonStyle } from '../../../Components/Button';
 import {
-  completeTask,
+  
   removeTask,
   setComplitedTask,
 } from '../../../store/actions/tasks';

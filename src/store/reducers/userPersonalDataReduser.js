@@ -5,9 +5,7 @@ import {
   removeUserAvatar,
   removeUserPersonalData,
   setUserAvatar,
-  setUserAvatarStart,
-  setUserAvatarSuccess,
-  setUserPersonalData,
+   setUserPersonalData,
 } from '../actions/userPersonalData';
 
 const initialState = {

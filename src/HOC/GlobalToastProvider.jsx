@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { apiError } from '../store/selectors/globalAppState';
 import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export const ToastContext = React.createContext('');
 
 const StyledToastWrapper = styled.div``;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { CardStyle } from '../../Components/CardTemplate';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  currentUserAvatar,
+ 
   currentUserPersonalData,
 } from '../../store/selectors/userPersonalData';
 import { useDispatch, useSelector } from 'react-redux';
@@ -85,13 +85,7 @@ const UserCard = () => {
           dispatch(loadingUserAvatar(response.data));
         }
       })
-<<<<<<< HEAD
       .catch((error) => error);
-=======
-      .catch((error) => {
-        dispatch(gotApiError(error.message));
-      });
->>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
   }, []);
 
   const logOutUser = () => {
