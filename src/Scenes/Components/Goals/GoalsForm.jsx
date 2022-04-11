@@ -2,21 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { ButtonStyle } from '../../Components/Button';
-import { HeaderTittle } from '../../Components/HeaderTittle';
-import Loader from '../../Components/Loader';
-import { showEditGoalsCard } from '../../store/actions/goals';
-import {
-  currentGoalsSelector,
-  isGoalsSetSelector,
-} from '../../store/selectors/goals';
-
+import { ButtonStyle } from 'Components/Button';
+import { HeaderTittle } from 'Components/HeaderTittle';
+import Loader from 'Components/Loader';
+import { showEditGoalsCard } from 'store/actions/goals';
+import { isGoalsSetSelector } from 'store/selectors/goals';
 
 const GoalsFormStyle = styled.div`
   display: flex;
   flex-direction: column;
   h3 {
     ${HeaderTittle}
+  }
+  .date {
+    font-size: 24px;
   }
   span {
     margin: 0 10px;
@@ -45,12 +44,10 @@ const GoalsFormStyle = styled.div`
   }
 `;
 
-const GoalsForm = () => {
-  const currentGoals = useSelector(currentGoalsSelector);
+const GoalsForm = ({ goals, date }) => {
   const dispatch = useDispatch();
   const isSetDataGoals = useSelector(isGoalsSetSelector);
   const [isLoadedGoals, setIsLoadedGoals] = useState(isSetDataGoals);
- 
 
   useEffect(() => {
     setIsLoadedGoals(isSetDataGoals);
@@ -65,34 +62,35 @@ const GoalsForm = () => {
   } else {
     return (
       <GoalsFormStyle>
-        (
         <div>
-          <h3>My Goals:</h3>
+          <h3>
+            My goals on <span className={'date'}>{date}</span>
+          </h3>
           <ul>
             <li>
               The amount of water per day:
-              <span>{currentGoals.water} </span>ml.
+              <span>{goals.water} </span>ml.
             </li>
             <li>
               The number of steps per day:
               <span>
-                {currentGoals.steps
-                  ? currentGoals.steps.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+                {goals.steps
+                  ? goals.steps.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
                   : ''}
               </span>
               steps.
             </li>
             <li>
               The required number of power training per month:
-              <span>{currentGoals.powerTraining}</span> pcs.
+              <span>{goals.powerTraining}</span> pcs.
             </li>
             <li>
               The required number of cardio training you need per month:
-              <span>{currentGoals.cardioTraining}</span>pcs.
+              <span>{goals.cardioTraining}</span>pcs.
             </li>
             <li>
               The weight you want to reach:
-              <span>{currentGoals.weight}</span>kg.
+              <span>{goals.weight}</span>kg.
             </li>
           </ul>
         </div>

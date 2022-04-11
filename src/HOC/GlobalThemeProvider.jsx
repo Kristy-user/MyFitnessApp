@@ -70,7 +70,7 @@ export const globalLightStyle = {
   headerBackGroundColor: '#ffffff',
   appBackGroundColor: '#262626',
   fontColor: '#0909099f',
-  buttonColor: '#3f0b4f',
+  buttonColor: '#0b2926',
   toggleButtonColor: '#80ddd8eb',
   shadowColor: '#343333',
   unmarckColor: '#f9f9f9',

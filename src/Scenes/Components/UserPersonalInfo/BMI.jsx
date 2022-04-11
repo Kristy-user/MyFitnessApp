@@ -63,7 +63,7 @@ const BMI = () => {
   if (userPersoonalData) {
     const weight = userPersoonalData.weight;
     const height = userPersoonalData.height / 100;
-    let BMI = weight / (height ^ 2);
+    let BMI = weight / height ** 2;
 
     let classNameIcon = '';
     function calculateBMIType(value) {
@@ -88,13 +88,13 @@ const BMI = () => {
     return (
       <StyledIMT>
         <p className={'title'}>
-          Your <span className={'bold'}>BMI = {BMI.toFixed(2)}. </span>{' '}
+          Your <span className={'bold'}>BMI = {BMI.toFixed(2)}. </span>
         </p>
         <p>
           It's mean <span className={'bold'}>{currentTitle}.</span>
         </p>
         <div className={'result'}>
-          <div className={`icon ${classNameIcon}`}></div>{' '}
+          <div className={`icon ${classNameIcon}`}></div>
           <div>
             <p className={'cursive'}>{currentDescription}</p>
           </div>

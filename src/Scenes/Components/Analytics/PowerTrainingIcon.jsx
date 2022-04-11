@@ -11,32 +11,28 @@ const LiStyle = styled.li`
     cursor: pointer;
     color: ${(props) => props.theme.unmarckColor};
   }
-  .glass:hover:before {
+  .power:hover:before {
     color: ${(props) => props.theme.fontColor};
   }
+  .power:before,
+  .completedPower:before {
+    content: '\f44b';
+  }
 
-  .glass:before {
-    content: '\f7a0';
-  }
-  .fullglass:before {
-    content: '\f7a0';
-  }
-  .fullglass:before {
+  .completedPower:before {
     color: ${(props) => props.theme.fontColor};
   }
 `;
 
-const WaterIcon = (props) => {
+const PowerTrainingIcon = (props) => {
   return (
     <LiStyle key={props.index}>
       <div
-        className={props.name ? 'icon fullglass' : 'icon glass'}
-        onClick={props.handleCompletedGoal}
-      >
-        <p>300ml</p>
-      </div>
+        onClick={props.setNewValue}
+        className={props.name ? 'icon completedPower' : 'icon power'}
+      ></div>
     </LiStyle>
   );
 };
 
-export default WaterIcon;
+export default PowerTrainingIcon;

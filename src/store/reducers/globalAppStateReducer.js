@@ -1,15 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { gotApiError, gotStatusCode } from '../actions/globalAppStateAction';
+
 const initialState = {
-  APIerror: '',
-  statusCode: null,
+  errors: {},
 };
 export const globalAppStateReduser = createReducer(initialState, (builder) => {
   builder
     .addCase(gotApiError, (state, action) => {
-      state.APIerror = action.payload;
+      state.errors.apiError = action.payload;
+      state.errors.date = Date.now();
     })
     .addCase(gotStatusCode, (state, action) => {
-      state.statusCode = action.payload;
+      state.errors.statusCode = action.payload;
     });
 });

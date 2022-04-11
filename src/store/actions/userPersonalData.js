@@ -59,6 +59,7 @@ export const refreshUserAvatar = (image, avatar) => {
       })
       .then(() => {
         dispatch(setNewUserAvatar(image, avatar.userId));
-      });
+      })
+      .catch((error) => error);
   };
 };

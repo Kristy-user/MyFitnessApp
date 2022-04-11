@@ -6,7 +6,6 @@ const RadioImageStyle = styled.div`
   .avatar {
     max-width: 250px;
     max-height: 250px;
-    /* padding: 15px; */
     border-radius: 50%;
   }
   .input-hidden {
@@ -26,7 +25,7 @@ const RadioImageStyle = styled.div`
 
 const InputRadioImage = (props) => {
   const [field, meta, helpers] = useField(props.name);
-  console.log(field.value);
+
   return (
     <RadioImageStyle>
       <input
@@ -39,7 +38,7 @@ const InputRadioImage = (props) => {
         checked={props.cheked === props.value}
       />
       <label htmlFor={props.value}>
-        <img className="avatar" src={props.value} />
+        <img className="avatar" src={props.value} alt="avatar_image" />
       </label>
     </RadioImageStyle>
   );

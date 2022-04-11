@@ -11,7 +11,6 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
-
 import { currentGoalsSelector } from '../../../store/selectors/goals';
 import styled from 'styled-components';
 
@@ -51,19 +50,16 @@ export const options = {
 };
 
 const WeightAnalytics = (props) => {
-  const goals = useSelector(currentGoalsSelector);
-  const arrayOfWeight = props.data
-    .filter(
-      (item) => item.date.split('').splice(3, 2).join('') == +props.mounth + 1
-    )
-    .map((item) => item.weight);
+  const allGoals = useSelector(currentGoalsSelector);
+  const arrayOfWeight = props.data.map((item) => item.weight);
+  const currentGoals = allGoals.find((goal) => goal.date == props.date);
 
   const data = {
-    labels: props.labels,
+    labels: props.data.map((item) => item.date.slice(0, 5)),
     datasets: [
       {
         label: 'Desired weight',
-        data: arrayOfWeight.map(() => goals.weight),
+        data: arrayOfWeight.map(() => currentGoals.weight),
         borderColor: '#d697d8',
         backgroundColor: '#e6e6e6',
       },

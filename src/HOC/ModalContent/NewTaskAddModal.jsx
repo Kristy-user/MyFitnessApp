@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import AddNewTask from '../../Components/AddNewTask';
 import { ButtonStyle } from '../../Components/Button';
 import { CardStyle } from '../../Components/CardTemplate';
-import TasksList from '../../Layouts/Components/Tasks/TasksList';
+import TasksList from 'Scenes/Components/Tasks/TasksList';
 import { taskListSelector } from '../../store/selectors/tasksList';
 
 const NewTaskStyle = styled.div`
   ${CardStyle}
   background-color: ${(props) => props.theme.unmarckColor};
-  color: ${(props) => props.theme.fontColor};
+  color: black;
   font-size: 18px;
   display: flex;
   flex-direction: column;
@@ -26,12 +27,11 @@ const NewTaskStyle = styled.div`
     text-align: center;
     font-size: 16px;
     padding: 10px;
-    color: ${(props) => props.theme.fontColor};
+    color: ${(props) => props.theme.shadowColor};
     span {
-      text-shadow: 0px 0px 3px ${(props) => props.theme.buttonColor};
       padding: 4px;
       border-radius: 6px;
-      background-color: ${(props) => props.theme.cardBackGroundColor};
+      background-color: ${(props) => props.theme.appBackGroundColor};
       color: ${(props) => props.theme.headerBackGroundColor};
     }
   }
@@ -59,64 +59,43 @@ const NewTaskStyle = styled.div`
   }
 `;
 
-const NewTaskAdd = (props) => {
-  const [task, setTask] = useState('');
+const NewTaskAddModal = (props) => {
   const tasksList = useSelector(taskListSelector);
 
   return (
     <NewTaskStyle>
       <div className="currentTask">
-        {tasksList.filter((task) => task.date === props.datePicked).length >
-        0 ? (
+        {tasksList.filter((task) => task.date === props.date).length > 0 ? (
           <>
             <h4>
-              Your task for <span>{props.datePicked}</span>
+              Your task for <span>{props.date}</span>
             </h4>
             <TasksList
-              tasksList={tasksList.filter(
-                (task) => task.date === props.datePicked
-              )}
+              tasksList={tasksList.filter((task) => task.date === props.date)}
             />
           </>
         ) : (
           <h4>
-            No tasks for <span>{props.datePicked}</span>
+            No tasks for <span>{props.date}</span>
           </h4>
         )}
       </div>
       <div className={'newTask'}>
         <h4>
-          Add a task for <span>{props.datePicked}</span>
+          Add a task for <span>{props.date}</span>
         </h4>
-        <input
-          className={'inputNewTask'}
-          placeholder="...place for a new task"
-          type="text"
-          value={task}
-          onChange={(evt) => setTask(evt.target.value)}
-        />
+        <AddNewTask userId={props.userId} date={props.date} />
         <button
-          className={'button_add'}
+          className={'cancel'}
           onClick={() => {
-            props.addNewTask(task, props.datePicked);
-            setTask('');
+            props.setModal(false);
           }}
         >
-          Add
+          Cancel
         </button>
-        <div>
-          <button
-            className={'cancel'}
-            onClick={() => {
-              props.setModal(false);
-            }}
-          >
-            Cancel
-          </button>
-        </div>
       </div>
     </NewTaskStyle>
   );
 };
 
-export default NewTaskAdd;
+export default NewTaskAddModal;

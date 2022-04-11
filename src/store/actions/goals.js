@@ -36,7 +36,6 @@ export const createNewGoals = (goals) => {
       .then((response) => {
         dispatch(createGoals(response.data));
       })
-
       .then(() => {
         dispatch(setGoalsRefreshedSuccess(true));
       })

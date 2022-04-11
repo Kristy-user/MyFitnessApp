@@ -17,8 +17,8 @@ fakeServerAPI.interceptors.request.use(
     return request;
   },
   (error) => {
-    store.dispatch(gotApiError(error.message));
-   
+    console.log(error);
+    // store.dispatch(gotApiError(error.message));
   }
 );
 
@@ -32,18 +32,16 @@ fakeServerAPI.interceptors.response.use(
       if (error.code === 404) {
         store.dispatch(gotStatusCode(404));
       }
-      
     } else if (error) {
       if (error.response) {
-        
         store.dispatch(gotApiError(error.response.data));
       } else {
         store.dispatch(
           gotApiError(`Sorry server is currently unavailable: ${error.message}`)
         );
       }
-      throw error;
     }
+    throw error;
   }
 );
 export default fakeServerAPI;

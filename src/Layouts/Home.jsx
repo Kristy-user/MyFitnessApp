@@ -8,10 +8,9 @@ import background from 'assets/images/background.jpg';
 import { LogoStyle } from '../Components/Logo';
 import { userIdSelector } from '../store/selectors/user';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast, ToastContainer } from 'react-toastify';
 import fakeServerAPI from '../api/fakeServerAPI';
 import { loadingUserPersonalData } from '../store/actions/userPersonalData';
-import BMI from './Components/UserPersonalInfo/BMI';
+import BMI from 'Scenes/Components/UserPersonalInfo/BMI';
 
 const StyledLayout = styled.div`
   margin: auto;
@@ -47,7 +46,7 @@ const StyledLayout = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: ${(props) => props.theme.fontColor};
+    color: ${(props) => props.theme.appBackGroundColor};
     width: 100%;
     height: 60px;
     box-sizing: border-box;
@@ -151,7 +150,6 @@ const Home = () => {
       .catch((error) => error);
   }, []);
 
- 
   return (
     <StyledLayout>
       <div className={'header'}>

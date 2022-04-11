@@ -4,18 +4,17 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Autorization from '../Layouts/Autorization/Autorization';
 import DayTasks from '../Layouts/MainLayout/DayTasks';
 import Home from '../Layouts/Home';
-import TypeOfExercise from '../Layouts/Components/Exercises/TypeOfExercise';
-import Exercises from '../Scenes/Exercises';
+import TypeOfExercise from 'Scenes/Components/Exercises/TypeOfExercise';
+import Exercises from 'Scenes/Exercises/Exercises';
 import MyGoals from '../Scenes/Goals/MyGoals';
-import UserCardSetting from '../Layouts/Components/UserPersonalInfo/UserCardSetting';
-import Analytics from '../Scenes/Analytics';
+import UserCardSetting from 'Scenes/Components/UserPersonalInfo/UserCardSetting';
+import Analytics from 'Scenes/Analytics/Analytics';
 import { Shedule } from '../Scenes/Shedule/Shedule';
-import { apiError } from '../store/selectors/globalAppState';
-import Page404 from '../Scenes/Page404';
+
+import Page404 from 'Components/Page404';
 
 const RootRouter = () => {
   const user = useSelector((state) => state.userReduser);
-  const isError = useSelector(apiError);
 
   const renderForLoggedInUser = (component) =>
     !user.isLoggedIn ? <Navigate to={'/autorization'} /> : component;

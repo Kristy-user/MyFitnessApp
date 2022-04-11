@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import TasksList from '../../Layouts/Components/Tasks/TasksList';
-import { taskListSelector } from '../../store/selectors/tasksList';
+import TasksList from 'Scenes/Components/Tasks/TasksList';
+import { taskListSelector } from 'store/selectors/tasksList';
 
 const AllTaskStyle = styled.div`
   margin-top: 20px;

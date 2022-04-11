@@ -1,3 +1,4 @@
-export const apiError = (store) => store.globalAppStateReduser.APIerror;
+export const globalErrors = (store) => store.globalAppStateReduser.errors;
 
-export const statusCode = (store) => store.globalAppStateReduser.statusCode;
+export const statusCode = (store) =>
+  store.globalAppStateReduser.errors.statusCode;

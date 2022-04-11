@@ -2,14 +2,11 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { CardStyle } from '../../Components/CardTemplate';
 import { Link, useNavigate } from 'react-router-dom';
-import {
- 
-  currentUserPersonalData,
-} from '../../store/selectors/userPersonalData';
+import { currentUserPersonalData } from '../../store/selectors/userPersonalData';
 import { useDispatch, useSelector } from 'react-redux';
 import { userIdSelector } from '../../store/selectors/user';
 import { logOut } from '../../store/actions/user';
-import UserAvatar from '../Components/UserPersonalInfo/UserAvatar';
+import UserAvatar from 'Scenes/Components/UserPersonalInfo/UserAvatar';
 import { loadingUserAvatar } from '../../store/actions/userPersonalData';
 import fakeServerAPI from '../../api/fakeServerAPI';
 import { gotApiError } from '../../store/actions/globalAppStateAction';

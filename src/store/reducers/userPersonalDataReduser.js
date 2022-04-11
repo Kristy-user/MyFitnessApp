@@ -5,7 +5,7 @@ import {
   removeUserAvatar,
   removeUserPersonalData,
   setUserAvatar,
-   setUserPersonalData,
+  setUserPersonalData,
 } from '../actions/userPersonalData';
 
 const initialState = {
@@ -32,7 +32,7 @@ export const userPersonalDataReduser = createReducer(
         state.userAvatar = action.payload;
       })
       .addCase(removeUserAvatar, (state, action) => {
-        state.userAvatar = state.userPersonalData.filter(
+        state.userAvatar = state.userAvatar.filter(
           (data) => data.id !== action.payload
         );
       })

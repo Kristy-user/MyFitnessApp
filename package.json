@@ -51,10 +51,7 @@
     "react-responsive-carousel": "^3.2.22",
     "react-router-dom": "^6.2.1",
     "react-select": "^5.2.2",
-<<<<<<< HEAD
     "react-toast-notifications": "^2.5.1",
-=======
->>>>>>> 20b2bdd4f397d1e8ebccd45fa4e65c751ae19ac5
     "react-toastify": "^8.2.0",
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",

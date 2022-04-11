@@ -3,24 +3,42 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 ('../../../store/actions/goals');
-import GoalsForm from './GoalsForm';
+import GoalsForm from '../Components/Goals/GoalsForm';
 import { HeaderTittle } from '../../Components/HeaderTittle';
 import { ButtonStyle } from '../../Components/Button';
-
+import DatePicker from 'react-datepicker';
 import { createNewGoals, refreshGoals } from '../../store/actions/goals';
 import { userIdSelector } from '../../store/selectors/user';
 import {
   currentGoalsSelector,
   showEditGoalsSelector,
 } from '../../store/selectors/goals';
-
 import FormikInputNumber from '../../Components/formikFields/FormikInputNumber';
 import FormikRadio from '../../Components/formikFields/FormikRadio';
-import { apiError } from '../../store/selectors/globalAppState';
+import { globalErrors } from '../../store/selectors/globalAppState';
+import ServerUnavailable from '../../Components/ServerUnavailable';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const MyGoalsStyle = styled.div`
   h4 {
     ${HeaderTittle}
+    margin-bottom: 0;
+  }
+  .date_picker {
+    border: none;
+    font-size: 22px;
+    text-align: center;
+    width: min-content;
+    box-shadow: 0px 0px 6px ${(props) => props.theme.shadowColor};
+    margin: 10px;
+    padding: 5px;
+    display: inline-block;
+    background-color: ${(props) => props.theme.unmarckColor};
+    color: ${(props) => props.theme.fontColor};
+    border-radius: 6px;
+    &:focus {
+      outline: none;
+    }
   }
   .inputForm {
     display: flex;
@@ -53,14 +71,19 @@ const MyGoalsStyle = styled.div`
 const MyGoals = () => {
   const dispatch = useDispatch();
   const userId = useSelector(userIdSelector);
-  const currentGoals = useSelector(currentGoalsSelector);
+  const userGoals = useSelector(currentGoalsSelector);
   const showEditGoals = useSelector(showEditGoalsSelector);
-  const [viewGoals, setViewGoals] = useState(showEditGoals);
-  const isApiError = useSelector(apiError);
+  const [viewGoals, setViewGoals] = useState(false);
+  const errors = useSelector(globalErrors);
+  const [startDate, setStartDate] = useState(new Date());
+  let currentDate = startDate.toLocaleDateString().slice(-7);
+
+  const currentGoals = userGoals.find((goal) => goal.date == currentDate);
 
   useEffect(() => {
     setViewGoals(showEditGoals);
   }, [showEditGoals]);
+
   const validate = (values) => {
     const errors = {};
     let isError = false;
@@ -74,19 +97,25 @@ const MyGoals = () => {
         isError = true;
       }
     });
-
     if (isError) return errors;
   };
-  if (isApiError) {
-    return <div>{isApiError}</div>;
+
+  if (errors.apiError) {
+    return <ServerUnavailable error={errors.apiError} />;
   }
   if (viewGoals) {
     return (
       <MyGoalsStyle>
         <div className={'goalsTitle'}>
-          <h4>Make your plan to reach your goal</h4>
+          <h4>Make your plan to reach your goal in this month:</h4>
+          <DatePicker
+            className={'date_picker'}
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            dateFormat="MM/yyyy"
+            showMonthYearPicker
+          />
         </div>
-
         <Formik
           initialValues={{
             water: currentGoals ? currentGoals.water : null,
@@ -97,11 +126,36 @@ const MyGoals = () => {
           }}
           validate={validate}
           onSubmit={(formValues) => {
-            formValues.userId = userId;
-            if (currentGoals) {
-              dispatch(refreshGoals(formValues, currentGoals.id));
+            let { water, powerTraining, cardioTraining, steps, weight } =
+              formValues;
+
+            if (currentGoals && currentGoals.date == currentDate) {
+              dispatch(
+                refreshGoals(
+                  {
+                    water,
+                    powerTraining,
+                    cardioTraining,
+                    steps,
+                    weight,
+                    userId,
+                    date: currentDate,
+                  },
+                  currentGoals.id
+                )
+              );
             } else {
-              dispatch(createNewGoals(formValues));
+              dispatch(
+                createNewGoals({
+                  water,
+                  powerTraining,
+                  cardioTraining,
+                  steps,
+                  weight,
+                  userId,
+                  date: currentDate,
+                })
+              );
             }
           }}
           enableReinitialize={true}
@@ -185,7 +239,12 @@ const MyGoals = () => {
       </MyGoalsStyle>
     );
   } else {
-    return <GoalsForm />;
+    return (
+      <GoalsForm
+        goals={currentGoals}
+        date={startDate.toLocaleDateString().slice(-7)}
+      />
+    );
   }
 };
 

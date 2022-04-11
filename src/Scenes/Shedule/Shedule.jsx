@@ -3,13 +3,13 @@ import Calendar from 'react-calendar';
 import styled from 'styled-components';
 import 'react-calendar/dist/Calendar.css';
 import { ModalContext } from 'HOC/GlobalModalProvider';
-import NewTaskAdd from 'HOC/ModalContent/NewTaskAdd';
 import { useDispatch, useSelector } from 'react-redux';
 import { userIdSelector } from 'store/selectors/user';
 import { HeaderTittle } from 'Components/HeaderTittle';
 import { newTask } from 'store/actions/tasks';
-import AllTaskOfMonth from './AllTaskOfMonth';
+import AllTaskOfMonth from '../Components/Shedule/AllTaskOfMonth';
 import { currentTaskListSelector } from '../../store/selectors/tasksList';
+import NewTaskAddModal from '../../HOC/ModalContent/NewTaskAddModal';
 
 const StyledCalendar = styled.div`
   display: flex;
@@ -113,18 +113,13 @@ export const Shedule = () => {
   const openModal = useContext(ModalContext);
   const userId = useSelector(userIdSelector);
   const taskList = useSelector(currentTaskListSelector);
-  const addNewTask = (task, date) => {
-    let newUserTask = {};
-    newUserTask.date = date;
-    newUserTask.title = task;
-    dispatch(newTask(newUserTask, userId));
-  };
+
   const openModalTask = (date) => {
     openModal(
-      <NewTaskAdd
-        datePicked={date.toLocaleDateString()}
+      <NewTaskAddModal
+        date={date.toLocaleDateString()}
+        userId={userId}
         setModal={openModal}
-        addNewTask={addNewTask}
       />
     );
   };

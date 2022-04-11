@@ -28,7 +28,7 @@ const StyledLinkItem = styled.li`
 
 const ExerciseItem = (props) => {
   return (
-    <StyledLinkItem key={props.exercise.id}>
+    <StyledLinkItem key={props.key}>
       <Link className={'exerciseLink'} to={`${props.exercise}`}>
         {props.exercise}
       </Link>

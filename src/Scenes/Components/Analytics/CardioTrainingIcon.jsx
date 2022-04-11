@@ -11,28 +11,28 @@ const LiStyle = styled.li`
     cursor: pointer;
     color: ${(props) => props.theme.unmarckColor};
   }
-  .power:hover:before {
+  .cardio:hover:before {
     color: ${(props) => props.theme.fontColor};
   }
-  .power:before,
-  .completedPower:before {
-    content: '\f44b';
+  .cardio:before,
+  .completedCardio:before {
+    content: '\f70c';
   }
 
-  .completedPower:before {
+  .completedCardio:before {
     color: ${(props) => props.theme.fontColor};
   }
 `;
 
-const PowerTrainingIcon = (props) => {
+const CardioTrainingIcon = (props) => {
   return (
     <LiStyle key={props.index}>
       <div
-        className={props.name ? 'icon completedPower' : 'icon power'}
-        onClick={props.handleCompletedGoal}
+        onClick={props.setNewValue}
+        className={props.name ? 'icon completedCardio' : 'icon cardio'}
       ></div>
     </LiStyle>
   );
 };
 
-export default PowerTrainingIcon;
+export default CardioTrainingIcon;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Select from 'react-select';
+
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -12,17 +12,16 @@ import {
 } from 'chart.js';
 
 import { useDispatch, useSelector } from 'react-redux';
-import Loader from '../Components/Loader';
 import { userIdSelector } from 'store/selectors/user';
 import { loadingTodayAnalytics } from 'store/actions/todayAnalytics';
 import fakeServerAPI from 'api/fakeServerAPI';
-
 import styled from 'styled-components';
-import { TrainingAnalytics } from 'Layouts/Components/Analytics/TrainingAnalytics';
-import WeightAnalytics from 'Layouts/Components/Analytics/WeightAnalytics';
-import { currentGoalsSelector } from '../store/selectors/goals';
-import { userAnalyticsDateSelector } from '../store/selectors/todayAnalytics';
-
+import { TrainingAnalytics } from 'Scenes/Components/Analytics/TrainingAnalytics';
+import WeightAnalytics from 'Scenes/Components/Analytics/WeightAnalytics';
+import { currentGoalsSelector } from '../../store/selectors/goals';
+import { userAnalyticsDateSelector } from '../../store/selectors/todayAnalytics';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -40,11 +39,32 @@ const AnalyticsStyle = styled.div`
     justify-content: center;
   }
   .tittle {
-    font-size: 16px;
+    align-self: center;
+    font-size: 22px;
+    color: black;
+  }
+  .date_picker {
+    border: none;
+    font-size: 22px;
+    text-align: center;
+
+    margin-left: 10px;
+    padding: 3px;
+    background-color: ${(props) => props.theme.appBackGroundColor};
     color: ${(props) => props.theme.headerBackGroundColor};
-    padding: 9.5px;
-    background-color: gray;
-    border-radius: 6px 0 0 6px;
+    border-radius: 6px;
+    &:focus {
+      outline: none;
+    }
+  }
+  .react-datepicker-wrapper {
+    width: max-content;
+    div {
+      width: max-content;
+    }
+    input {
+      max-width: 130px;
+    }
   }
   .steps {
     width: 80%;
@@ -64,37 +84,12 @@ const AnalyticsStyle = styled.div`
 `;
 
 const Analytics = () => {
-  const goals = useSelector(currentGoalsSelector);
+  const allGoals = useSelector(currentGoalsSelector);
   const userId = useSelector(userIdSelector);
   const dispatch = useDispatch();
-
-  const mounth = [
-    { value: 0, label: 'January' },
-    { value: 1, label: 'February' },
-    { value: 2, label: 'March' },
-    { value: 3, label: 'April' },
-    { value: 4, label: 'May' },
-    { value: 5, label: 'June' },
-    { value: 6, label: 'July' },
-    { value: 7, label: 'August' },
-    { value: 8, label: 'September' },
-    { value: 9, label: 'October' },
-    { value: 10, label: 'November' },
-    { value: 11, label: 'December' },
-  ];
-  const years = [
-    { value: 2020, label: 2020 },
-    { value: 2021, label: 2021 },
-    { value: 2022, label: 2022 },
-    { value: 2023, label: 2023 },
-    { value: 2024, label: 2024 },
-    { value: 2025, label: 2025 },
-  ];
-
-  const [valueMounth, setValueMounth] = useState(mounth[new Date().getMonth()]);
-  const [valueYears, setValueYears] = useState(
-    years.find((item) => item.value == new Date().getFullYear())
-  );
+  const [startDate, setStartDate] = useState(new Date());
+  let currentDate = startDate.toLocaleDateString().slice(-7);
+  const currentGoals = allGoals.find((goal) => goal.date == currentDate);
 
   useEffect(() => {
     fakeServerAPI
@@ -104,28 +99,21 @@ const Analytics = () => {
       })
       .catch((error) => error);
   }, []);
+
   const analyticsForDays = useSelector(userAnalyticsDateSelector);
+
   const sortAnalyticsForDays = [...analyticsForDays]
     .sort(
       (a, b) =>
         new Date(a.date.split('.').reverse().join('-')) -
         new Date(b.date.split('.').reverse().join('-'))
     )
-    .filter(
-      (item) =>
-        new Date(item.date.split('.').reverse().join('-')).getMonth() ==
-          valueMounth.value &&
-        new Date(item.date.split('.').reverse().join('-')).getFullYear() ==
-          valueYears.value
-    );
+    .filter((item) => item.date.slice(-7) == currentDate);
 
-  const labels = sortAnalyticsForDays.map((item) =>
-    item.date.split('').splice(0, 5).join('')
-  );
+  const labels = sortAnalyticsForDays.map((item) => item.date.slice(-7));
 
   const options = {
     responsive: true,
-
     plugins: {
       legend: {
         position: 'top',
@@ -135,12 +123,9 @@ const Analytics = () => {
           },
         },
       },
-
       title: {
         display: true,
-        text: `Analytics of your steps (${mounth[valueMounth.value].label}, ${
-          valueYears.value
-        })`,
+        text: `Analytics of your steps for (${currentDate})`,
         font: { size: 20 },
       },
     },
@@ -150,7 +135,7 @@ const Analytics = () => {
     datasets: [
       {
         label: 'Steps goal',
-        data: labels.map(() => goals.steps),
+        data: labels.map(() => currentGoals.steps),
         borderColor: '#e6e6e6',
         backgroundColor: 'gray',
       },
@@ -167,18 +152,12 @@ const Analytics = () => {
     <AnalyticsStyle>
       <div className={'chooseForm'}>
         <div className={'tittle'}>Choose mounth:</div>
-        <Select
-          className={'selectValueMounth'}
-          value={valueMounth}
-          options={mounth}
-          onChange={setValueMounth}
-        />
-        <div className={'tittle'}>Choose year:</div>
-        <Select
-          className={'selectValueYears'}
-          value={valueYears}
-          options={years}
-          onChange={setValueYears}
+        <DatePicker
+          className={'date_picker'}
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          dateFormat="MM/yyyy"
+          showMonthYearPicker
         />
       </div>
       <div className={'steps'}>
@@ -186,16 +165,8 @@ const Analytics = () => {
         <Bar options={options} data={data} />
       </div>
 
-      <TrainingAnalytics
-        mounth={valueMounth.value}
-        year={valueYears.value}
-        labelMounth={mounth[valueMounth.value].label}
-      />
-      <WeightAnalytics
-        mounth={valueMounth.value}
-        labels={labels}
-        data={sortAnalyticsForDays}
-      />
+      <TrainingAnalytics date={currentDate} />
+      <WeightAnalytics date={currentDate} data={sortAnalyticsForDays} />
     </AnalyticsStyle>
   );
 };

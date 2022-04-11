@@ -1,11 +1,9 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { currentGoalsSelector } from '../../../store/selectors/goals';
 import { allActivitiesDoneSelector } from '../../../store/selectors/analytics';
-
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -34,19 +32,22 @@ const ProgressbarStyle = styled.div`
 `;
 
 export function TrainingAnalytics(props) {
-  const goals = useSelector(currentGoalsSelector);
-  const numberPowerTrainingForGoal = goals.powerTraining;
-  const numberCardioTrainingForGoal = goals.cardioTraining;
+  const allGoals = useSelector(currentGoalsSelector);
+  const currentGoals = allGoals.find((goal) => goal.date == props.date);
+
+  const numberPowerTrainingForGoal = currentGoals
+    ? currentGoals.powerTraining
+    : 0;
+  const numberCardioTrainingForGoal = currentGoals
+    ? currentGoals.cardioTraining
+    : 0;
 
   const trainingsFullfilled = useSelector(allActivitiesDoneSelector);
 
   let thisMounthData = {};
 
   trainingsFullfilled.filter((item) =>
-    item.date.split('.').slice(1, -1).join('') == props.mounth + 1 &&
-    item.date.split('.').slice(-1).join('') == props.year
-      ? (thisMounthData = item)
-      : thisMounthData
+    item.date.slice(-7) == props.date ? (thisMounthData = item) : thisMounthData
   );
 
   const numberPowerTrainingDone = thisMounthData.numberPowerTraining;

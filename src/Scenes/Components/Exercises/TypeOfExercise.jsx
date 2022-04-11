@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-
 import { loadingAllExercises } from '../../../store/actions/exercises';
 import { useDispatch, useSelector } from 'react-redux';
 import exercisesDbAPI from '../../../api/exerciseDB';
-import Loader, { StyledLoader } from '../../../Components/Loader';
+import Loader from '../../../Components/Loader';
 import { allExercisesSelector } from '../../../store/selectors/exercises';
 import GifPlayer from 'react-gif-player';
 import buttonPlay from '../../../assets/images/button.jpg';

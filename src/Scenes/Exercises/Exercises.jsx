@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { loadingExercisesList } from '../store/actions/exercises';
-import { exercisesListSelector } from '../store/selectors/exercises';
-import ExerciseItem from '../Layouts/Components/Exercises/ExerciseItem';
-import bodyImg from '../assets/images/eJzbY2hgYGAIhwZgngGUhoggyyF48aYGBgCHTQxD.png';
-import exercisesDbAPI from '../api/exerciseDB';
-import { HeaderTittle } from '../Components/HeaderTittle';
+import { loadingExercisesList } from '../../store/actions/exercises';
+import { exercisesListSelector } from '../../store/selectors/exercises';
+import ExerciseItem from 'Scenes/Components/Exercises/ExerciseItem';
+import bodyImg from 'assets/images/eJzbY2hgYGAIhwZgngGUhoggyyF48aYGBgCHTQxD.png';
+import exercisesDbAPI from '../../api/exerciseDB';
+import { HeaderTittle } from '../../Components/HeaderTittle';
 
 const ExercisesCardStyle = styled.div`
   width: 100%;

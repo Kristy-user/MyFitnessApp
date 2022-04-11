@@ -1,5 +1,5 @@
 export const currentGoalsSelector = (store) =>
-  store.goalsReduser.usersGoals.find(
+  store.goalsReduser.usersGoals.filter(
     (data) => data.userId === store.userReduser.id
   );
 

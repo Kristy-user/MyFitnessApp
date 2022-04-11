@@ -2,24 +2,22 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadingTaskList } from 'store/actions/tasks';
-import TasksList from '../Components/Tasks/TasksList';
+import TasksList from 'Scenes/Components/Tasks/TasksList';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import fakeServerAPI from '../../api/fakeServerAPI';
-import { newTask } from '../../store/actions/tasks';
-import { ButtonStyle } from '../../Components/Button';
 import { taskListSelector } from '../../store/selectors/tasksList';
 import { currentUserPersonalData } from '../../store/selectors/userPersonalData';
 import { HeaderTittle } from '../../Components/HeaderTittle';
 import { userIdSelector } from '../../store/selectors/user';
 import { currentGoalsSelector } from '../../store/selectors/goals';
 import { loadingUserGoals } from '../../store/actions/goals';
-import PromptWindow from '../Components/DayTasks/PromptWindow';
-import DataAnalyticsToday from '../Components/DayTasks/DataAnalyticsToday';
-import GoalsManagement from '../Components/DayTasks/GoalsManagement';
-import { isLoadedDataSelector } from '../../store/selectors/analytics';
-import Loader from '../../Components/Loader';
-import { apiError } from '../../store/selectors/globalAppState';
+import PromptWindow from 'Scenes/Components/DayTasks/PromptWindow';
+import DataAnalyticsToday from 'Scenes/Components/DayTasks/DataAnalyticsToday';
+import GoalsManagement from 'Scenes/Components/DayTasks/GoalsManagement';
+import { globalErrors } from '../../store/selectors/globalAppState';
+import ServerUnavailable from '../../Components/ServerUnavailable';
+import AddNewTask from '../../Components/AddNewTask';
 
 const CardTaskStyle = styled.div`
   display: flex;
@@ -65,39 +63,17 @@ const CardTaskStyle = styled.div`
       outline: none;
     }
   }
-  .newTask {
-    margin: 20px auto;
-    width: 100%;
-    align-items: center;
-    align-self: center;
-    text-align: center;
-
-    & button {
-      ${ButtonStyle}
-    }
-    & input {
-      font-size: 18px;
-      border: 3px solid ${(props) => props.theme.cardBackGroundColor};
-      align-self: center;
-      padding: 10px;
-      width: 95vh;
-      &:focus {
-        border: 2px solid ${(props) => props.theme.buttonColor};
-        box-shadow: 0px 0px 3px 0px ${(props) => props.theme.buttonColor};
-      }
-    }
-  }
 `;
 
 const DayTasks = () => {
   const [startDate, setStartDate] = useState(new Date());
   const tasksList = useSelector(taskListSelector);
-  const [task, setTask] = useState('');
+
   const dispatch = useDispatch();
   const userId = useSelector(userIdSelector);
   const currentGoals = useSelector(currentGoalsSelector);
   const currentUser = useSelector(currentUserPersonalData);
-  const isApiError = useSelector(apiError);
+  const errors = useSelector(globalErrors);
 
   useEffect(() => {
     fakeServerAPI
@@ -118,15 +94,19 @@ const DayTasks = () => {
       .catch((error) => error);
   }, []);
 
-  if (isApiError) {
-    return <CardTaskStyle>{isApiError}</CardTaskStyle>;
+  if (errors.apiError) {
+    return (
+      <CardTaskStyle>
+        <ServerUnavailable error={errors.apiError} />
+      </CardTaskStyle>
+    );
   } else if (!currentUser) {
     return (
       <CardTaskStyle>
         <PromptWindow link={'personalData'} />
       </CardTaskStyle>
     );
-  } else if (!currentGoals) {
+  } else if (currentGoals.length === 0) {
     return (
       <CardTaskStyle>
         <PromptWindow link={'goals'} />
@@ -158,25 +138,7 @@ const DayTasks = () => {
               )}
             />
           )}
-          <div className={'newTask'}>
-            <input
-              placeholder="...place for a new task"
-              type="text"
-              value={task}
-              onChange={(evt) => setTask(evt.target.value)}
-            />
-            <button
-              onClick={() => {
-                let newUserTask = {};
-                newUserTask.date = startDate.toLocaleDateString();
-                newUserTask.title = task;
-                dispatch(newTask(newUserTask, userId));
-                setTask('');
-              }}
-            >
-              +
-            </button>
-          </div>
+          <AddNewTask userId={userId} date={startDate.toLocaleDateString()} />
         </CardTaskStyle>
         <DataAnalyticsToday date={startDate} />
         <GoalsManagement date={startDate} />

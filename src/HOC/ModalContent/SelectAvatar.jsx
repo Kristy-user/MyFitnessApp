@@ -41,9 +41,11 @@ const SelectAvatar = (props) => {
       <Formik
         initialValues={{ image: avatar ? avatar.image : '' }}
         onSubmit={(formValues) => {
-          avatar
-            ? dispatch(refreshUserAvatar(formValues.image, avatar))
-            : dispatch(setNewUserAvatar(formValues.image, userId));
+          if (avatar) {
+            dispatch(refreshUserAvatar(formValues.image, avatar));
+          } else {
+            dispatch(setNewUserAvatar(formValues.image, userId));
+          }
           props.setModal(false);
         }}
         enableReinitialize={true}
@@ -69,7 +71,9 @@ const SelectAvatar = (props) => {
               />
             </div>
 
-            <button className="buttonSubmit">Submit</button>
+            <button type="submit" className="buttonSubmit">
+              Submit
+            </button>
           </Form>
         )}
       </Formik>

@@ -108,7 +108,7 @@ const DataAnalyticsToday = (props) => {
   const isTodayAnalyticsSet = useSelector(isTodayAnalyticsSelector);
   const openModal = useContext(ModalContext);
   const [isLoaded, setIsLoaded] = useState(false);
-  console.log(isTodayAnalyticsSet);
+
   useEffect(() => {
     setIsLoaded(false);
     fakeServerAPI

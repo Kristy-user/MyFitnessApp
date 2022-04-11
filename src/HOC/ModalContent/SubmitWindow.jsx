@@ -17,14 +17,7 @@ const SubmitWindowStyle = styled.div`
 `;
 
 const SubmitWindow = (props) => {
-  if (!props.isTodayAnalyticsSet) {
-    return (
-      <SubmitWindowStyle>
-        <p>Sorry, server is currently unavailable.</p>
-        <button onClick={() => props.setModal(false)}>Ok</button>
-      </SubmitWindowStyle>
-    );
-  } else if (props.type === 'refreshData') {
+  if (props.type === 'refreshData') {
     return (
       <SubmitWindowStyle>
         <p>Your current data for {props.date} has been updated ✅</p>
