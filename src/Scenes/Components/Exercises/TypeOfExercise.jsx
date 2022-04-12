@@ -48,6 +48,7 @@ const TypeOfExercise = () => {
   return (
     <StyledCard>
       <h3>Exercises to {params.type}: </h3>
+
       <div>
         <ul className={'grid_img'}>
           {!allExercises ? (

@@ -14,13 +14,14 @@ const AddTaskStyle = styled.div`
 
   & button {
     ${ButtonStyle}
+    margin-left: 5px;
   }
   & input {
     font-size: 18px;
     border: 3px solid ${(props) => props.theme.cardBackGroundColor};
     align-self: center;
     padding: 10px;
-    width: 95vh;
+    width: 80vh;
     &:focus {
       border: 2px solid ${(props) => props.theme.buttonColor};
       box-shadow: 0px 0px 3px 0px ${(props) => props.theme.buttonColor};

@@ -11,20 +11,23 @@ const StyledToastWrapper = styled.div``;
 
 const GlobalToastProvider = (props) => {
   const allGlobalerrors = useSelector(globalErrors);
-
   const [error, setError] = useState();
-  const addError = (error) => setError(error);
 
   useEffect(() => {
-    if (allGlobalerrors.apiError) {
-      toast.error(allGlobalerrors.apiError);
-    } else if (error) {
-      toast.error(error);
+    if (allGlobalerrors.length > 0) {
+      setError(allGlobalerrors[allGlobalerrors.length - 1].text);
     }
-  }, [allGlobalerrors, error]);
+  }, [allGlobalerrors]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      setError('');
+    }
+  }, [error, allGlobalerrors]);
 
   return (
-    <ToastContext.Provider value={addError}>
+    <ToastContext.Provider value={setError}>
       {props.children}
       <StyledToastWrapper>
         <ToastContainer

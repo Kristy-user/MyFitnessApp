@@ -17,6 +17,7 @@ const ExercisesCardStyle = styled.div`
   }
   .grid_list {
     display: grid;
+    grid-template-rows: (4, 1fr);
     grid-template-columns: repeat(auto-fill, 180px);
     justify-content: center;
   }

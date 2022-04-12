@@ -42,7 +42,7 @@ const WaterStyleWrapper = styled.div`
   }
 `;
 
-const WaterAnalytics = ({ date, userId, currentGoals }) => {
+const WaterAnalyticsToday = ({ date, userId, currentGoals }) => {
   const userWaterGoalFullfilling = useSelector(waterDoneSelector);
   const allWaterGlasses = currentGoals ? currentGoals.water / 300 : 0;
   const dispatch = useDispatch();
@@ -141,4 +141,4 @@ const WaterAnalytics = ({ date, userId, currentGoals }) => {
   }
 };
 
-export default WaterAnalytics;
+export default WaterAnalyticsToday;

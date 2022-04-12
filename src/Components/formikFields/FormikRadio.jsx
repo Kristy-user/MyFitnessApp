@@ -29,20 +29,21 @@ const RadioInputStyle = styled.div`
 `;
 const FormikRadio = (props) => {
   const [field, meta, helpers] = useField(props.name);
-
   return (
     <RadioInputStyle>
-      <input
-        name={props.name}
-        id={props.value}
-        type="radio"
-        value={props.value}
-        onChange={field.onChange}
-        onBlur={field.onBlur}
-        checked={props.cheked === props.value}
-      />
+      <div>
+        <input
+          name={props.name}
+          id={props.value}
+          type="radio"
+          value={props.value}
+          onChange={field.onChange}
+          onBlur={field.onBlur}
+          checked={props.cheked === props.value}
+        />
 
-      <label htmlFor={props.value}>{props.label} ml</label>
+        <label htmlFor={props.value}>{props.label} ml</label>
+      </div>
     </RadioInputStyle>
   );
 };

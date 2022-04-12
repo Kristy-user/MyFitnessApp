@@ -1,10 +1,7 @@
 import axios from 'axios';
 import { store } from '../store/initStore';
 import { logOut } from '../store/actions/user';
-import {
-  gotApiError,
-  gotStatusCode,
-} from '../store/actions/globalAppStateAction';
+import { gotApiError } from '../store/actions/globalAppStateAction';
 
 const fakeServerAPI = axios.create({
   baseURL: 'http://localhost:3001',
@@ -17,8 +14,12 @@ fakeServerAPI.interceptors.request.use(
     return request;
   },
   (error) => {
-    console.log(error);
-    // store.dispatch(gotApiError(error.message));
+    store.dispatch(
+      gotApiError({
+        text: error.message,
+        date: new Date().toLocaleDateString(),
+      })
+    );
   }
 );
 
@@ -29,18 +30,24 @@ fakeServerAPI.interceptors.response.use(
   (error) => {
     if (error.code === 401) {
       store.dispatch(logOut());
-      if (error.code === 404) {
-        store.dispatch(gotStatusCode(404));
-      }
     } else if (error) {
       if (error.response) {
-        store.dispatch(gotApiError(error.response.data));
+        store.dispatch(
+          gotApiError({
+            text: error.response.data,
+            date: new Date().toLocaleDateString(),
+          })
+        );
       } else {
         store.dispatch(
-          gotApiError(`Sorry server is currently unavailable: ${error.message}`)
+          gotApiError({
+            text: `Sorry server is currently unavailable: ${error.message}`,
+            date: new Date().toLocaleDateString(),
+          })
         );
       }
     }
+
     throw error;
   }
 );

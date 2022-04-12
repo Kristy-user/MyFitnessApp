@@ -55,10 +55,10 @@ export function TrainingAnalytics(props) {
 
   return (
     <ProgressbarStyle>
-      <p>Analytics of your training for {props.labelMounth} (number)</p>
+      <p>Analytics of your training for {props.date} </p>
       <div className={'circularBar'}>
         <div className={'cardio'}>
-          <p>Cardio training</p>
+          <p>Cardio training, (number)</p>
           <CircularProgressbar
             value={
               (numberCardioTrainingDone / numberCardioTrainingForGoal) * 100 ||
@@ -78,7 +78,7 @@ export function TrainingAnalytics(props) {
           />
         </div>
         <div className={'power'}>
-          <p>Power training</p>
+          <p>Power training, (number)</p>
           <CircularProgressbar
             value={
               (numberPowerTrainingDone / numberPowerTrainingForGoal) * 100 || 0

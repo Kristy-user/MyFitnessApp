@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useField } from 'formik';
 import styled from 'styled-components';
 
@@ -33,7 +33,6 @@ const FormikInputNumber = (props) => {
         onBlur={field.onBlur}
         value={field.value}
       />
-
       {meta.touched && meta.error ? (
         <div className={'error'}>{meta.error}</div>
       ) : null}

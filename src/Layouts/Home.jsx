@@ -26,8 +26,7 @@ const StyledLayout = styled.div`
     margin: 0 5%;
     align-self: flex-start;
     font-size: 36px;
-    text-shadow: 0px 0px 6px ${(props) => props.theme.buttonColor};
-
+    color: ${(props) => props.theme.buttonColor};
     position: relative;
     animation: glow 2s ease-in-out infinite;
     @keyframes glow {
@@ -46,7 +45,7 @@ const StyledLayout = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: ${(props) => props.theme.appBackGroundColor};
+
     width: 100%;
     height: 60px;
     box-sizing: border-box;
@@ -73,6 +72,7 @@ const StyledLayout = styled.div`
     max-width: 20%;
   }
   .mainLayout {
+    width: 100%;
     border-radius: 6px;
     padding: 25px;
     background-color: ${(props) => props.theme.cardBackGroundColor};

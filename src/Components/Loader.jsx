@@ -5,6 +5,7 @@ const StyledLoader = styled.div`
   margin: 0;
   overflow: hidden;
   position: relative;
+  width: 100%;
   .background {
     /* width: 20vh; */
     height: 20vh;

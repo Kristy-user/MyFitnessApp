@@ -88,15 +88,15 @@ const UserCardSetting = () => {
       isError = true;
     }
     if (!values.age.match(correctNumberValues)) {
-      errors.age = 'Incorrect age';
+      errors.age = 'Incorrect age (only numbers from 1 to 3 symmbols)';
       isError = true;
     }
     if (!values.weight.match(correctNumberValues)) {
-      errors.weight = 'Incorrect weight';
+      errors.weight = 'Incorrect weight (only numbers from 1 to 3 symmbols)';
       isError = true;
     }
     if (!values.height.match(correctNumberValues)) {
-      errors.height = 'Incorrect height';
+      errors.height = 'Incorrect height (only numbers from 1 to 3 symmbols)';
       isError = true;
     }
     const keys = Object.keys(values);

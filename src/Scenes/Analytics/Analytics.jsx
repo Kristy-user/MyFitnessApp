@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -10,7 +9,6 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { userIdSelector } from 'store/selectors/user';
 import { loadingTodayAnalytics } from 'store/actions/todayAnalytics';
@@ -22,6 +20,9 @@ import { currentGoalsSelector } from '../../store/selectors/goals';
 import { userAnalyticsDateSelector } from '../../store/selectors/todayAnalytics';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+
+import AverageGoalAchievement from '../Components/Analytics/AverageGoalAchievement';
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -47,7 +48,6 @@ const AnalyticsStyle = styled.div`
     border: none;
     font-size: 22px;
     text-align: center;
-
     margin-left: 10px;
     padding: 3px;
     background-color: ${(props) => props.theme.appBackGroundColor};
@@ -66,20 +66,35 @@ const AnalyticsStyle = styled.div`
       max-width: 130px;
     }
   }
+  .react-datepicker__day--keyboard-selected,
+  .react-datepicker__month-text--keyboard-selected,
+  .react-datepicker__quarter-text--keyboard-selected,
+  .react-datepicker__year-text--keyboard-selected {
+    border-radius: 0.3rem;
+    background-color: #fff;
+    color: inherit;
+  }
+  .react-datepicker__month-text:hover {
+    background-color: ${(props) => props.theme.cardBackGroundColor};
+    color: ${(props) => props.theme.headerBackGroundColor};
+  }
+  .react-datepicker__month--selected {
+    color: ${(props) => props.theme.headerBackGroundColor};
+    background-color: ${(props) => props.theme.buttonColor};
+    & :hover {
+      color: ${(props) => props.theme.buttonColor};
+      background-color: ${(props) => props.theme.cardBackGroundColor};
+    }
+  }
+  .no_info {
+    padding: 20px;
+    font-size: 20px;
+    color: #5a5a5aca;
+    font-weight: bold;
+  }
   .steps {
     width: 80%;
     margin: 25px auto;
-  }
-  .css-1s2u09g-control {
-    margin-right: 10px;
-    border: none;
-    border-radius: 0 6px 6px 0;
-    width: fit-content;
-    background-color: gray;
-    .css-qc6sy-singleValue {
-      color: rgb(197, 230, 227);
-      text-shadow: 0px 0px 2px ${(props) => props.theme.buttonColor};
-    }
   }
 `;
 
@@ -110,7 +125,7 @@ const Analytics = () => {
     )
     .filter((item) => item.date.slice(-7) == currentDate);
 
-  const labels = sortAnalyticsForDays.map((item) => item.date.slice(-7));
+  const labels = sortAnalyticsForDays.map((item) => item.date.slice(0, 5));
 
   const options = {
     responsive: true,
@@ -130,45 +145,69 @@ const Analytics = () => {
       },
     },
   };
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: 'Steps goal',
-        data: labels.map(() => currentGoals.steps),
-        borderColor: '#e6e6e6',
-        backgroundColor: 'gray',
-      },
-      {
-        label: 'Steps you done',
-        data: sortAnalyticsForDays.map((item) => item.numberSteps),
-        borderColor: '#e6e6e6',
-        backgroundColor: '#3eb6b0',
-      },
-    ],
-  };
 
-  return (
-    <AnalyticsStyle>
-      <div className={'chooseForm'}>
-        <div className={'tittle'}>Choose mounth:</div>
-        <DatePicker
-          className={'date_picker'}
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-          dateFormat="MM/yyyy"
-          showMonthYearPicker
+  if (currentGoals) {
+    const data = {
+      labels,
+      datasets: [
+        {
+          label: 'Steps goal',
+          data: labels.map(() => currentGoals.steps),
+          borderColor: '#e6e6e6',
+          backgroundColor: 'gray',
+        },
+        {
+          label: 'Steps you done',
+          data: sortAnalyticsForDays.map((item) => item.numberSteps),
+          borderColor: '#e6e6e6',
+          backgroundColor: '#3eb6b0',
+        },
+      ],
+    };
+
+    return (
+      <AnalyticsStyle>
+        <div className={'chooseForm'}>
+          <div className={'tittle'}>Choose mounth:</div>
+          <DatePicker
+            className={'date_picker'}
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            dateFormat="MM/yyyy"
+            showMonthYearPicker
+          />
+        </div>
+        <div className={'steps'}>
+          <Bar options={options} data={data} />
+        </div>
+
+        <TrainingAnalytics date={currentDate} />
+        <WeightAnalytics date={currentDate} data={sortAnalyticsForDays} />
+        <AverageGoalAchievement
+          date={currentDate}
+          currentGoals={currentGoals}
+          sortAnalyticsForDays={sortAnalyticsForDays}
         />
-      </div>
-      <div className={'steps'}>
-        {' '}
-        <Bar options={options} data={data} />
-      </div>
-
-      <TrainingAnalytics date={currentDate} />
-      <WeightAnalytics date={currentDate} data={sortAnalyticsForDays} />
-    </AnalyticsStyle>
-  );
+      </AnalyticsStyle>
+    );
+  } else
+    return (
+      <AnalyticsStyle>
+        <div className={'chooseForm'}>
+          <div className={'tittle'}>Choose mounth:</div>
+          <DatePicker
+            className={'date_picker'}
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            dateFormat="MM/yyyy"
+            showMonthYearPicker
+          />
+        </div>
+        <div>
+          <p className={'no_info'}>There is no information for this month</p>
+        </div>
+      </AnalyticsStyle>
+    );
 };
 
 export default Analytics;

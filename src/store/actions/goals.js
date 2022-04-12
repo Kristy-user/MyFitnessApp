@@ -40,7 +40,7 @@ export const createNewGoals = (goals) => {
         dispatch(setGoalsRefreshedSuccess(true));
       })
       .then(() => {
-        showEditGoalsCard(false);
+        dispatch(showEditGoalsCard(false));
       })
       .catch((error) => error);
   };

@@ -57,7 +57,7 @@ const GoalsForm = ({ goals, date }) => {
     dispatch(showEditGoalsCard(true));
   };
 
-  if (!isLoadedGoals) {
+  if (!isLoadedGoals || !goals) {
     return <Loader />;
   } else {
     return (

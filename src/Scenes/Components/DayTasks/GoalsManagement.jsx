@@ -10,14 +10,13 @@ import Loader from '../../../Components/Loader';
 import { useDispatch } from 'react-redux';
 import {
   allActivitiesDoneSelector,
-  isDataSetSelector,
   isLoadedDataSelector,
 } from '../../../store/selectors/analytics';
 import { userIdSelector } from '../../../store/selectors/user';
 import { currentGoalsSelector } from '../../../store/selectors/goals';
 import PowerTrainingIcon from '../Analytics/PowerTrainingIcon';
 import CardioTrainingIcon from '../Analytics/CardioTrainingIcon';
-import WaterAnalytics from '../Analytics/WaterAnalytics';
+import WaterAnalyticsToday from '../../Components/DayTasks/WaterAnalyticsToday';
 
 const ActivityStyleWrapper = styled.div`
   display: flex;
@@ -133,7 +132,7 @@ const GoalsManagement = (props) => {
     return (
       <ActivityStyleWrapper>
         <div className={'water_part'}>
-          <WaterAnalytics
+          <WaterAnalyticsToday
             date={props.date}
             userId={userId}
             currentGoals={currentGoals}

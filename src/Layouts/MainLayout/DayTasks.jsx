@@ -15,8 +15,6 @@ import { loadingUserGoals } from '../../store/actions/goals';
 import PromptWindow from 'Scenes/Components/DayTasks/PromptWindow';
 import DataAnalyticsToday from 'Scenes/Components/DayTasks/DataAnalyticsToday';
 import GoalsManagement from 'Scenes/Components/DayTasks/GoalsManagement';
-import { globalErrors } from '../../store/selectors/globalAppState';
-import ServerUnavailable from '../../Components/ServerUnavailable';
 import AddNewTask from '../../Components/AddNewTask';
 
 const CardTaskStyle = styled.div`
@@ -63,6 +61,23 @@ const CardTaskStyle = styled.div`
       outline: none;
     }
   }
+  .react-datepicker__day:hover {
+    background-color: ${(props) => props.theme.cardBackGroundColor};
+    color: ${(props) => props.theme.headerBackGroundColor};
+  }
+  .react-datepicker__day--keyboard-selected {
+    border-radius: 0.3rem;
+    background-color: #fff;
+    color: inherit;
+  }
+  .react-datepicker__day--selected {
+    color: ${(props) => props.theme.headerBackGroundColor};
+    background-color: ${(props) => props.theme.buttonColor};
+    & :hover {
+      color: ${(props) => props.theme.buttonColor};
+      background-color: ${(props) => props.theme.cardBackGroundColor};
+    }
+  }
 `;
 
 const DayTasks = () => {
@@ -73,7 +88,6 @@ const DayTasks = () => {
   const userId = useSelector(userIdSelector);
   const currentGoals = useSelector(currentGoalsSelector);
   const currentUser = useSelector(currentUserPersonalData);
-  const errors = useSelector(globalErrors);
 
   useEffect(() => {
     fakeServerAPI
@@ -94,13 +108,7 @@ const DayTasks = () => {
       .catch((error) => error);
   }, []);
 
-  if (errors.apiError) {
-    return (
-      <CardTaskStyle>
-        <ServerUnavailable error={errors.apiError} />
-      </CardTaskStyle>
-    );
-  } else if (!currentUser) {
+  if (!currentUser) {
     return (
       <CardTaskStyle>
         <PromptWindow link={'personalData'} />
@@ -121,6 +129,7 @@ const DayTasks = () => {
               <h3>Upcoming tasks for</h3>
             </div>
             <DatePicker
+              popperPlacement="left-start"
               dateFormat="dd/MM/yyyy"
               className={'date_picker'}
               selected={startDate}

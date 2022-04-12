@@ -1,12 +1,11 @@
 import { Form, Formik } from 'formik';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 ('../../../store/actions/goals');
 import GoalsForm from '../Components/Goals/GoalsForm';
 import { HeaderTittle } from '../../Components/HeaderTittle';
 import { ButtonStyle } from '../../Components/Button';
-import DatePicker from 'react-datepicker';
 import { createNewGoals, refreshGoals } from '../../store/actions/goals';
 import { userIdSelector } from '../../store/selectors/user';
 import {
@@ -15,9 +14,14 @@ import {
 } from '../../store/selectors/goals';
 import FormikInputNumber from '../../Components/formikFields/FormikInputNumber';
 import FormikRadio from '../../Components/formikFields/FormikRadio';
-import { globalErrors } from '../../store/selectors/globalAppState';
-import ServerUnavailable from '../../Components/ServerUnavailable';
+import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import {
+  allActivitiesDoneSelector,
+  waterDoneSelector,
+} from '../../store/selectors/analytics';
+import { ModalContext } from 'HOC/GlobalModalProvider';
+import ErrorWindow from '../../HOC/ModalContent/ErrorWindow';
 
 const MyGoalsStyle = styled.div`
   h4 {
@@ -38,6 +42,35 @@ const MyGoalsStyle = styled.div`
     border-radius: 6px;
     &:focus {
       outline: none;
+    }
+  }
+  .react-datepicker-wrapper {
+    width: max-content;
+    div {
+      width: max-content;
+    }
+    input {
+      max-width: 130px;
+    }
+  }
+  .react-datepicker__day--keyboard-selected,
+  .react-datepicker__month-text--keyboard-selected,
+  .react-datepicker__quarter-text--keyboard-selected,
+  .react-datepicker__year-text--keyboard-selected {
+    border-radius: 0.3rem;
+    background-color: #fff;
+    color: inherit;
+  }
+  .react-datepicker__month-text:hover {
+    background-color: ${(props) => props.theme.cardBackGroundColor};
+    color: ${(props) => props.theme.headerBackGroundColor};
+  }
+  .react-datepicker__month--selected {
+    color: ${(props) => props.theme.headerBackGroundColor};
+    background-color: ${(props) => props.theme.buttonColor};
+    & :hover {
+      color: ${(props) => props.theme.buttonColor};
+      background-color: ${(props) => props.theme.cardBackGroundColor};
     }
   }
   .inputForm {
@@ -73,13 +106,27 @@ const MyGoals = () => {
   const userId = useSelector(userIdSelector);
   const userGoals = useSelector(currentGoalsSelector);
   const showEditGoals = useSelector(showEditGoalsSelector);
-  const [viewGoals, setViewGoals] = useState(false);
-  const errors = useSelector(globalErrors);
+  const allTrainingFullfilled = useSelector(allActivitiesDoneSelector);
+  const userWaterFullfilled = useSelector(waterDoneSelector);
+  const openModal = useContext(ModalContext);
   const [startDate, setStartDate] = useState(new Date());
   let currentDate = startDate.toLocaleDateString().slice(-7);
-
   const currentGoals = userGoals.find((goal) => goal.date == currentDate);
 
+  const currentPowerTrainingFullfilled = allTrainingFullfilled
+    .filter((item) => item.date.slice(-7) == currentDate)
+    .map((item) => item.numberPowerTraining);
+  const currentCardioTrainingFullfilled = allTrainingFullfilled
+    .filter((item) => item.date.slice(-7) == currentDate)
+    .map((item) => item.numberCardioTraining);
+  const currentWaterFullfilled = userWaterFullfilled
+    .filter((item) => item.date.slice(-7) == currentDate)
+    .map((item) => item.numberFullGlass);
+
+  const maxFullfilledWaterGoal =
+    Math.max.apply(null, currentWaterFullfilled) * 300;
+
+  const [viewGoals, setViewGoals] = useState(false);
   useEffect(() => {
     setViewGoals(showEditGoals);
   }, [showEditGoals]);
@@ -97,18 +144,29 @@ const MyGoals = () => {
         isError = true;
       }
     });
+    if (values.water < maxFullfilledWaterGoal) {
+      errors.water = `This value less than your entered's value  of water's fullfiiled`;
+      openModal(<ErrorWindow setModal={openModal} error={errors.water} />);
+      isError = true;
+    }
+    if (values.powerTraining < currentPowerTrainingFullfilled) {
+      errors.powerTraining = `This value less than your entered's value  of power training's fullfiiled`;
+      isError = true;
+    }
+    if (values.cardioTraining < currentCardioTrainingFullfilled) {
+      errors.cardioTraining = `This value less than your entered's value  of cardio training's fullfiiled`;
+      isError = true;
+    }
     if (isError) return errors;
   };
 
-  if (errors.apiError) {
-    return <ServerUnavailable error={errors.apiError} />;
-  }
   if (viewGoals) {
     return (
       <MyGoalsStyle>
         <div className={'goalsTitle'}>
           <h4>Make your plan to reach your goal in this month:</h4>
           <DatePicker
+            popperPlacement="left-start"
             className={'date_picker'}
             selected={startDate}
             onChange={(date) => setStartDate(date)}

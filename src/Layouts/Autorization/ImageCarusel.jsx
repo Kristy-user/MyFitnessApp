@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 import styled from 'styled-components';
@@ -25,11 +25,6 @@ const SyledSplede = styled.div`
 const ImageCarusel = () => {
   const ref = useRef();
   ref.current = null;
-  // useEffect(() => {
-  //   if (ref.current) {
-  //     console.log(ref.current.splide.length);
-  //   }
-  // });
   return (
     <SyledSplede>
       <Splide

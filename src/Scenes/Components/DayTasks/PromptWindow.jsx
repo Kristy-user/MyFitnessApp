@@ -39,7 +39,10 @@ const PromptWindow = (props) => {
   return (
     <CardPromptStyle>
       <div>
-        <p>To contine use this app you should fill your {props.link}.</p>
+        <p>
+          To contine use this app you should fill your{' '}
+          {props.link == 'personalData' ? 'personal information' : props.link}.
+        </p>
       </div>
       <button className={'button_navigate'} onClick={buttonNavigateTo}>
         Fill

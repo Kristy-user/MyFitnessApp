@@ -4,30 +4,16 @@
       "email": "test@mail.ru",
       "password": "$2a$10$0wA60f90T7Vu0IWtLEoBY.ku74EXab04jKJtoG65Q1.VvAnxxwEMG",
       "id": 1
-    },
-    {
-      "email": "test1@mail.ru",
-      "password": "$2a$10$zv1Im9M9P/TRmDBH49z9ne4IacsC1ZZ4u5SP7KeAx7ZEpBNi6HAgm",
-      "id": 2
     }
   ],
   "userPersonalData": [
     {
-      "userId": 2,
-      "name": "user",
-      "surname": "some",
-      "age": "55",
-      "height": "180",
-      "weight": "90",
-      "id": 2
-    },
-    {
       "userId": 1,
-      "name": "Kristy",
-      "surname": "Klepik",
+      "name": "Some",
+      "surname": "User",
       "age": "29",
       "height": "171",
-      "weight": "61",
+      "weight": "59",
       "id": 3
     }
   ],
@@ -117,17 +103,17 @@
       "id": 45
     },
     {
-      "userId": 2,
-      "date": "11.04.2022",
-      "title": "ktukyuu",
-      "completed": true,
-      "id": 49
+      "userId": 1,
+      "date": "12.04.2022",
+      "title": "Quis autem vel eum iure reprehenderit qui in ea voluptate.  ",
+      "completed": false,
+      "id": 50
     }
   ],
   "dataGoals": [
     {
       "water": "2700",
-      "powerTraining": "5",
+      "powerTraining": "6",
       "cardioTraining": "4",
       "steps": "10000",
       "weight": "57",
@@ -136,33 +122,33 @@
       "id": 1
     },
     {
-      "water": "1800",
-      "powerTraining": "8",
-      "cardioTraining": "8",
+      "water": "2400",
+      "powerTraining": "5",
+      "cardioTraining": "5",
       "steps": "12000",
-      "weight": "57",
+      "weight": "55",
       "userId": 1,
       "date": "03.2022",
       "id": 2
     },
     {
       "water": "2100",
-      "powerTraining": "5",
-      "cardioTraining": "5",
-      "steps": "15000",
+      "powerTraining": "3",
+      "cardioTraining": "3",
+      "steps": "9000",
       "weight": "56",
       "userId": 1,
       "date": "02.2022",
       "id": 3
     },
     {
-      "water": "1500",
-      "powerTraining": "6",
+      "water": "2700",
+      "powerTraining": "3",
       "cardioTraining": "2",
-      "steps": "9000",
-      "weight": "80",
-      "userId": 2,
-      "date": "04.2022",
+      "steps": "10000",
+      "weight": "57",
+      "userId": 1,
+      "date": "01.2022",
       "id": 4
     }
   ],
@@ -192,44 +178,37 @@
       "numberPowerTraining": 3,
       "numberCardioTraining": 2,
       "userId": 1,
-      "date": "11.04.2022",
+      "date": "12.04.2022",
       "id": 7
-    },
-    {
-      "numberPowerTraining": 3,
-      "numberCardioTraining": 2,
-      "userId": 2,
-      "date": "11.04.2022",
-      "id": 8
     }
   ],
   "waterAnalytics": [
     {
-      "numberFullGlass": 3,
+      "numberFullGlass": 9,
       "userId": 1,
       "date": "01.04.2022",
       "id": 1
     },
     {
-      "numberFullGlass": 3,
+      "numberFullGlass": 9,
       "userId": 1,
       "date": "02.04.2022",
       "id": 2
     },
     {
-      "numberFullGlass": 0,
+      "numberFullGlass": 9,
       "userId": 1,
       "date": "03.04.2022",
       "id": 6
     },
     {
-      "numberFullGlass": 7,
+      "numberFullGlass": 9,
       "userId": 1,
       "date": "04.04.2022",
       "id": 7
     },
     {
-      "numberFullGlass": 0,
+      "numberFullGlass": 9,
       "userId": 1,
       "date": "05.04.2022",
       "id": 8
@@ -259,28 +238,22 @@
       "id": 17
     },
     {
-      "numberFullGlass": 9,
+      "numberFullGlass": 7,
       "userId": 1,
       "date": "11.04.2022",
       "id": 18
     },
     {
-      "numberFullGlass": 7,
+      "numberFullGlass": 9,
       "userId": 1,
       "date": "10.04.2022",
       "id": 19
     },
     {
-      "numberFullGlass": 8,
+      "numberFullGlass": 9,
       "userId": 1,
       "date": "09.04.2022",
       "id": 20
-    },
-    {
-      "numberFullGlass": 3,
-      "userId": 2,
-      "date": "11.04.2022",
-      "id": 21
     },
     {
       "numberFullGlass": 9,
@@ -289,16 +262,28 @@
       "id": 22
     },
     {
-      "numberFullGlass": 7,
+      "numberFullGlass": 9,
       "userId": 1,
       "date": "07.04.2022",
       "id": 23
     },
     {
-      "numberFullGlass": 7,
+      "numberFullGlass": 9,
       "userId": 1,
       "date": "06.04.2022",
       "id": 24
+    },
+    {
+      "numberFullGlass": 2,
+      "userId": 1,
+      "date": "12.04.2022",
+      "id": 25
+    },
+    {
+      "numberFullGlass": 9,
+      "userId": 1,
+      "date": "01.01.2022",
+      "id": 26
     }
   ],
   "dataTodayAnalytics": [
@@ -408,7 +393,7 @@
       "id": 26
     },
     {
-      "numberSteps": "13000",
+      "numberSteps": "8000",
       "weight": "58",
       "date": "02.04.2022",
       "userId": 1,
@@ -422,14 +407,14 @@
       "id": 30
     },
     {
-      "numberSteps": "11000",
+      "numberSteps": "5000",
       "weight": "60",
       "date": "04.04.2022",
       "userId": 1,
       "id": 31
     },
     {
-      "numberSteps": "12000",
+      "numberSteps": "9000",
       "weight": "55",
       "date": "01.04.2022",
       "userId": 1,
@@ -450,7 +435,7 @@
       "id": 34
     },
     {
-      "numberSteps": "15000",
+      "numberSteps": "9000",
       "weight": "57",
       "date": "07.04.2022",
       "userId": 1,
@@ -478,14 +463,14 @@
       "id": 38
     },
     {
-      "numberSteps": "13000",
+      "numberSteps": "10000",
       "weight": "58",
       "date": "10.04.2022",
       "userId": 1,
       "id": 39
     },
     {
-      "numberSteps": "16000",
+      "numberSteps": "11000",
       "weight": "60",
       "date": "11.04.2022",
       "userId": 1,
@@ -499,18 +484,11 @@
       "id": 41
     },
     {
-      "numberSteps": "10000",
-      "weight": "78",
-      "date": "11.04.2022",
-      "userId": 2,
-      "id": 42
-    },
-    {
-      "numberSteps": "12000",
-      "weight": "80",
-      "date": "10.04.2022",
-      "userId": 2,
-      "id": 43
+      "numberSteps": "9000",
+      "weight": "59",
+      "date": "12.04.2022",
+      "userId": 1,
+      "id": 44
     }
   ]
 }
