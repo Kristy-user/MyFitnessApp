@@ -4,14 +4,14 @@ import styled from 'styled-components';
 
 const StyledInputNumberWrapper = styled.div`
   .error {
-    text-shadow: 1px 1px 4px #f50f0f;
+    text-shadow: 1px 1px 2px #f50f0f;
     color: #4d1515;
     text-align: center;
   }
 
   .errorInput,
   .errorInput:focus {
-    border: 2px solid #eb1b1baf;
+    border: 1px solid #eb1b1baf;
     &:focus {
       box-shadow: none;
     }

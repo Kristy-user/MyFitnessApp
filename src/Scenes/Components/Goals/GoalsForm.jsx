@@ -7,6 +7,7 @@ import { HeaderTittle } from 'Components/HeaderTittle';
 import Loader from 'Components/Loader';
 import { showEditGoalsCard } from 'store/actions/goals';
 import { isGoalsSetSelector } from 'store/selectors/goals';
+import MyGoals from '../../Goals/MyGoals';
 
 const GoalsFormStyle = styled.div`
   display: flex;
@@ -57,8 +58,10 @@ const GoalsForm = ({ goals, date }) => {
     dispatch(showEditGoalsCard(true));
   };
 
-  if (!isLoadedGoals || !goals) {
+  if (!isLoadedGoals) {
     return <Loader />;
+  } else if (!goals) {
+    return <MyGoals />;
   } else {
     return (
       <GoalsFormStyle>

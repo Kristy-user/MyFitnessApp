@@ -125,7 +125,7 @@ const GoalsManagement = (props) => {
       sendDataTrainingToServer();
     }
   }, [dataTrainingUpdate]);
-
+  console.log(dataIsLoaded);
   if (!dataIsLoaded) {
     return <Loader />;
   } else {

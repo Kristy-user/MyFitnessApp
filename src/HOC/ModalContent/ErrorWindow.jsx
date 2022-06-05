@@ -5,10 +5,11 @@ import { CardStyle } from '../../Components/CardTemplate';
 
 const SubmitErrorStyle = styled.div`
   ${CardStyle}
+  box-shadow: none;
   background-color: ${(props) => props.theme.appBackGroundColor};
   color: ${(props) => props.theme.headerBackGroundColor};
   font-size: 18px;
-
+  border: 2px solid red;
   button {
     ${ButtonStyle}
     margin: 10px auto;

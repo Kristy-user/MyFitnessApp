@@ -13,8 +13,8 @@
       "surname": "User",
       "age": "29",
       "height": "171",
-      "weight": "59",
-      "id": 3
+      "weight": "60",
+      "id": 1
     }
   ],
   "userAvatar": [
@@ -50,21 +50,21 @@
       "userId": 1,
       "date": "21.03.2022",
       "title": "run 10 km",
-      "completed": false,
+      "completed": true,
       "id": 37
     },
     {
       "userId": 1,
       "date": "24.03.2022",
       "title": "Walk 1 km",
-      "completed": false,
+      "completed": true,
       "id": 38
     },
     {
       "userId": 1,
       "date": "24.03.2022",
       "title": "At vero eos et accusamus et iusto.",
-      "completed": false,
+      "completed": true,
       "id": 39
     },
     {
@@ -83,38 +83,24 @@
     },
     {
       "userId": 1,
-      "date": "17.04.2022",
-      "title": "The wise man therefore always holds.",
+      "date": "12.04.2022",
+      "title": "nbthb",
       "completed": false,
       "id": 42
     },
     {
       "userId": 1,
-      "date": "12.04.2022",
-      "title": "Fill up the car ",
+      "date": "05.04.2022",
+      "title": "btb",
       "completed": false,
-      "id": 44
-    },
-    {
-      "userId": 1,
-      "date": "13.04.2022",
-      "title": "On the other hand, we denounce with.",
-      "completed": false,
-      "id": 45
-    },
-    {
-      "userId": 1,
-      "date": "12.04.2022",
-      "title": "Quis autem vel eum iure reprehenderit qui in ea voluptate.  ",
-      "completed": false,
-      "id": 50
+      "id": 43
     }
   ],
   "dataGoals": [
     {
       "water": "2700",
-      "powerTraining": "6",
-      "cardioTraining": "4",
+      "powerTraining": "4",
+      "cardioTraining": "2",
       "steps": "10000",
       "weight": "57",
       "userId": 1,
@@ -150,6 +136,16 @@
       "userId": 1,
       "date": "01.2022",
       "id": 4
+    },
+    {
+      "water": "2100",
+      "powerTraining": "3",
+      "cardioTraining": "5",
+      "steps": "8000",
+      "weight": "57",
+      "userId": 1,
+      "date": "05.2022",
+      "id": 4
     }
   ],
   "trainingAnalytics": [
@@ -180,6 +176,13 @@
       "userId": 1,
       "date": "12.04.2022",
       "id": 7
+    },
+    {
+      "numberPowerTraining": 2,
+      "numberCardioTraining": 3,
+      "userId": 1,
+      "date": "13.05.2022",
+      "id": 8
     }
   ],
   "waterAnalytics": [
@@ -284,6 +287,54 @@
       "userId": 1,
       "date": "01.01.2022",
       "id": 26
+    },
+    {
+      "numberFullGlass": 7,
+      "userId": 1,
+      "date": "13.05.2022",
+      "id": 27
+    },
+    {
+      "numberFullGlass": 7,
+      "userId": 1,
+      "date": "12.05.2022",
+      "id": 28
+    },
+    {
+      "numberFullGlass": 7,
+      "userId": 1,
+      "date": "11.05.2022",
+      "id": 29
+    },
+    {
+      "numberFullGlass": 7,
+      "userId": 1,
+      "date": "10.05.2022",
+      "id": 30
+    },
+    {
+      "numberFullGlass": 7,
+      "userId": 1,
+      "date": "10.05.2022",
+      "id": 31
+    },
+    {
+      "numberFullGlass": 7,
+      "userId": 1,
+      "date": "09.05.2022",
+      "id": 32
+    },
+    {
+      "numberFullGlass": 7,
+      "userId": 1,
+      "date": "08.05.2022",
+      "id": 33
+    },
+    {
+      "numberFullGlass": 7,
+      "userId": 1,
+      "date": "07.05.2022",
+      "id": 34
     }
   ],
   "dataTodayAnalytics": [
@@ -489,6 +540,41 @@
       "date": "12.04.2022",
       "userId": 1,
       "id": 44
+    },
+    {
+      "numberSteps": "5000",
+      "weight": "56",
+      "date": "13.04.2022",
+      "userId": 1,
+      "id": 45
+    },
+    {
+      "numberSteps": "5000",
+      "weight": "51",
+      "date": "10.05.2022",
+      "userId": 1,
+      "id": 46
+    },
+    {
+      "numberSteps": "5000",
+      "weight": "55",
+      "date": "12.05.2022",
+      "userId": 1,
+      "id": 47
+    },
+    {
+      "numberSteps": "8000",
+      "weight": "58",
+      "date": "13.05.2022",
+      "userId": 1,
+      "id": 48
+    },
+    {
+      "numberSteps": "12000",
+      "weight": "60",
+      "date": "07.05.2022",
+      "userId": 1,
+      "id": 49
     }
   ]
 }

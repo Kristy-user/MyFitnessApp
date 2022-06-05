@@ -145,21 +145,26 @@ const MyGoals = () => {
       }
     });
     if (values.water < maxFullfilledWaterGoal) {
-      errors.water = `This value less than your entered's value  of water's fullfiiled`;
+      errors.water = `This value less than your entered's value  in this month (${maxFullfilledWaterGoal} ml)`;
       openModal(<ErrorWindow setModal={openModal} error={errors.water} />);
       isError = true;
-    }
-    if (values.powerTraining < currentPowerTrainingFullfilled) {
-      errors.powerTraining = `This value less than your entered's value  of power training's fullfiiled`;
+    } else if (
+      values.powerTraining < currentPowerTrainingFullfilled &&
+      values.powerTraining != ''
+    ) {
+      errors.powerTraining = `This value less than your entered's value  of power training's fullfiiled (${currentPowerTrainingFullfilled} training)`;
       isError = true;
     }
-    if (values.cardioTraining < currentCardioTrainingFullfilled) {
-      errors.cardioTraining = `This value less than your entered's value  of cardio training's fullfiiled`;
+    if (
+      values.cardioTraining < currentCardioTrainingFullfilled &&
+      values.cardioTraining != ''
+    ) {
+      errors.cardioTraining = `This value less than your entered's value  of cardio training's fullfiiled (${currentCardioTrainingFullfilled}training)`;
       isError = true;
     }
     if (isError) return errors;
   };
-
+  console.log(viewGoals);
   if (viewGoals) {
     return (
       <MyGoalsStyle>

@@ -156,6 +156,7 @@ const DataAnalyticsToday = (props) => {
     });
     if (isError) return errors;
   };
+
   if (!isLoaded) {
     return <Loader />;
   } else
