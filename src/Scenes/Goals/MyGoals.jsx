@@ -164,7 +164,7 @@ const MyGoals = () => {
     }
     if (isError) return errors;
   };
-  console.log(viewGoals);
+
   if (viewGoals) {
     return (
       <MyGoalsStyle>
