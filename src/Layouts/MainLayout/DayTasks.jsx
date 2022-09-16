@@ -114,7 +114,9 @@ const DayTasks = () => {
         <PromptWindow link={'personalData'} />
       </CardTaskStyle>
     );
-  } else if (currentGoals.length === 0) {
+  } else if (
+    !currentGoals.find((i) => i.date == startDate.toLocaleString().slice(3, 10))
+  ) {
     return (
       <CardTaskStyle>
         <PromptWindow link={'goals'} />
