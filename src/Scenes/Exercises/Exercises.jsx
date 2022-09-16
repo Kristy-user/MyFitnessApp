@@ -44,14 +44,14 @@ const Exercises = () => {
       })
       .catch((error) => error);
   }, []);
-
+  // exercisesList.map((exercise, index) => console.log(index));
   return (
     <ExercisesCardStyle>
       <div className={'bodyPartList'}>
         <h3>Choose body part to exercises:</h3>
         <ul className={'grid_list'}>
           {exercisesList.map((exercise, index) => (
-            <ExerciseItem exercise={exercise} key={exercise.id} index={index} />
+            <ExerciseItem exercise={exercise} index={index} key={index} />
           ))}
         </ul>
       </div>
