@@ -166,6 +166,26 @@
       "userId": 1,
       "date": "07.2022",
       "id": 1
+    },
+    {
+      "water": "2100",
+      "powerTraining": "4",
+      "cardioTraining": "4",
+      "steps": "10000",
+      "weight": "55",
+      "userId": 1,
+      "date": "08.2022",
+      "id": 1
+    },
+    {
+      "water": "2700",
+      "powerTraining": "4",
+      "cardioTraining": "4",
+      "steps": "10000",
+      "weight": "55",
+      "userId": 1,
+      "date": "09.2022",
+      "id": 1
     }
   ],
   "trainingAnalytics": [
@@ -210,6 +230,13 @@
       "userId": 1,
       "date": "07.06.2022",
       "id": 9
+    },
+    {
+      "numberPowerTraining": 2,
+      "numberCardioTraining": 2,
+      "userId": 1,
+      "date": "16.09.2022",
+      "id": 10
     }
   ],
   "waterAnalytics": [
@@ -374,6 +401,12 @@
       "userId": 1,
       "date": "07.06.2022",
       "id": 36
+    },
+    {
+      "numberFullGlass": 9,
+      "userId": 1,
+      "date": "16.09.2022",
+      "id": 37
     }
   ],
   "dataTodayAnalytics": [
@@ -614,6 +647,13 @@
       "date": "07.05.2022",
       "userId": 1,
       "id": 49
+    },
+    {
+      "numberSteps": "8000",
+      "weight": "55",
+      "date": "16.09.2022",
+      "userId": 1,
+      "id": 50
     }
   ]
 }

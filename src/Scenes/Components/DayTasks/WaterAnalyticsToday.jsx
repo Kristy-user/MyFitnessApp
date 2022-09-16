@@ -48,7 +48,7 @@ const WaterAnalyticsToday = ({ date, userId, currentGoals }) => {
   const allWaterGlasses = currentGoals ? currentGoals.water / 300 : 0;
   const dispatch = useDispatch();
   const dataIsLoaded = useSelector(isLoadedDataSelector);
-  console.log(currentGoals);
+
   const [thisDayWaterInfo, setThisDayWaterInfo] = useState(
     userWaterGoalFullfilling.find(
       (item) => item.date === date.toLocaleDateString()
