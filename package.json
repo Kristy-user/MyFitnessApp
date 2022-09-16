@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "14.18.0"
+  },
   "scripts": {
     "start": "webpack serve",
     "startServer": "json-server ./fakeServer/db.json -m ./node_modules/json-server-auth --port 3001",
